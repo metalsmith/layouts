@@ -24,4 +24,15 @@ describe('metalsmith-templates', function(){
         done();
       });
   });
+
+  it('should mix in global metadata', function(done){
+    Metalsmith('test/fixtures/metadata')
+      .metadata({ title: 'Global Title' })
+      .use(templates({ engine: 'swig' }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/metadata/expected', 'test/fixtures/metadata/build');
+        done();
+      });
+  });
 });
