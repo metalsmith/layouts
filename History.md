@@ -1,4 +1,9 @@
 
+0.0.4 - February 6, 2013
+------------------------
+* switch to `extend` from `defaults` to avoid cloning
+* add debug statements
+
 0.0.3 - February 6, 2013
 ------------------------
 * fix to use buffers
