@@ -1,4 +1,8 @@
 
+0.0.5 - February 7, 2013
+------------------------
+* stringify `contents` on the original file data
+
 0.0.4 - February 6, 2013
 ------------------------
 * switch to `extend` from `defaults` to avoid cloning
