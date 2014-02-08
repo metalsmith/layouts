@@ -1,4 +1,8 @@
 
+0.0.6 - February 7, 2013
+------------------------
+* fix `directory` option bug
+
 0.0.5 - February 7, 2013
 ------------------------
 * stringify `contents` on the original file data

@@ -16,11 +16,11 @@ describe('metalsmith-templates', function(){
   });
 
   it('should accept a different templates directory', function(done){
-    Metalsmith('test/fixtures/basic')
+    Metalsmith('test/fixtures/directory')
       .use(templates({ engine: 'swig', directory: 'layouts' }))
       .build(function(err){
         if (err) return done(err);
-        equal('test/fixtures/basic/expected', 'test/fixtures/basic/build');
+        equal('test/fixtures/directory/expected', 'test/fixtures/directory/build');
         done();
       });
   });
