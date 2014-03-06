@@ -15,6 +15,16 @@ describe('metalsmith-templates', function(){
       });
   });
 
+  it('should accept an engine string', function(done){
+    Metalsmith('test/fixtures/basic')
+      .use(templates('swig'))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/basic/expected', 'test/fixtures/basic/build');
+        done();
+      });
+  });
+
   it('should accept a different templates directory', function(done){
     Metalsmith('test/fixtures/directory')
       .use(templates({ engine: 'swig', directory: 'layouts' }))

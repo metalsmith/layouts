@@ -1,4 +1,8 @@
 
+0.1.0 - March 5, 2013
+---------------------
+* add `string` engine convenience
+
 0.0.6 - February 7, 2013
 ------------------------
 * fix `directory` option bug
