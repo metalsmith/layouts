@@ -13,7 +13,7 @@
 
   Install the node modules and then add the `metalsmith-templates` key to your `metalsmith.json` plugins. The simplest use case just requires the template engine you want to use:
 
-```js
+```json
 {
   "plugins": {
     "metalsmith-templates": "handlebars"
