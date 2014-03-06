@@ -2,7 +2,7 @@
   "name": "metalsmith-templates",
   "description": "A metalsmith plugin to render files with templates.",
   "repository": "git://github.com/segmentio/metalsmith-templates.git",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "license": "MIT",
   "main": "lib/index.js",
   "dependencies": {
