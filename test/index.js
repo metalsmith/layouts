@@ -25,6 +25,16 @@ describe('metalsmith-templates', function(){
       });
   });
 
+  it('should accept a pattern to match', function(done){
+    Metalsmith('test/fixtures/pattern')
+      .use(templates({ engine: 'swig', pattern: '*.html' }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/pattern/expected', 'test/fixtures/pattern/build');
+        done();
+      });
+  });
+
   it('should accept a different templates directory', function(done){
     Metalsmith('test/fixtures/directory')
       .use(templates({ engine: 'swig', directory: 'layouts' }))
