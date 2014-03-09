@@ -1,4 +1,8 @@
 
+0.2.0 - March 8, 2013
+---------------------
+* add rendering files in place with a `pattern`
+
 0.1.0 - March 5, 2013
 ---------------------
 * add `string` engine convenience
