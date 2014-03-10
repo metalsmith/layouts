@@ -1,4 +1,8 @@
 
+0.2.1 - March 10, 2013
+----------------------
+* fix bug in matching pattern logic
+
 0.2.0 - March 8, 2013
 ---------------------
 * add rendering files in place with a `pattern`
