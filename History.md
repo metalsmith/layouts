@@ -1,4 +1,9 @@
 
+0.3.0 - March 10, 2013
+----------------------
+* added `inPlace` option
+* changed `pattern` option to just filter
+
 0.2.1 - March 10, 2013
 ----------------------
 * fix bug in matching pattern logic
