@@ -45,6 +45,16 @@ describe('metalsmith-templates', function(){
       });
   });
 
+  it('should accept a default template', function(done){
+    Metalsmith('test/fixtures/default')
+      .use(templates({ engine: 'swig', pattern: '*.md', default: 'default.html' }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/pattern/expected', 'test/fixtures/pattern/build');
+        done();
+      });
+  });
+
   it('should accept a different templates directory', function(done){
     Metalsmith('test/fixtures/directory')
       .use(templates({ engine: 'swig', directory: 'layouts' }))
