@@ -1,4 +1,8 @@
 
+0.5.0 - April 29, 2014
+----------------------
+* pass in options to consolidate.js
+
 0.4.0 - April 2, 2014
 ---------------------
 * add `default` option
