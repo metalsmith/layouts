@@ -1,4 +1,8 @@
 
+0.5.1 - June 11, 2014
+---------------------
+* fix race condition with stringify file contents
+
 0.5.0 - April 29, 2014
 ----------------------
 * pass in options to consolidate.js
