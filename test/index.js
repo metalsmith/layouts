@@ -75,4 +75,14 @@ describe('metalsmith-templates', function(){
         done();
       });
   });
+
+  it('should preserve binary files', function(done){
+    Metalsmith('test/fixtures/binary')
+      .use(templates({ engine: 'swig' }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/binary/expected', 'test/fixtures/binary/build');
+        done();
+      });
+  });
 });

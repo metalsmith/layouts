@@ -1,4 +1,8 @@
 
+0.5.2 - July 9, 2014
+--------------------
+* fix breaking binary files
+
 0.5.1 - June 11, 2014
 ---------------------
 * fix race condition with stringify file contents
