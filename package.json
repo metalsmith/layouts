@@ -5,6 +5,9 @@
   "version": "0.5.2",
   "license": "MIT",
   "main": "lib/index.js",
+  "scripts": {
+    "test": "make test"
+  },
   "dependencies": {
     "consolidate": "~0.10.0",
     "async": "~0.2.10",
@@ -14,9 +17,9 @@
     "lodash.omit": "~2.4.1"
   },
   "devDependencies": {
+    "assert-dir-equal": "0.0.1",
+    "metalsmith": "^1.0.1",
     "mocha": "1.x",
-    "metalsmith": "0.x",
-    "swig": "~1.3.2",
-    "assert-dir-equal": "0.0.1"
+    "swig": "~1.3.2"
   }
 }
