@@ -1,4 +1,8 @@
 
+0.6.0 - October 3, 2014
+-----------------------
+* fix to use `path` for metalsmith `1.0.0`
+
 0.5.2 - July 9, 2014
 --------------------
 * fix breaking binary files
