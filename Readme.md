@@ -1,58 +1,17 @@
+# metalsmith-layouts
 
-# metalsmith-templates
+A fork of [metalsmith-templates](https://github.com/segmentio/metalsmith-templates). The original `metalsmith-templates` uses the `inPlace` flag to switch between either in-place templating or embedding a file within a template, this fork just embeds source files in templates. It can be used in conjunction with [ismay/metalsmith-templates](https://github.com/ismay/metalsmith-templates), which just supports in-place templating.
 
-  A metalsmith plugin to render files with templates.
+This originated in [https://github.com/segmentio/metalsmith-templates/issues/35](https://github.com/segmentio/metalsmith-templates/issues/35). Splitting up `metalsmith-templates` was suggested by Ian Storm Taylor as a way to simplify both use-cases. It allows you to apply templates (or layouts) to your files *and/or* render the templating syntax in your source files.
 
-  You can use any templating engine supported by [consolidate.js](https://github.com/visionmedia/consolidate.js).
+## Changes
 
-## Installation
+* The `inPlace` option has been removed
+* Use `layout` instead of `template` in the front-matter to specify a layout
+* The default folder for layouts is `layouts` instead of `templates`
 
-    $ npm install metalsmith-templates
-
-## CLI Usage
-
-  Install the node modules and then add the `metalsmith-templates` key to your `metalsmith.json` plugins. The simplest use case just requires the template engine you want to use:
-
-```json
-{
-  "plugins": {
-    "metalsmith-templates": "handlebars"
-  }
-}
-```
-
-  If you want to specify additional options, pass an object:
-
-```json
-{
-  "plugins": {
-    "metalsmith-templates": {
-      "engine": "handlebars",
-      "directory": "templates"
-    }
-  }
-}
-```
-
-## Javascript Usage
-
-  For the simplest use case, just pass your templating engine:
-
-```js
-var templates = require('metalsmith-templates');
-
-metalsmith.use(templates('swig'));
-```
-
-  To specify additional options:
-
-```js
-metalsmith.use(templates({
-  engine: 'swig',
-  directory: 'templates'
-}));
-```
+For further documentation see the original [metalsmith-templates](https://github.com/segmentio/metalsmith-templates), but keep these differences in mind.
 
 ## License
 
-  MIT
+MIT
