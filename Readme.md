@@ -4,6 +4,12 @@ A fork of [metalsmith-templates](https://github.com/segmentio/metalsmith-templat
 
 This originated in [https://github.com/segmentio/metalsmith-templates/issues/35](https://github.com/segmentio/metalsmith-templates/issues/35). Splitting up `metalsmith-templates` was suggested by Ian Storm Taylor as a way to simplify both use-cases. It allows you to apply templates (or layouts) to your files *and/or* render the templating syntax in your source files.
 
+## Installation
+
+```
+$ npm install git://github.com/ismay/metalsmith-layouts.git
+```
+
 ## Changes
 
 * The `inPlace` option has been removed
