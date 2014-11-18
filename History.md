@@ -1,3 +1,8 @@
+1.0.0 - November 18, 2014
+-----------------------
+* remove `inPlace` option
+* use `layout` instead of `template` in the front-matter to specify a layout
+* set default folder for layouts to `layouts` instead of `templates`
 
 0.6.0 - October 3, 2014
 -----------------------
