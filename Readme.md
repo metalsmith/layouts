@@ -6,11 +6,72 @@ This originated in [https://github.com/segmentio/metalsmith-templates/issues/35]
 
 ## Installation
 
-```
+```bash
 $ npm install git://github.com/ismay/metalsmith-layouts.git
 ```
 
-## Changes
+## Usage
+
+All `metalsmith-layouts` does is apply layouts to your source files. Pass options to `metalsmith-layouts` with the [Javascript API](https://github.com/segmentio/metalsmith#api) or [CLI](https://github.com/segmentio/metalsmith#cli). The options are:
+
+* `engine`: templating engine
+* `default`: default template (optional)
+* `directory`: directory for the layouts, `layouts` by default (optional)
+* `pattern`: only files that match this pattern will be processed (optional)
+
+## Example
+
+Configuration in `metalsmith.json`:
+
+```
+{
+  "plugins": {
+    "metalsmith-layouts": {
+      "engine": "handlebars"
+    }
+  }
+}
+```
+
+Source file `src/index.html`:
+
+```html
+---
+layout: layout.html
+title: The title
+---
+<p>The contents</p>
+```
+
+Layout `layouts/layout.html`:
+
+```html
+<!doctype html>
+<html>
+<head>
+  <title>{{title}}</title>
+</head>
+<body>
+{{{contents}}}
+</body>
+</html>
+```
+
+Results in `dist/index.html`:
+
+```html
+<!doctype html>
+<html>
+<head>
+  <title>The title</title>
+</head>
+<body>
+  <p>The contents</p>
+</body>
+</html>
+```
+
+## Differences with segmentio/metalsmith-templates
 
 * The `inPlace` option has been removed
 * Use `layout` instead of `template` in the front-matter to specify a layout
