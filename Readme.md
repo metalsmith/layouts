@@ -1,23 +1,19 @@
 # metalsmith-layouts
 
-A fork of [metalsmith-templates](https://github.com/segmentio/metalsmith-templates). The original `metalsmith-templates` uses the `inPlace` flag to switch between either in-place templating or embedding a file within a template, this fork just embeds source files in templates. It can be used in conjunction with [ismay/metalsmith-templates](https://github.com/ismay/metalsmith-templates), which just supports in-place templating.
+> A metalsmith plugin for layouts
 
-This originated in [https://github.com/segmentio/metalsmith-templates/issues/35](https://github.com/segmentio/metalsmith-templates/issues/35). Splitting up `metalsmith-templates` was suggested by Ian Storm Taylor as a way to simplify both use-cases. It allows you to apply templates (or layouts) to your files *and/or* render the templating syntax in your source files.
+This plugin renders your source files in a layout. You can use any templating engine supported by [consolidate.js](https://github.com/tj/consolidate.js). Pass options to it with the [Javascript API](https://github.com/segmentio/metalsmith#api) or [CLI](https://github.com/segmentio/metalsmith#cli). The options are:
+
+* `engine`: templating engine (required)
+* `default`: default template (optional)
+* `directory`: directory for the layouts, `layouts` by default (optional)
+* `pattern`: only files that match this pattern will be processed (optional)
 
 ## Installation
 
 ```bash
 $ npm install git://github.com/ismay/metalsmith-layouts.git
 ```
-
-## Usage
-
-All `metalsmith-layouts` does is apply layouts to your source files. Pass options to `metalsmith-layouts` with the [Javascript API](https://github.com/segmentio/metalsmith#api) or [CLI](https://github.com/segmentio/metalsmith#cli). The options are:
-
-* `engine`: templating engine
-* `default`: default template (optional)
-* `directory`: directory for the layouts, `layouts` by default (optional)
-* `pattern`: only files that match this pattern will be processed (optional)
 
 ## Example
 
@@ -71,7 +67,14 @@ Results in `dist/index.html`:
 </html>
 ```
 
-## Differences with segmentio/metalsmith-templates
+## Origins
+
+This plugin originated in [metalsmith-templates issue #35](https://github.com/segmentio/metalsmith-templates/issues/35). Splitting up `metalsmith-templates` into two plugins was suggested by Ian Storm Taylor. The results are:
+
+* [metalsmith-in-place](https://github.com/ismay/metalsmith-in-place): `metalsmith-templates` with `inPlace: true`
+* [metalsmith-layouts](https://github.com/ismay/metalsmith-layouts): `metalsmith-templates` with `inPlace: false`
+
+Both plugins have been optimised for each use case. For `metalsmith-layouts` the differences with [metalsmith-templates](https://github.com/segmentio/metalsmith-templates) are:
 
 * The `inPlace` option has been removed
 * Use `layout` instead of `template` in the front-matter to specify a layout
