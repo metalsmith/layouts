@@ -19,7 +19,7 @@ $ npm install git://github.com/ismay/metalsmith-layouts.git
 
 Configuration in `metalsmith.json`:
 
-```
+```json
 {
   "plugins": {
     "metalsmith-layouts": {
