@@ -2,7 +2,7 @@
 
 > A metalsmith plugin for layouts
 
-This plugin renders your source files in a layout. You can use any templating engine supported by [consolidate.js](https://github.com/tj/consolidate.js). Pass options to it with the [Javascript API](https://github.com/segmentio/metalsmith#api) or [CLI](https://github.com/segmentio/metalsmith#cli). The options are:
+This plugin passes your source files to a template as `contents` and renders it with the templating engine of your choice. You can use any templating engine supported by [consolidate.js](https://github.com/tj/consolidate.js). Pass options to it with the [Javascript API](https://github.com/segmentio/metalsmith#api) or [CLI](https://github.com/segmentio/metalsmith#cli). The options are:
 
 * `engine`: templating engine (required)
 * `default`: default template (optional)
@@ -12,7 +12,7 @@ This plugin renders your source files in a layout. You can use any templating en
 ## Installation
 
 ```bash
-$ npm install git://github.com/ismay/metalsmith-layouts.git
+$ npm install metalsmith-layouts
 ```
 
 ## Example
@@ -71,8 +71,8 @@ Results in `dist/index.html`:
 
 This plugin originated in [metalsmith-templates issue #35](https://github.com/segmentio/metalsmith-templates/issues/35). Splitting up `metalsmith-templates` into two plugins was suggested by Ian Storm Taylor. The results are:
 
-* [metalsmith-in-place](https://github.com/ismay/metalsmith-in-place): `metalsmith-templates` with `inPlace: true`
-* [metalsmith-layouts](https://github.com/ismay/metalsmith-layouts): `metalsmith-templates` with `inPlace: false`
+* [metalsmith-in-place](https://github.com/superwolff/metalsmith-in-place): `metalsmith-templates` with `inPlace: true`
+* [metalsmith-layouts](https://github.com/superwolff/metalsmith-layouts): `metalsmith-templates` with `inPlace: false`
 
 Both plugins have been optimised for each use case. For `metalsmith-layouts` the differences with [metalsmith-templates](https://github.com/segmentio/metalsmith-templates) are:
 
