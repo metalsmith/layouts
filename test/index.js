@@ -25,16 +25,6 @@ describe('metalsmith-templates', function(){
       });
   });
 
-  it('should accept an inPlace option', function(done){
-    Metalsmith('test/fixtures/in-place')
-      .use(templates({ engine: 'swig', inPlace: true }))
-      .build(function(err){
-        if (err) return done(err);
-        equal('test/fixtures/in-place/expected', 'test/fixtures/in-place/build');
-        done();
-      });
-  });
-
   it('should accept a pattern to match', function(done){
     Metalsmith('test/fixtures/pattern')
       .use(templates({ engine: 'swig', pattern: '*.md' }))
