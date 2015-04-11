@@ -10,7 +10,6 @@ pids
 *.pid
 *.seed
 
-coverage
 node_modules
 
 
