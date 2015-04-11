@@ -5,7 +5,7 @@ var Metalsmith = require('metalsmith');
 var layouts = require('..');
 
 describe('metalsmith-layouts', function(){
-  it('should render a basic template', function(done){
+  it('should render a basic layout', function(done){
     Metalsmith('test/fixtures/basic')
       .use(layouts({ engine: 'swig' }))
       .build(function(err){
@@ -35,7 +35,7 @@ describe('metalsmith-layouts', function(){
       });
   });
 
-  it('should accept a default template', function(done){
+  it('should accept a default layout', function(done){
     Metalsmith('test/fixtures/default')
       .use(layouts({ engine: 'swig', pattern: '*.md', default: 'default.html' }))
       .build(function(err){
