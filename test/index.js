@@ -47,10 +47,20 @@ describe('metalsmith-layouts', function(){
 
   it('should accept a different layouts directory', function(done){
     Metalsmith('test/fixtures/directory')
-      .use(layouts({ engine: 'swig', directory: 'layouts' }))
+      .use(layouts({ engine: 'swig', directory: 'templates' }))
       .build(function(err){
         if (err) return done(err);
         equal('test/fixtures/directory/expected', 'test/fixtures/directory/build');
+        done();
+      });
+  });
+
+  it('should accept a default extension', function(done){
+    Metalsmith('test/fixtures/extension')
+      .use(layouts({ engine: 'swig', extension: 'html' }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/extension/expected', 'test/fixtures/extension/build');
         done();
       });
   });

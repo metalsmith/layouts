@@ -1,3 +1,12 @@
+1.1.0 - April 11, 2015
+-----------------------
+* fix tests
+* add `extension` option
+
+1.0.1 - April 11, 2015
+-----------------------
+* fix tests
+
 1.0.0 - November 18, 2014
 -----------------------
 * remove `inPlace` option
