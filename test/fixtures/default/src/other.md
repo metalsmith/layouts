@@ -1,6 +1,6 @@
 ---
 title: Title
-template: other.html
+layout: other.html
 ---
 
 Body

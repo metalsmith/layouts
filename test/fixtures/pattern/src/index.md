@@ -1,6 +1,6 @@
 ---
 title: Matched
-template: layout.html
+layout: layout.html
 ---
 
 Matched body
