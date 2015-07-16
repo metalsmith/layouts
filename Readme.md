@@ -1,4 +1,6 @@
-# metalsmith-layouts [![Build Status](https://travis-ci.org/superwolff/metalsmith-layouts.svg?branch=update-tests)](https://travis-ci.org/superwolff/metalsmith-layouts) [![Dependency Status](https://david-dm.org/superwolff/metalsmith-layouts.svg)](https://david-dm.org/superwolff/metalsmith-layouts) [![devDependency Status](https://david-dm.org/superwolff/metalsmith-layouts/dev-status.svg)](https://david-dm.org/superwolff/metalsmith-layouts#info=devDependencies)
+# metalsmith-layouts
+
+[![Build Status](https://travis-ci.org/superwolff/metalsmith-layouts.svg?branch=update-tests)](https://travis-ci.org/superwolff/metalsmith-layouts) [![Dependency Status](https://david-dm.org/superwolff/metalsmith-layouts.svg)](https://david-dm.org/superwolff/metalsmith-layouts) [![devDependency Status](https://david-dm.org/superwolff/metalsmith-layouts/dev-status.svg)](https://david-dm.org/superwolff/metalsmith-layouts#info=devDependencies)
 
 > A metalsmith plugin for layouts
 
