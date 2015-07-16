@@ -1,3 +1,7 @@
+1.0.1 - July 16, 2015
+-----------------------
+* Update tests and add Travis CI
+
 1.0.0 - November 18, 2014
 -----------------------
 * remove `inPlace` option
