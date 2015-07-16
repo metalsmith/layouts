@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/superwolff/metalsmith-layouts.svg?branch=update-tests)](https://travis-ci.org/superwolff/metalsmith-layouts)
+
 # metalsmith-layouts
 
 > A metalsmith plugin for layouts
