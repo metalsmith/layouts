@@ -75,4 +75,14 @@ describe('metalsmith-layouts', function(){
         done();
       });
   });
+
+  it('should render partial files', function(done){
+    Metalsmith('test/fixtures/partials')
+      .use(layouts({ engine: 'handlebars', partials: 'partials' }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/partials/expected', 'test/fixtures/partials/build');
+        done();
+      });
+  });
 });
