@@ -1,3 +1,4 @@
+
 var assert = require('assert');
 var equal = require('assert-dir-equal');
 var Metalsmith = require('metalsmith');
@@ -75,20 +76,16 @@ describe('metalsmith-layouts', function(){
       });
   });
 
-  it('should be capable of processing partials multiple times', function(done){
-    var instance = Metalsmith('test/fixtures/partials')
+  it('should be capable of processing partial', function(done){
+    Metalsmith('test/fixtures/partials')
       .use(layouts({
         engine: 'handlebars',
-        partials: { nav: 'partials/nav'}
-      }));
-
-    instance.build(function(err){
-      if (err) return done(err);
-      instance.build(function(err){
+        partials: '../partials/'
+      }))
+      .build(function(err){
         if (err) return done(err);
         equal('test/fixtures/partials/expected', 'test/fixtures/partials/build');
         done();
       });
-    });
   });
 });
