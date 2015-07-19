@@ -1,9 +1,13 @@
+1.1.0 - July 19, 2015
+---------------------
+* update dependencies and devDependencies
+
 1.0.1 - July 16, 2015
------------------------
-* Update tests and add Travis CI
+---------------------
+* update tests and add Travis CI
 
 1.0.0 - November 18, 2014
------------------------
+-------------------------
 * remove `inPlace` option
 * use `layout` instead of `template` in the front-matter to specify a layout
 * set default folder for layouts to `layouts` instead of `templates`
