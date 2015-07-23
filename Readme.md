@@ -1,6 +1,6 @@
 # metalsmith-layouts
 
-[![Release](http://img.shields.io/github/release/superwolff/metalsmith-layouts.svg)](https://github.com/superwolff/metalsmith-layouts/releases) [![Build Status](https://travis-ci.org/superwolff/metalsmith-layouts.svg)](https://travis-ci.org/superwolff/metalsmith-layouts) [![Dependency Status](https://david-dm.org/superwolff/metalsmith-layouts.svg)](https://david-dm.org/superwolff/metalsmith-layouts) [![devDependency Status](https://david-dm.org/superwolff/metalsmith-layouts/dev-status.svg)](https://david-dm.org/superwolff/metalsmith-layouts#info=devDependencies)
+[![npm](https://img.shields.io/npm/v/metalsmith-layouts.svg)](https://www.npmjs.com/package/metalsmith-layouts) [![Build Status](https://travis-ci.org/superwolff/metalsmith-layouts.svg)](https://travis-ci.org/superwolff/metalsmith-layouts) [![Dependency Status](https://david-dm.org/superwolff/metalsmith-layouts.svg)](https://david-dm.org/superwolff/metalsmith-layouts) [![devDependency Status](https://david-dm.org/superwolff/metalsmith-layouts/dev-status.svg)](https://david-dm.org/superwolff/metalsmith-layouts#info=devDependencies) [![npm](https://img.shields.io/npm/dm/metalsmith-layouts.svg)](https://www.npmjs.com/package/metalsmith-layouts)
 
 > A metalsmith plugin for layouts
 
