@@ -1,3 +1,9 @@
+1.2.0 - July 25, 2015
+---------------------
+* ignore binary files
+* add dotfiles
+* update readme
+
 1.1.0 - July 19, 2015
 ---------------------
 * update dependencies and devDependencies
