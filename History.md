@@ -1,3 +1,8 @@
+1.2.1 - July 25, 2015
+---------------------
+* add error handling
+* add test for partials
+
 1.2.0 - July 25, 2015
 ---------------------
 * ignore binary files
