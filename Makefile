@@ -1,8 +1,11 @@
+eslint=node_modules/.bin/eslint lib/index.js test/index.js
+mocha=node_modules/.bin/mocha --reporter spec --harmony-generators
 
 node_modules: package.json
 	@npm install
 
 test: node_modules
-	@./node_modules/.bin/mocha --reporter spec --harmony-generators
+	@$(mocha)
+	@$(eslint)
 
 .PHONY: test
