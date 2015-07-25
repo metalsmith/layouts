@@ -4,7 +4,7 @@
 
 > A metalsmith plugin for layouts
 
-This plugin passes your source files to a template as `contents` and renders them with the templating engine of your choice. You can use any templating engine supported by [consolidate.js](https://github.com/tj/consolidate.js). Pass options to `metalsmith-layouts` with the [Javascript API](https://github.com/segmentio/metalsmith#api) or [CLI](https://github.com/segmentio/metalsmith#cli). The options are:
+This plugin passes your source files to a template as `contents` and renders them with the templating engine of your choice. You can use any templating engine supported by [consolidate.js](https://github.com/tj/consolidate.js#supported-template-engines). Pass options to `metalsmith-layouts` with the [Javascript API](https://github.com/segmentio/metalsmith#api) or [CLI](https://github.com/segmentio/metalsmith#cli). The options are:
 
 * `engine`: templating engine (required)
 * `default`: default template (optional)
@@ -73,7 +73,7 @@ Results in `dist/index.html`:
 
 ## Origins
 
-This plugin originated in [metalsmith-templates issue #35](https://github.com/segmentio/metalsmith-templates/issues/35). Splitting up `metalsmith-templates` into two plugins was suggested by Ian Storm Taylor. The results are:
+This plugin is a fork of [metalsmith-templates](https://github.com/segmentio/metalsmith-templates/issues/35). Splitting up `metalsmith-templates` into two plugins was suggested by Ian Storm Taylor. The results are:
 
 * [metalsmith-in-place](https://github.com/superwolff/metalsmith-in-place): render templating syntax in your source files.
 * [metalsmith-layouts](https://github.com/superwolff/metalsmith-layouts): apply layouts to your source files.
