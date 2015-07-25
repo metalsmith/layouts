@@ -4,12 +4,14 @@
 
 > A metalsmith plugin for layouts
 
-This plugin passes your source files to a template as `contents` and renders it with the templating engine of your choice. You can use any templating engine supported by [consolidate.js](https://github.com/tj/consolidate.js). Pass options to it with the [Javascript API](https://github.com/segmentio/metalsmith#api) or [CLI](https://github.com/segmentio/metalsmith#cli). The options are:
+This plugin passes your source files to a template as `contents` and renders them with the templating engine of your choice. You can use any templating engine supported by [consolidate.js](https://github.com/tj/consolidate.js). Pass options to `metalsmith-layouts` with the [Javascript API](https://github.com/segmentio/metalsmith#api) or [CLI](https://github.com/segmentio/metalsmith#cli). The options are:
 
 * `engine`: templating engine (required)
 * `default`: default template (optional)
 * `directory`: directory for the layouts, `layouts` by default (optional)
 * `pattern`: only files that match this pattern will be processed (optional)
+
+Any unrecognised options will be passed on to consolidate.js. You can use this, for example, to disable caching by passing `cache: false` to consolidate. See the [consolidate.js documentation](https://github.com/tj/consolidate.js) for all available options.
 
 ## Installation
 
@@ -73,16 +75,8 @@ Results in `dist/index.html`:
 
 This plugin originated in [metalsmith-templates issue #35](https://github.com/segmentio/metalsmith-templates/issues/35). Splitting up `metalsmith-templates` into two plugins was suggested by Ian Storm Taylor. The results are:
 
-* [metalsmith-in-place](https://github.com/superwolff/metalsmith-in-place): `metalsmith-templates` with `inPlace: true`
-* [metalsmith-layouts](https://github.com/superwolff/metalsmith-layouts): `metalsmith-templates` with `inPlace: false`
-
-Both plugins have been optimised for each use case. For `metalsmith-layouts` the differences with [metalsmith-templates](https://github.com/segmentio/metalsmith-templates) are:
-
-* The `inPlace` option has been removed
-* Use `layout` instead of `template` in the front-matter to specify a layout
-* The default folder for layouts is `layouts` instead of `templates`
-
-For further documentation see the original [metalsmith-templates](https://github.com/segmentio/metalsmith-templates), but keep these differences in mind.
+* [metalsmith-in-place](https://github.com/superwolff/metalsmith-in-place): render templating syntax in your source files.
+* [metalsmith-layouts](https://github.com/superwolff/metalsmith-layouts): apply layouts to your source files.
 
 ## License
 
