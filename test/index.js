@@ -75,6 +75,16 @@ describe('metalsmith-layouts', function(){
       });
   });
 
+  it('should process swig includes', function(done){
+    Metalsmith('test/fixtures/include')
+      .use(layouts({ engine: 'swig' }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/include/expected', 'test/fixtures/include/build');
+        done();
+      });
+  });
+
   it('should be capable of processing partials multiple times', function(done){
     var instance = Metalsmith('test/fixtures/partials')
       .use(layouts({
@@ -91,4 +101,5 @@ describe('metalsmith-layouts', function(){
       });
     });
   });
+
 });
