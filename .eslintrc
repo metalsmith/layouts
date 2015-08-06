@@ -8,7 +8,6 @@ rules:
   quotes: [2, "single", "avoid-escape"]
 
   # Relax rules to allow current code-style
-  curly: [2, "multi"]
   new-cap: 0
   no-shadow: 0
   no-unused-vars: 0
