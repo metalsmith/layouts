@@ -1,3 +1,9 @@
+1.3.0 - August 7, 2015
+---------------------
+* add swig include test
+* code style, dependency and readme updates
+* add partials option and test
+
 1.2.1 - July 25, 2015
 ---------------------
 * add error handling
