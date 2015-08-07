@@ -8,7 +8,9 @@ describe('metalsmith-layouts', function(){
     Metalsmith('test/fixtures/basic')
       .use(layouts({ engine: 'swig' }))
       .build(function(err){
-        if (err) return done(err);
+        if (err) {
+          return done(err);
+        }
         equal('test/fixtures/basic/expected', 'test/fixtures/basic/build');
         done();
       });
@@ -18,7 +20,9 @@ describe('metalsmith-layouts', function(){
     Metalsmith('test/fixtures/basic')
       .use(layouts('swig'))
       .build(function(err){
-        if (err) return done(err);
+        if (err) {
+          return done(err);
+        }
         equal('test/fixtures/basic/expected', 'test/fixtures/basic/build');
         done();
       });
@@ -28,7 +32,9 @@ describe('metalsmith-layouts', function(){
     Metalsmith('test/fixtures/pattern')
       .use(layouts({ engine: 'swig', pattern: '*.md' }))
       .build(function(err){
-        if (err) return done(err);
+        if (err) {
+          return done(err);
+        }
         equal('test/fixtures/pattern/expected', 'test/fixtures/pattern/build');
         done();
       });
@@ -38,7 +44,9 @@ describe('metalsmith-layouts', function(){
     Metalsmith('test/fixtures/default')
       .use(layouts({ engine: 'swig', pattern: '*.md', default: 'default.html' }))
       .build(function(err){
-        if (err) return done(err);
+        if (err) {
+          return done(err);
+        }
         equal('test/fixtures/pattern/expected', 'test/fixtures/pattern/build');
         done();
       });
@@ -48,7 +56,9 @@ describe('metalsmith-layouts', function(){
     Metalsmith('test/fixtures/directory')
       .use(layouts({ engine: 'swig', directory: 'templates' }))
       .build(function(err){
-        if (err) return done(err);
+        if (err) {
+          return done(err);
+        }
         equal('test/fixtures/directory/expected', 'test/fixtures/directory/build');
         done();
       });
@@ -59,7 +69,9 @@ describe('metalsmith-layouts', function(){
       .metadata({ title: 'Global Title' })
       .use(layouts({ engine: 'swig' }))
       .build(function(err){
-        if (err) return done(err);
+        if (err) {
+          return done(err);
+        }
         equal('test/fixtures/metadata/expected', 'test/fixtures/metadata/build');
         done();
       });
@@ -69,8 +81,22 @@ describe('metalsmith-layouts', function(){
     Metalsmith('test/fixtures/binary')
       .use(layouts({ engine: 'swig' }))
       .build(function(err){
-        if (err) return done(err);
+        if (err) {
+          return done(err);
+        }
         equal('test/fixtures/binary/expected', 'test/fixtures/binary/build');
+        done();
+      });
+  });
+
+  it('should process swig includes', function(done){
+    Metalsmith('test/fixtures/include')
+      .use(layouts({ engine: 'swig' }))
+      .build(function(err){
+        if (err) {
+          return done(err);
+        }
+        equal('test/fixtures/include/expected', 'test/fixtures/include/build');
         done();
       });
   });
@@ -79,16 +105,36 @@ describe('metalsmith-layouts', function(){
     var instance = Metalsmith('test/fixtures/partials')
       .use(layouts({
         engine: 'handlebars',
-        partials: { nav: 'partials/nav'}
+        partials: {nav: 'partials/nav'}
       }));
 
     instance.build(function(err){
-      if (err) return done(err);
+      if (err) {
+        return done(err);
+      }
       instance.build(function(err){
-        if (err) return done(err);
+        if (err) {
+          return done(err);
+        }
         equal('test/fixtures/partials/expected', 'test/fixtures/partials/build');
         done();
       });
     });
   });
+
+  it('should accept a partials option', function(done){
+    Metalsmith('test/fixtures/partials-option')
+      .use(layouts({
+        engine: 'handlebars',
+        partials: 'partials'
+      }))
+      .build(function(err){
+        if (err) {
+          return done(err);
+        }
+        equal('test/fixtures/partials-option/expected', 'test/fixtures/partials-option/build');
+        done();
+      });
+  });
+
 });

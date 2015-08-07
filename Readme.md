@@ -9,9 +9,10 @@ This plugin passes your source files to a template as `contents` and renders the
 * `engine`: templating engine (required)
 * `default`: default template (optional)
 * `directory`: directory for the layouts, `layouts` by default (optional)
+* `partials`: a folder to scan for partials, will register all found files as partials (optional)
 * `pattern`: only files that match this pattern will be processed (optional)
 
-Any unrecognised options will be passed on to consolidate.js. You can use this, for example, to disable caching by passing `cache: false` to consolidate. See the [consolidate.js documentation](https://github.com/tj/consolidate.js) for all available options.
+Any unrecognised options will be passed on to consolidate.js. You can use this, for example, to disable caching by passing `cache: false` to consolidate. Note that passing anything but a string to the `partials` option will pass the option on to consolidate. See the [consolidate.js documentation](https://github.com/tj/consolidate.js) for all available options.
 
 ## Installation
 
@@ -27,7 +28,8 @@ Configuration in `metalsmith.json`:
 {
   "plugins": {
     "metalsmith-layouts": {
-      "engine": "handlebars"
+      "engine": "handlebars",
+      "partials": "partials"
     }
   }
 }
@@ -52,9 +54,17 @@ Layout `layouts/layout.html`:
   <title>{{title}}</title>
 </head>
 <body>
+{{>nav}}
 {{{contents}}}
 </body>
 </html>
+```
+
+Partial file `partials/nav.html`:
+
+```html
+<!-- The partial name is the path relative to the `partials` folder, without the extension -->
+<nav>Nav</nav>
 ```
 
 Results in `dist/index.html`:
@@ -66,6 +76,7 @@ Results in `dist/index.html`:
   <title>The title</title>
 </head>
 <body>
+  <nav>Nav</nav>
   <p>The contents</p>
 </body>
 </html>

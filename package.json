@@ -14,13 +14,14 @@
     "consolidate": "^0.13.1",
     "debug": "^2.2.0",
     "extend": "^3.0.0",
+    "fs-readdir-recursive": "^0.1.2",
     "is-utf8": "^0.2.0",
     "lodash.omit": "^3.1.0",
     "multimatch": "^2.0.0"
   },
   "devDependencies": {
     "assert-dir-equal": "^1.0.1",
-    "eslint": "^0.24.1",
+    "eslint": "^1.0.0",
     "handlebars": "^3.0.3",
     "metalsmith": "^2.0.1",
     "mocha": "^2.2.5",

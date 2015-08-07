@@ -6,11 +6,3 @@ rules:
   no-irregular-whitespace: 2
   no-trailing-spaces: 2
   quotes: [2, "single", "avoid-escape"]
-
-  # Relax rules to allow current code-style
-  curly: [2, "multi"]
-  new-cap: 0
-  no-shadow: 0
-  no-unused-vars: 0
-  no-use-before-define: 0
-  strict: 0
