@@ -102,7 +102,7 @@ describe('metalsmith-layouts', function(){
   });
 
   it('should be capable of processing partials multiple times', function(done){
-    var instance = Metalsmith('test/fixtures/partials')
+    var instance = Metalsmith('test/fixtures/partials-multiple')
       .use(layouts({
         engine: 'handlebars',
         partials: {nav: 'partials/nav'}
@@ -116,7 +116,7 @@ describe('metalsmith-layouts', function(){
         if (err) {
           return done(err);
         }
-        equal('test/fixtures/partials/expected', 'test/fixtures/partials/build');
+        equal('test/fixtures/partials-multiple/expected', 'test/fixtures/partials-multiple/build');
         done();
       });
     });
