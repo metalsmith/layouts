@@ -105,7 +105,7 @@ describe('metalsmith-layouts', function(){
     var instance = Metalsmith('test/fixtures/partials')
       .use(layouts({
         engine: 'handlebars',
-        partials: { nav: 'partials/nav'}
+        partials: {nav: 'partials/nav'}
       }));
 
     instance.build(function(err){
@@ -120,6 +120,21 @@ describe('metalsmith-layouts', function(){
         done();
       });
     });
+  });
+
+  it('should accept a partials option', function(done){
+    Metalsmith('test/fixtures/partials-option')
+      .use(layouts({
+        engine: 'handlebars',
+        partials: 'partials'
+      }))
+      .build(function(err){
+        if (err) {
+          return done(err);
+        }
+        equal('test/fixtures/partials-option/expected', 'test/fixtures/partials-option/build');
+        done();
+      });
   });
 
 });
