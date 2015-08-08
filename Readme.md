@@ -105,7 +105,7 @@ The default layout to use. Can be overridden with the `layout` key in each file'
 }
 ```
 
-Will apply the `default.html` template to all files, unless specified otherwise in the frontmatter.
+Will apply the `default.html` layout to all files, unless specified otherwise in the frontmatter.
 
 ### directory
 
