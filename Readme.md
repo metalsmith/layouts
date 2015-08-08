@@ -164,7 +164,7 @@ Any unrecognised options will be passed on to consolidate.js. You can use this, 
 
 ## Origins
 
-This plugin is a fork of the now deprecated [metalsmith-templates](https://github.com/segmentio/metalsmith-templates/issues/35). Splitting up `metalsmith-templates` into two plugins was suggested by Ian Storm Taylor. The results are:
+This plugin is a fork of the now deprecated [metalsmith-templates](https://github.com/segmentio/metalsmith-templates). Splitting up `metalsmith-templates` into two plugins was suggested by Ian Storm Taylor. The results are:
 
 * [metalsmith-in-place](https://github.com/superwolff/metalsmith-in-place): render templating syntax in your source files.
 * [metalsmith-layouts](https://github.com/superwolff/metalsmith-layouts): apply layouts to your source files.

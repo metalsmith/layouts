@@ -1,5 +1,10 @@
+1.3.1 - August 8, 2015
+----------------------
+* improve error message for unspecified layout
+* update readme
+
 1.3.0 - August 7, 2015
----------------------
+----------------------
 * add swig include test
 * code style, dependency and readme updates
 * add partials option and test
