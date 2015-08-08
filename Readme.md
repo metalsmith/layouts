@@ -4,15 +4,7 @@
 
 > A metalsmith plugin for layouts
 
-This plugin passes your source files to a template as `contents` and renders them with the templating engine of your choice. You can use any templating engine supported by [consolidate.js](https://github.com/tj/consolidate.js#supported-template-engines). Pass options to `metalsmith-layouts` with the [Javascript API](https://github.com/segmentio/metalsmith#api) or [CLI](https://github.com/segmentio/metalsmith#cli). The options are:
-
-* `engine`: templating engine (required)
-* `default`: default template (optional)
-* `directory`: directory for the layouts, `layouts` by default (optional)
-* `partials`: a folder to scan for partials, will register all found files as partials (optional)
-* `pattern`: only files that match this pattern will be processed (optional)
-
-Any unrecognised options will be passed on to consolidate.js. You can use this, for example, to disable caching by passing `cache: false` to consolidate. Note that passing anything but a string to the `partials` option will pass the option on to consolidate. See the [consolidate.js documentation](https://github.com/tj/consolidate.js) for all available options.
+This plugin allows you to apply layouts to your source files. It passes your source files to the selected layout as `contents` and renders the result with the templating engine of your choice. You can use any templating engine supported by [consolidate.js](https://github.com/tj/consolidate.js#supported-template-engines).
 
 ## Installation
 
@@ -28,8 +20,7 @@ Configuration in `metalsmith.json`:
 {
   "plugins": {
     "metalsmith-layouts": {
-      "engine": "handlebars",
-      "partials": "partials"
+      "engine": "handlebars"
     }
   }
 }
@@ -54,20 +45,12 @@ Layout `layouts/layout.html`:
   <title>{{title}}</title>
 </head>
 <body>
-{{>nav}}
-{{{contents}}}
+  {{{contents}}}
 </body>
 </html>
 ```
 
-Partial file `partials/nav.html`:
-
-```html
-<!-- The partial name is the path relative to the `partials` folder, without the extension -->
-<nav>Nav</nav>
-```
-
-Results in `dist/index.html`:
+Results in `build/index.html`:
 
 ```html
 <!doctype html>
@@ -76,15 +59,112 @@ Results in `dist/index.html`:
   <title>The title</title>
 </head>
 <body>
-  <nav>Nav</nav>
   <p>The contents</p>
 </body>
 </html>
 ```
 
+## Options
+
+You can pass options to `metalsmith-layouts` with the [Javascript API](https://github.com/segmentio/metalsmith#api) or [CLI](https://github.com/segmentio/metalsmith#cli). The options are:
+
+* [engine](#engine): templating engine (required)
+* [default](#default): default template (optional)
+* [directory](#directory): directory for the layouts, layouts by default (optional)
+* [partials](#partials): directory for the partials (optional)
+* [pattern](#pattern): only files that match this pattern will be processed (optional)
+
+### engine
+
+The engine that will render your layouts. Metalsmith-layouts uses [consolidate.js](https://github.com/tj/consolidate.js) to render templating syntax, so any engine [supported by consolidate.js](https://github.com/tj/consolidate.js#supported-template-engines) can be used. Don't forget to install the templating engine separately. So this `metalsmith.json`:
+
+```json
+{
+  "plugins": {
+    "metalsmith-layouts": {
+      "engine": "swig"
+    }
+  }
+}
+```
+
+Will render your layouts with swig.
+
+### default
+
+The default layout to use. Can be overridden with the `layout` key in each file's YAML frontmatter. If you don't set a default a layout must be specified in the frontmatter of each file. Don't forget to specify the file extension. So this `metalsmith.json`:
+
+```json
+{
+  "plugins": {
+    "metalsmith-layouts": {
+      "engine": "swig",
+      "default": "default.html"
+    }
+  }
+}
+```
+
+Will apply the `default.html` template to all files, unless specified otherwise in the frontmatter.
+
+### directory
+
+The directory where `metalsmith-layouts` looks for the layouts. By default this is `layouts`. So this `metalsmith.json`:
+
+```json
+{
+  "plugins": {
+    "metalsmith-layouts": {
+      "engine": "swig",
+      "directory": "templates"
+    }
+  }
+}
+```
+
+Will look for layouts in the `templates` directory, instead of in `layouts`.
+
+### partials
+
+The directory where `metalsmith-layouts` looks for partials. Each partial is named by removing the file extension from its path (relative to the partials directory), so make sure to avoid duplicates. So this `metalsmith.json`:
+
+```json
+{
+  "plugins": {
+    "metalsmith-layouts": {
+      "engine": "handlebars",
+      "partials": "partials"
+    }
+  }
+}
+```
+
+Would mean that a partial at `partials/nav.html` can be used in layouts as `{{> nav }}`, and `partials/nested/footer.html` can be used as `{{> nested/footer }}`. Note that passing anything but a string to the `partials` option will pass the option on to consolidate.
+
+### pattern
+
+Only files that match this pattern will be processed. So this `metalsmith.json`:
+
+```json
+{
+  "plugins": {
+    "metalsmith-layouts": {
+      "engine": "swig",
+      "pattern": "*.md"
+    }
+  }
+}
+```
+
+Would only process files that have the `.md` extension.
+
+### Consolidate
+
+Any unrecognised options will be passed on to consolidate.js. You can use this, for example, to disable caching by passing `cache: false`. See the [consolidate.js documentation](https://github.com/tj/consolidate.js) for all options supported by consolidate.
+
 ## Origins
 
-This plugin is a fork of [metalsmith-templates](https://github.com/segmentio/metalsmith-templates/issues/35). Splitting up `metalsmith-templates` into two plugins was suggested by Ian Storm Taylor. The results are:
+This plugin is a fork of the now deprecated [metalsmith-templates](https://github.com/segmentio/metalsmith-templates/issues/35). Splitting up `metalsmith-templates` into two plugins was suggested by Ian Storm Taylor. The results are:
 
 * [metalsmith-in-place](https://github.com/superwolff/metalsmith-in-place): render templating syntax in your source files.
 * [metalsmith-layouts](https://github.com/superwolff/metalsmith-layouts): apply layouts to your source files.
