@@ -64,6 +64,8 @@ Results in `build/index.html`:
 </html>
 ```
 
+This is a very basic example. For a ready-to-use boilerplate that utilizes this plugin see [boilerplate-layouts](https://github.com/superwolff/boilerplate-layouts).
+
 ## Options
 
 You can pass options to `metalsmith-layouts` with the [Javascript API](https://github.com/segmentio/metalsmith#api) or [CLI](https://github.com/segmentio/metalsmith#cli). The options are:
