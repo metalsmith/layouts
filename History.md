@@ -1,3 +1,8 @@
+1.4.0 - August 14, 2015
+-----------------------
+* ignore files with unspecified layout
+* update readme
+
 1.3.1 - August 8, 2015
 ----------------------
 * improve error message for unspecified layout
