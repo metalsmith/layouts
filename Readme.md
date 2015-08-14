@@ -94,7 +94,7 @@ Will render your layouts with swig.
 
 ### default
 
-The default layout to use. Can be overridden with the `layout` key in each file's YAML frontmatter. If you don't set a default a layout must be specified in the frontmatter of each file. Don't forget to specify the file extension. So this `metalsmith.json`:
+The default layout to use. Can be overridden with the `layout` key in each file's YAML frontmatter. If a `default` layout hasn't been specified, `metalsmith-layouts` will only process files with a `layout` option in their front-matter. Don't forget to specify the file extension. So this `metalsmith.json`:
 
 ```json
 {
