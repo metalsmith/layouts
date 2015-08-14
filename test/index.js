@@ -137,4 +137,16 @@ describe('metalsmith-layouts', function(){
       });
   });
 
+  it('should ignore files without a layout', function(done){
+    Metalsmith('test/fixtures/ignore')
+      .use(layouts('handlebars'))
+      .build(function(err){
+        if (err) {
+          return done(err);
+        }
+        equal('test/fixtures/ignore/expected', 'test/fixtures/ignore/build');
+        done();
+      });
+  });
+
 });
