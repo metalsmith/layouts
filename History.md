@@ -1,3 +1,8 @@
+1.4.1 - September 19, 2015
+--------------------------
+* move check for unspecified layout, #41
+* update devdependencies
+
 1.4.0 - August 14, 2015
 -----------------------
 * ignore files with unspecified layout
