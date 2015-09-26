@@ -64,7 +64,7 @@ Results in `build/index.html`:
 </html>
 ```
 
-This is a very basic example. For a ready-to-use boilerplate that utilizes this plugin see [boilerplate-layouts](https://github.com/superwolff/boilerplate-layouts).
+This is a very basic example. For a ready-to-use boilerplate that utilizes this plugin see [metalsmith-boilerplates](https://github.com/superwolff/metalsmith-boilerplates).
 
 ## Options
 
