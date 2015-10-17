@@ -1,3 +1,7 @@
+1.4.2 - October 17, 2015
+--------------------------
+* update fs-readdir-recursive
+
 1.4.1 - September 19, 2015
 --------------------------
 * move check for unspecified layout, #41
