@@ -1,3 +1,7 @@
+1.4.4 - January 27, 2016
+--------------------------
+* update lodash.omit
+
 1.4.3 - January 27, 2016
 --------------------------
 * update consolidate
