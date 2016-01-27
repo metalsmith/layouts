@@ -1,3 +1,7 @@
+1.4.3 - January 27, 2016
+--------------------------
+* update consolidate
+
 1.4.2 - October 17, 2015
 --------------------------
 * update fs-readdir-recursive
