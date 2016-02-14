@@ -82,6 +82,7 @@ You can pass options to `metalsmith-layouts` with the [Javascript API](https://g
 * [directory](#directory): directory for the layouts, layouts by default (optional)
 * [partials](#partials): directory for the partials (optional)
 * [pattern](#pattern): only files that match this pattern will be processed (optional)
+* [rename](#rename): change the file extension of processed files to `.html` (optional)
 
 ### engine
 
@@ -168,6 +169,23 @@ Only files that match this pattern will be processed. So this `metalsmith.json`:
 ```
 
 Would only process files that have the `.md` extension.
+
+### rename
+
+Change the file extension of processed files to `.html` (optional). This option is set to `false` by default. So for example this `metalsmith.json`:
+
+```json
+{
+  "plugins": {
+    "metalsmith-in-place": {
+      "engine": "handlebars",
+      "rename": true
+    }
+  }
+}
+```
+
+Would rename the extensions of all processed files to `.html`.
 
 ### Consolidate
 
