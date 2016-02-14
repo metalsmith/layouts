@@ -1,10 +1,17 @@
 # metalsmith-layouts
 
-[![npm](https://img.shields.io/npm/v/metalsmith-layouts.svg)](https://www.npmjs.com/package/metalsmith-layouts) [![Build Status](https://travis-ci.org/superwolff/metalsmith-layouts.svg)](https://travis-ci.org/superwolff/metalsmith-layouts) [![Dependency Status](https://david-dm.org/superwolff/metalsmith-layouts.svg)](https://david-dm.org/superwolff/metalsmith-layouts) [![devDependency Status](https://david-dm.org/superwolff/metalsmith-layouts/dev-status.svg)](https://david-dm.org/superwolff/metalsmith-layouts#info=devDependencies) [![npm](https://img.shields.io/npm/dm/metalsmith-layouts.svg)](https://www.npmjs.com/package/metalsmith-layouts)
+[![npm version][version-badge]][version-url]
+[![build status][build-badge]][build-url]
+[![dependency status][dependency-badge]][dependency-url]
+[![devdependency status][devdependency-badge]][devdependency-url]
+[![downloads][downloads-badge]][downloads-url]
 
 > A metalsmith plugin for layouts
 
-This plugin allows you to apply layouts to your source files. It passes your source files to the selected layout as `contents` and renders the result with the templating engine of your choice. You can use any templating engine supported by [consolidate.js](https://github.com/tj/consolidate.js#supported-template-engines).
+[![stack overflow][stackoverflow-badge]][stackoverflow-url]
+[![slack chat][slack-badge]][slack-url]
+
+This plugin allows you to apply layouts to your source files. It passes your source files to the selected layout as the variable `contents` and renders the result with the templating engine of your choice. You can use any templating engine supported by [consolidate.js](https://github.com/tj/consolidate.js#supported-template-engines). For support questions please use [stack overflow][stackoverflow-url] or our [slack channel][slack-url]. For templating engine specific questions try the aforementioned channels, as well as the documentation for [consolidate.js](https://github.com/tj/consolidate.js) and your templating engine of choice.
 
 ## Installation
 
@@ -64,7 +71,7 @@ Results in `build/index.html`:
 </html>
 ```
 
-This is a very basic example. For a ready-to-use boilerplate that utilizes this plugin see [metalsmith-boilerplates](https://github.com/superwolff/metalsmith-boilerplates).
+This is a very basic example. For more elaborate examples see the [metalsmith tag on stack overflow][stackoverflow-url].
 
 ## Options
 
@@ -143,6 +150,8 @@ The directory where `metalsmith-layouts` looks for partials. Each partial is nam
 
 Would mean that a partial at `partials/nav.html` can be used in layouts as `{{> nav }}`, and `partials/nested/footer.html` can be used as `{{> nested/footer }}`. Note that passing anything but a string to the `partials` option will pass the option on to consolidate.
 
+Make sure to check [consolidate.js](https://github.com/tj/consolidate.js) and your templating engine's documentation for guidelines on how to use partials.
+
 ### pattern
 
 Only files that match this pattern will be processed. So this `metalsmith.json`:
@@ -174,3 +183,18 @@ This plugin is a fork of the now deprecated [metalsmith-templates](https://githu
 ## License
 
 MIT
+
+[build-badge]: https://travis-ci.org/superwolff/metalsmith-layouts.svg
+[build-url]: https://travis-ci.org/superwolff/metalsmith-layouts
+[dependency-badge]: https://david-dm.org/superwolff/metalsmith-layouts.svg
+[dependency-url]: https://david-dm.org/superwolff/metalsmith-layouts
+[devdependency-badge]: https://david-dm.org/superwolff/metalsmith-layouts/dev-status.svg
+[devdependency-url]: https://david-dm.org/superwolff/metalsmith-layouts#info=devDependencies
+[downloads-badge]: https://img.shields.io/npm/dm/metalsmith-layouts.svg
+[downloads-url]: https://www.npmjs.com/package/metalsmith-layouts
+[slack-badge]: https://img.shields.io/badge/Slack-Join%20Chat%20→-blue.svg
+[slack-url]: http://metalsmith-slack.herokuapp.com/
+[stackoverflow-badge]: https://img.shields.io/badge/stack%20overflow-%23metalsmith-red.svg
+[stackoverflow-url]: http://stackoverflow.com/questions/tagged/metalsmith
+[version-badge]: https://img.shields.io/npm/v/metalsmith-layouts.svg
+[version-url]: https://www.npmjs.com/package/metalsmith-layouts
