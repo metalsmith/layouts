@@ -149,4 +149,42 @@ describe('metalsmith-layouts', function(){
       });
   });
 
+  it('should not change file extension by default', function(done) {
+    Metalsmith('test/fixtures/rename-option-default')
+      .use(layouts({
+        engine: 'handlebars'
+      }))
+      .build(function (err) {
+        if (err) return done(err);
+        equal('test/fixtures/rename-option-default/expected', 'test/fixtures/rename-option-default/build');
+        done();
+      });
+  });
+
+  it('should change file extension when rename option is set to true', function(done) {
+    Metalsmith('test/fixtures/rename-option')
+      .use(layouts({
+        engine: 'handlebars',
+        rename: true
+      }))
+      .build(function (err) {
+        if (err) return done(err);
+        equal('test/fixtures/rename-option/expected', 'test/fixtures/rename-option/build');
+        done();
+      });
+  });
+
+  it('should change file extension for nested files when rename option is set to true', function(done) {
+    Metalsmith('test/fixtures/rename-option-nested')
+      .use(layouts({
+        engine: 'handlebars',
+        rename: true
+      }))
+      .build(function (err) {
+        if (err) return done(err);
+        equal('test/fixtures/rename-option-nested/expected', 'test/fixtures/rename-option-nested/build');
+        done();
+      });
+  });
+
 });
