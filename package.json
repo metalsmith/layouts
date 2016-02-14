@@ -7,7 +7,7 @@
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
-    "test": "make test"
+    "test": "mocha --reporter spec"
   },
   "dependencies": {
     "async": "^1.3.0",
