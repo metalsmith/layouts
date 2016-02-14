@@ -149,6 +149,18 @@ describe('metalsmith-layouts', function(){
       });
   });
 
+  it('should ignore files with layout: false', function(done){
+    Metalsmith('test/fixtures/layout-false')
+      .use(layouts({engine: 'handlebars', default: 'default.html'}))
+      .build(function(err){
+        if (err) {
+          return done(err);
+        }
+        equal('test/fixtures/layout-false/expected', 'test/fixtures/layout-false/build');
+        done();
+      });
+  });
+
   it('should not change file extension by default', function(done) {
     Metalsmith('test/fixtures/rename-option-default')
       .use(layouts({
