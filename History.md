@@ -1,3 +1,7 @@
+1.6.4 - February 22, 2016
+-------------------------
+* allow layout: false to override default template
+
 1.5.4 - February 14, 2016
 -------------------------
 * add rename option
