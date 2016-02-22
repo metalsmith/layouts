@@ -11,7 +11,9 @@
 [![stack overflow][stackoverflow-badge]][stackoverflow-url]
 [![slack chat][slack-badge]][slack-url]
 
-This plugin allows you to apply layouts to your source files. It passes your source files to the selected layout as the variable `contents` and renders the result with the templating engine of your choice. You can use any templating engine supported by [consolidate.js](https://github.com/tj/consolidate.js#supported-template-engines). For support questions please use [stack overflow][stackoverflow-url] or our [slack channel][slack-url]. For templating engine specific questions try the aforementioned channels, as well as the documentation for [consolidate.js](https://github.com/tj/consolidate.js) and your templating engine of choice.
+This plugin allows you to apply layouts to your source files. It passes your source files to the selected layout as the variable `contents` and renders the result with the templating engine of your choice. You can use any templating engine supported by [consolidate.js](https://github.com/tj/consolidate.js#supported-template-engines).
+
+For support questions please use [stack overflow][stackoverflow-url] or our [slack channel][slack-url]. For templating engine specific questions try the aforementioned channels, as well as the documentation for [consolidate.js](https://github.com/tj/consolidate.js) and your templating engine of choice.
 
 ## Installation
 
