@@ -102,7 +102,9 @@ Will render your layouts with swig.
 
 ### default
 
-The default layout to use. Can be overridden with the `layout` key in each file's YAML frontmatter. If a `default` layout hasn't been specified, `metalsmith-layouts` will only process files with a `layout` option in their front-matter. Don't forget to specify the file extension. So this `metalsmith.json`:
+The default layout to use. Can be overridden with the `layout` key in each file's YAML frontmatter, by passing either a layout or `false`. Passing `false` will skip the file entirely.
+
+If a `default` layout has been specified, `metalsmith-layouts` will process all files unless a pattern has been passed. Don't forget to specify the default template's file extension. So this `metalsmith.json`:
 
 ```json
 {
@@ -115,7 +117,7 @@ The default layout to use. Can be overridden with the `layout` key in each file'
 }
 ```
 
-Will apply the `default.html` layout to all files, unless specified otherwise in the frontmatter.
+Will apply the `default.html` layout to all files, unless overridden in the frontmatter.
 
 ### directory
 
