@@ -3,7 +3,7 @@
   "author": "superwolff <superwolff@superwolff.nl> (http://superwolff.nl/)",
   "description": "A metalsmith plugin for layouts.",
   "repository": "git://github.com/superwolff/metalsmith-layouts.git",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {

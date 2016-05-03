@@ -1,3 +1,7 @@
+1.6.5 - May 3, 2016
+-------------------
+* normalize partial name for windows
+
 1.6.4 - February 22, 2016
 -------------------------
 * allow layout: false to override default template
