@@ -122,6 +122,24 @@ describe('metalsmith-layouts', function(){
     });
   });
 
+  it('should find partials in subdirectories correctly', function(done){
+    // This test would only fail on Windows if readPartials did not
+    // replace backslashes in partial names
+    var instance = Metalsmith('test/fixtures/partials-subdirectories')
+      .use(layouts({
+        engine: 'handlebars',
+        partials: 'layouts/partials'
+      }));
+
+    instance.build(function(err){
+      if (err) {
+        return done(err);
+      }
+      equal('test/fixtures/partials-subdirectories/expected', 'test/fixtures/partials-subdirectories/build');
+      done();
+    });
+  });
+
   it('should accept a partials option', function(done){
     Metalsmith('test/fixtures/partials-option')
       .use(layouts({
