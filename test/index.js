@@ -40,6 +40,19 @@ describe('metalsmith-layouts', function(){
       });
   });
 
+  it('should expose consolidate.requires', function(done){
+    Metalsmith('test/fixtures/basic')
+      .use(layouts({ engine: 'swig', exposeConsolidate: function(requires) {
+        assert.deepEqual(requires, require('consolidate').requires);
+      }}))
+      .build(function(err){
+        if (err) {
+          return done(err);
+        }
+        done();
+      });
+  });
+
   it('should accept a default template', function(done){
     Metalsmith('test/fixtures/default')
       .use(layouts({ engine: 'swig', pattern: '*.md', default: 'default.html' }))

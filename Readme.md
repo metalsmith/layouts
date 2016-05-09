@@ -192,6 +192,22 @@ Change the file extension of processed files to `.html` (optional). This option 
 
 Would rename the extensions of all processed files to `.html`.
 
+### exposeConsolidate
+
+Not available over the `metalsmith.json` file.
+Exposes Consolidate.requires as a function.
+
+```js
+// ...
+.use(layout('swig', {
+  exposeConsolidate: function(requires) {
+    // your code here
+  }
+}))
+// ...
+```
+
+
 ### Consolidate
 
 Any unrecognised options will be passed on to consolidate.js. You can use this, for example, to disable caching by passing `cache: false`. See the [consolidate.js documentation](https://github.com/tj/consolidate.js) for all options supported by consolidate.
