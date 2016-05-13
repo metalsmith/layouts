@@ -85,6 +85,7 @@ You can pass options to `metalsmith-layouts` with the [Javascript API](https://g
 * [partials](#partials): directory for the partials (optional)
 * [pattern](#pattern): only files that match this pattern will be processed (optional)
 * [rename](#rename): change the file extension of processed files to `.html` (optional)
+* [requires](#requires): exposes consolidate.requires (optional)
 
 ### engine
 
@@ -192,7 +193,7 @@ Change the file extension of processed files to `.html` (optional). This option 
 
 Would rename the extensions of all processed files to `.html`.
 
-### exposeConsolidate
+### requires
 
 Not available over the `metalsmith.json` file.
 Exposes Consolidate.requires as a function.
@@ -200,13 +201,12 @@ Exposes Consolidate.requires as a function.
 ```js
 // ...
 .use(layout('swig', {
-  exposeConsolidate: function(requires) {
+  requires: function(requires) {
     // your code here
   }
 }))
 // ...
 ```
-
 
 ### Consolidate
 

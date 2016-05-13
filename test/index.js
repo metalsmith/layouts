@@ -42,7 +42,7 @@ describe('metalsmith-layouts', function(){
 
   it('should expose consolidate.requires', function(done){
     Metalsmith('test/fixtures/basic')
-      .use(layouts({ engine: 'swig', exposeConsolidate: function(requires) {
+      .use(layouts({ engine: 'swig', requires: function(requires) {
         assert.deepEqual(requires, require('consolidate').requires);
       }}))
       .build(function(err){
