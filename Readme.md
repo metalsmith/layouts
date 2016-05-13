@@ -212,6 +212,14 @@ Exposes Consolidate.requires as a function.
 
 Any unrecognised options will be passed on to consolidate.js. You can use this, for example, to disable caching by passing `cache: false`. See the [consolidate.js documentation](https://github.com/tj/consolidate.js) for all options supported by consolidate.
 
+## FAQ
+
+#### Not able to render page within layout
+
+Your page is passed to the layout as a variable and won't be interpreted as your engin's markup.
+You want to convert the page before it is passed to the layout function.
+[metalsmith-in-place](https://github.com/superwolff/metalsmith-in-place) is meant for that.
+
 ## Origins
 
 This plugin is a fork of the now deprecated [metalsmith-templates](https://github.com/segmentio/metalsmith-templates). Splitting up `metalsmith-templates` into two plugins was suggested by Ian Storm Taylor. The results are:
