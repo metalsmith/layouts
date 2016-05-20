@@ -182,7 +182,7 @@ Change the file extension of processed files to `.html` (optional). This option 
 ```json
 {
   "plugins": {
-    "metalsmith-in-place": {
+    "metalsmith-layouts": {
       "engine": "handlebars",
       "rename": true
     }
