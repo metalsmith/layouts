@@ -153,6 +153,24 @@ describe('metalsmith-layouts', function(){
     });
   });
 
+
+  it('should find partials in subdirectories with absolute directory path', function(done){
+    var instance = Metalsmith('test/fixtures/partials-subdirectories')
+      .use(layouts({
+        engine: 'handlebars',
+        templates: __dirname + '/fixtures/partials-subdirectories/layouts',
+        partials: __dirname + '/fixtures/partials-subdirectories/layouts/partials'
+      }));
+
+    instance.build(function(err){
+      if (err) {
+        return done(err);
+      }
+      equal('test/fixtures/partials-subdirectories/expected', 'test/fixtures/partials-subdirectories/build');
+      done();
+    });
+  });
+
   it('should accept a partials option', function(done){
     Metalsmith('test/fixtures/partials-option')
       .use(layouts({
