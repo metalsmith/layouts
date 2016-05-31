@@ -85,6 +85,8 @@ You can pass options to `metalsmith-layouts` with the [Javascript API](https://g
 * [partials](#partials): directory for the partials (optional)
 * [pattern](#pattern): only files that match this pattern will be processed (optional)
 * [rename](#rename): change the file extension of processed files to `.html` (optional)
+* [directoryFallback](#directoryFallback): fallback directory to find layouts when not found in `directory` (optional)
+* [partialsFallback](#directoryFallback): fallback directory to find partials when not found in `partials` (optional)
 
 ### engine
 
@@ -190,7 +192,41 @@ Change the file extension of processed files to `.html` (optional). This option 
 }
 ```
 
-Would rename the extensions of all processed files to `.html`.
+### directoryFallback
+
+The directory where `metalsmith-layouts` looks for the layouts when not found in `directory`. So this `metalsmith.json`:
+
+```json
+{
+  "plugins": {
+    "metalsmith-layouts": {
+      "engine": "handlebars",
+      "directory": "layouts",
+      "directoryFallback": "fallback"
+    }
+  }
+}
+```
+
+Would first check in `layouts` directory for the layout, and failing that use the file in `fallback` directory.
+
+### partialsFallback
+
+The directory where `metalsmith-layouts` looks for the partials when not found in `partials`. So this `metalsmith.json`:
+
+```json
+{
+  "plugins": {
+    "metalsmith-layouts": {
+      "engine": "handlebars",
+      "partials": "partials",
+      "partialsFallback": "partials-fallback"
+    }
+  }
+}
+```
+
+Would first check in `partials` directory for the layout, and failing that use the file in `partials-fallback` directory.
 
 ### exposeConsolidate
 

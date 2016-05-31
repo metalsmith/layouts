@@ -135,6 +135,26 @@ describe('metalsmith-layouts', function(){
     });
   });
 
+
+  it('should find partials in subdirectories with absolute directory path', function(done){
+    // This test would only fail on Windows if readPartials did not
+    // replace backslashes in partial names
+    var instance = Metalsmith('test/fixtures/partials-subdirectories')
+      .use(layouts({
+        engine: 'handlebars',
+        directory: __dirname + '/fixtures/partials-subdirectories/layouts',
+        partials: __dirname + '/fixtures/partials-subdirectories/layouts/partials'
+      }));
+
+    instance.build(function(err){
+      if (err) {
+        return done(err);
+      }
+      equal('test/fixtures/partials-subdirectories/expected', 'test/fixtures/partials-subdirectories/build');
+      done();
+    });
+  });
+
   it('should find partials in subdirectories correctly', function(done){
     // This test would only fail on Windows if readPartials did not
     // replace backslashes in partial names
@@ -152,6 +172,7 @@ describe('metalsmith-layouts', function(){
       done();
     });
   });
+
 
   it('should accept a partials option', function(done){
     Metalsmith('test/fixtures/partials-option')
@@ -226,6 +247,22 @@ describe('metalsmith-layouts', function(){
       .build(function (err) {
         if (err) return done(err);
         equal('test/fixtures/rename-option-nested/expected', 'test/fixtures/rename-option-nested/build');
+        done();
+      });
+  });
+
+  it('should process fallback directories if present', function(done) {
+    Metalsmith('test/fixtures/directory-fallbacks')
+      .use(layouts({
+        engine: 'handlebars',
+        directory: 'layouts',
+        directoryFallback: 'fallback',
+        partials: 'layouts/partials',
+        partialsFallback: 'fallback/partials'
+      }))
+      .build(function (err) {
+        if (err) return done(err);
+        equal('test/fixtures/directory-fallbacks/expected', 'test/fixtures/directory-fallbacks/build');
         done();
       });
   });
