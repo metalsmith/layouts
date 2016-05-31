@@ -142,7 +142,7 @@ describe('metalsmith-layouts', function(){
     var instance = Metalsmith('test/fixtures/partials-subdirectories')
       .use(layouts({
         engine: 'handlebars',
-        layouts: __dirname + '/fixtures/partials-subdirectories/layouts',
+        directory: __dirname + '/fixtures/partials-subdirectories/layouts',
         partials: __dirname + '/fixtures/partials-subdirectories/layouts/partials'
       }));
 
@@ -247,6 +247,22 @@ describe('metalsmith-layouts', function(){
       .build(function (err) {
         if (err) return done(err);
         equal('test/fixtures/rename-option-nested/expected', 'test/fixtures/rename-option-nested/build');
+        done();
+      });
+  });
+
+  it('should process fallback directories if present', function(done) {
+    Metalsmith('test/fixtures/directory-fallbacks')
+      .use(layouts({
+        engine: 'handlebars',
+        directory: 'layouts',
+        directoryFallback: 'fallback',
+        partials: 'layouts/partials',
+        partialsFallback: 'fallback/partials'
+      }))
+      .build(function (err) {
+        if (err) return done(err);
+        equal('test/fixtures/directory-fallbacks/expected', 'test/fixtures/directory-fallbacks/build');
         done();
       });
   });
