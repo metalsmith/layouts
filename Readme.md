@@ -205,7 +205,6 @@ You use this if you want to access consolidate.requires.
   renderer: function(engine) {
     var consolidate = require('consolidate');
     var nunjucks    = require('nunjucks');
-    var render      = consolidate[engine];
 
     if (!consolidate[engine]) {
       throw new Error('Unknown template engine: "' + engine + '"');
@@ -219,7 +218,9 @@ You use this if you want to access consolidate.requires.
       return 'bar';
     });
 
-    return function render(layoutPath, params, done) {
+    var render      = consolidate[engine];
+
+    return function (layoutPath, params, done) {
       render(layoutPath, params, function(err, result){
         if (err) {
           return done(err);
