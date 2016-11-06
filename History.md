@@ -1,3 +1,8 @@
+1.7.0 - November 6, 2016
+-------------------
+* expose consolidate.requires fix (#18)
+* check if paths are already absolute before joining the metalsmith path
+
 1.6.5 - May 3, 2016
 -------------------
 * normalize partial name for windows
