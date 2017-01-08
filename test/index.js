@@ -40,6 +40,18 @@ describe('metalsmith-layouts', function(){
       });
   });
 
+  it('should match patterns against meta', function(done){
+    Metalsmith('test/fixtures/pattern-meta')
+      .use(layouts({ engine: 'swig', pattern: { title: /^Mat/ }}))
+      .build(function(err){
+        if (err) {
+          return done(err);
+        }
+        equal('test/fixtures/pattern-meta/expected', 'test/fixtures/pattern-meta/build');
+        done();
+      });
+  });
+
   it('should expose consolidate.requires', function(done){
     Metalsmith('test/fixtures/basic')
       .use(layouts({ engine: 'swig', exposeConsolidate: function(requires) {
