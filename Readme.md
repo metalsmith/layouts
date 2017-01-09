@@ -178,7 +178,8 @@ So this `metalsmith.json` would process all files that have the `.hbs` extension
 }
 ```
 
-This `metalsmith.json` would process all files in `articles` that specify a layout ending in `.hbs`. `path` is the only property that can be expressed as a globbing multimatch string, all other properties must be expressed as a RegExp.
+This `metalsmith.json` would process all files in `articles` that specify a layout ending in `.hbs`. `path` is the only property that can be expressed as a globbing multimatch string, all other properties will be processed as a RegExp.
+Note that RegExp literals can not be expressed in json, so values must be expressed as a string and special regexp characters like `\` [must be escaped](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#Description) as in this example. If calling the plugin in js, you can use RegExp literals like `{ layout: /\.hbs$/ }`.
 
 ```json
 {
@@ -187,7 +188,7 @@ This `metalsmith.json` would process all files in `articles` that specify a layo
       "engine": "handlebars",
       "pattern": {
         "path": "articles/**/*",
-        "layout": /\.hbs$/
+        "layout": "\\.hbs$"
       }
     }
   }

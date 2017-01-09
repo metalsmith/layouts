@@ -16,7 +16,6 @@
     "extend": "^3.0.0",
     "fs-readdir-recursive": "^1.0.0",
     "is-utf8": "^0.2.0",
-    "lodash.every": "^4.6.0",
     "lodash.omit": "^4.0.2",
     "multimatch": "^2.0.0"
   },
