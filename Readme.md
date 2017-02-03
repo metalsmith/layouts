@@ -2,8 +2,6 @@
 
 [![npm version][version-badge]][version-url]
 [![build status][build-badge]][build-url]
-[![dependency status][dependency-badge]][dependency-url]
-[![devdependency status][devdependency-badge]][devdependency-url]
 [![downloads][downloads-badge]][downloads-url]
 
 > A metalsmith plugin for layouts
@@ -244,10 +242,6 @@ MIT
 
 [build-badge]: https://travis-ci.org/superwolff/metalsmith-layouts.svg
 [build-url]: https://travis-ci.org/superwolff/metalsmith-layouts
-[dependency-badge]: https://david-dm.org/superwolff/metalsmith-layouts.svg
-[dependency-url]: https://david-dm.org/superwolff/metalsmith-layouts
-[devdependency-badge]: https://david-dm.org/superwolff/metalsmith-layouts/dev-status.svg
-[devdependency-url]: https://david-dm.org/superwolff/metalsmith-layouts#info=devDependencies
 [downloads-badge]: https://img.shields.io/npm/dm/metalsmith-layouts.svg
 [downloads-url]: https://www.npmjs.com/package/metalsmith-layouts
 [slack-badge]: https://img.shields.io/badge/Slack-Join%20Chat%20→-blue.svg
