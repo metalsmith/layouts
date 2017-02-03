@@ -135,6 +135,24 @@ describe('metalsmith-layouts', function(){
     });
   });
 
+   it('should use partialExtension to limit the matching partial files', function(done){
+     // Without partialExtension the nav.config.yaml would cause an error
+    var instance = Metalsmith('test/fixtures/partials-partialExtension')
+      .use(layouts({
+        engine: 'handlebars',
+        partials: 'layouts/partials',
+        partialExtension: '.html'
+      }));
+
+    instance.build(function(err){
+      if (err) {
+        return done(err);
+      }
+      equal('test/fixtures/partials-partialExtension/expected', 'test/fixtures/partials-partialExtension/build');
+      done();
+    });
+  });
+
   it('should find partials in subdirectories correctly', function(done){
     // This test would only fail on Windows if readPartials did not
     // replace backslashes in partial names
