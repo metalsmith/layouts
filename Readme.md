@@ -83,7 +83,7 @@ You can pass options to `metalsmith-layouts` with the [Javascript API](https://g
 * [default](#default): default template (optional)
 * [directory](#directory): directory for the layouts, layouts by default (optional)
 * [partials](#partials): directory for the partials (optional)
-* [partialExtension](#partialExtension): extension for the partial files (optional)
+* [partialExtension](#partialextension): extension for the partial files (optional)
 * [pattern](#pattern): only files that match this pattern will be processed (optional)
 * [rename](#rename): change the file extension of processed files to `.html` (optional)
 
