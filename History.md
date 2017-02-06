@@ -1,3 +1,7 @@
+1.8.0 - February 3, 2017
+------------------------
+* add partialExtension option, to fix partials matching on the wrong extension
+
 1.7.0 - November 6, 2016
 -------------------
 * expose consolidate.requires fix (#18)

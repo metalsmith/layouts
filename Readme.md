@@ -2,8 +2,6 @@
 
 [![npm version][version-badge]][version-url]
 [![build status][build-badge]][build-url]
-[![dependency status][dependency-badge]][dependency-url]
-[![devdependency status][devdependency-badge]][devdependency-url]
 [![downloads][downloads-badge]][downloads-url]
 
 > A metalsmith plugin for layouts
@@ -83,6 +81,7 @@ You can pass options to `metalsmith-layouts` with the [Javascript API](https://g
 * [default](#default): default template (optional)
 * [directory](#directory): directory for the layouts, layouts by default (optional)
 * [partials](#partials): directory for the partials (optional)
+* [partialExtension](#partialextension): extension for the partial files (optional)
 * [pattern](#pattern): only files that match this pattern will be processed (optional)
 * [rename](#rename): change the file extension of processed files to `.html` (optional)
 
@@ -156,6 +155,24 @@ The directory where `metalsmith-layouts` looks for partials. Each partial is nam
 Would mean that a partial at `partials/nav.html` can be used in layouts as `{{> nav }}`, and `partials/nested/footer.html` can be used as `{{> nested/footer }}`. Note that passing anything but a string to the `partials` option will pass the option on to consolidate.
 
 Make sure to check [consolidate.js](https://github.com/tj/consolidate.js) and your templating engine's documentation for guidelines on how to use partials.
+
+### partialExtension
+
+The file extension used on partial files. Only the first file matching this file extension will be passed into templating engine. 
+
+```json
+{
+  "plugins": {
+    "metalsmith-layouts": {
+      "engine": "handlebars",
+      "partials": "partials",
+      "partialExtension": ".html"
+    }
+  }
+}
+```
+
+Would mean that even if your partials folder contained `footer.html`, `footer.config.yaml` and `footer.md` (say for documentation or pattern library), only the `footer.html` would be passed to the templating engine.
 
 ### pattern
 
@@ -245,10 +262,6 @@ MIT
 
 [build-badge]: https://travis-ci.org/superwolff/metalsmith-layouts.svg
 [build-url]: https://travis-ci.org/superwolff/metalsmith-layouts
-[dependency-badge]: https://david-dm.org/superwolff/metalsmith-layouts.svg
-[dependency-url]: https://david-dm.org/superwolff/metalsmith-layouts
-[devdependency-badge]: https://david-dm.org/superwolff/metalsmith-layouts/dev-status.svg
-[devdependency-url]: https://david-dm.org/superwolff/metalsmith-layouts#info=devDependencies
 [downloads-badge]: https://img.shields.io/npm/dm/metalsmith-layouts.svg
 [downloads-url]: https://www.npmjs.com/package/metalsmith-layouts
 [slack-badge]: https://img.shields.io/badge/Slack-Join%20Chat%20→-blue.svg
