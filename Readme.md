@@ -81,6 +81,7 @@ You can pass options to `metalsmith-layouts` with the [Javascript API](https://g
 * [partialExtension](#partialextension): extension for the partial files (optional)
 * [pattern](#pattern): only files that match this pattern will be processed (optional)
 * [rename](#rename): change the file extension of processed files to `.html` (optional)
+* [requires](#requires): exposes consolidate.requires (optional)
 
 ### engine
 
@@ -206,7 +207,7 @@ Change the file extension of processed files to `.html` (optional). This option 
 
 Would rename the extensions of all processed files to `.html`.
 
-### exposeConsolidate
+### requires
 
 Not available over the `metalsmith.json` file.
 Exposes Consolidate.requires as a function.
@@ -214,17 +215,24 @@ Exposes Consolidate.requires as a function.
 ```js
 // ...
 .use(layout('swig', {
-  exposeConsolidate: function(requires) {
+  requires: function(requires) {
     // your code here
   }
 }))
 // ...
 ```
 
-
 ### Consolidate
 
 Any unrecognised options will be passed on to consolidate.js. You can use this, for example, to disable caching by passing `cache: false`. See the [consolidate.js documentation](https://github.com/tj/consolidate.js) for all options supported by consolidate.
+
+## FAQ
+
+#### Not able to render page within layout
+
+Your page is passed to the layout as a variable and won't be interpreted as your engin's markup.
+You want to convert the page before it is passed to the layout function.
+[metalsmith-in-place](https://github.com/superwolff/metalsmith-in-place) is meant for that.
 
 ## Origins
 
