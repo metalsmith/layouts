@@ -173,7 +173,13 @@ Would mean that even if your partials folder contained `footer.html`, `footer.co
 
 ### pattern
 
-Only files that match this pattern will be processed. So this `metalsmith.json`:
+Only files that match this pattern will be processed. The value may be:
+
+ * a string, passed to [multimatch](https://github.com/sindresorhus/multimatch) is used to match paths.
+ * a RegExp, tested against paths.
+ * an Object, where all values must match against their corresponding properties for a given file to pass the filter.
+
+So this `metalsmith.json` would process all files that have the `.hbs` extension. Beware that the extensions might be changed by other plugins in the build chain, preventing the pattern from matching.
 
 ```json
 {
@@ -186,8 +192,22 @@ Only files that match this pattern will be processed. So this `metalsmith.json`:
 }
 ```
 
-Would process all files that have the `.hbs` extension. Beware that the extensions might be changed by other plugins in the build chain, preventing the pattern from matching.
-We use [multimatch](https://github.com/sindresorhus/multimatch) for the pattern matching.
+This `metalsmith.json` would process all files in `articles` that specify a layout ending in `.hbs`. `path` is the only property that can be expressed as a globbing multimatch string, all other properties will be processed as a RegExp.
+Note that RegExp literals can not be expressed in json, so values must be expressed as a string and special regexp characters like `\` [must be escaped](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#Description) as in this example. If calling the plugin in js, you can use RegExp literals like `{ layout: /\.hbs$/ }`.
+
+```json
+{
+  "plugins": {
+    "metalsmith-layouts": {
+      "engine": "handlebars",
+      "pattern": {
+        "path": "articles/**/*",
+        "layout": "\\.hbs$"
+      }
+    }
+  }
+}
+```
 
 ### rename
 
