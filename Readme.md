@@ -6,9 +6,6 @@
 
 > A metalsmith plugin for layouts
 
-[![stack overflow][stackoverflow-badge]][stackoverflow-url]
-[![slack chat][slack-badge]][slack-url]
-
 This plugin allows you to apply layouts to your source files. It passes your source files to the selected layout as the variable `contents` and renders the result with the templating engine of your choice. You can use any templating engine supported by [consolidate.js](https://github.com/tj/consolidate.js#supported-template-engines).
 
 For support questions please use [stack overflow][stackoverflow-url] or our [slack channel][slack-url]. For templating engine specific questions try the aforementioned channels, as well as the documentation for [consolidate.js](https://github.com/tj/consolidate.js) and your templating engine of choice.
@@ -244,9 +241,7 @@ MIT
 [build-url]: https://travis-ci.org/superwolff/metalsmith-layouts
 [downloads-badge]: https://img.shields.io/npm/dm/metalsmith-layouts.svg
 [downloads-url]: https://www.npmjs.com/package/metalsmith-layouts
-[slack-badge]: https://img.shields.io/badge/Slack-Join%20Chat%20→-blue.svg
 [slack-url]: http://metalsmith-slack.herokuapp.com/
-[stackoverflow-badge]: https://img.shields.io/badge/stack%20overflow-%23metalsmith-red.svg
 [stackoverflow-url]: http://stackoverflow.com/questions/tagged/metalsmith
 [version-badge]: https://img.shields.io/npm/v/metalsmith-layouts.svg
 [version-url]: https://www.npmjs.com/package/metalsmith-layouts
