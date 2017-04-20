@@ -1,3 +1,7 @@
+1.8.1 - April 20, 2017
+----------------------
+* fix "too many opened files" error
+
 1.8.0 - February 3, 2017
 ------------------------
 * add partialExtension option, to fix partials matching on the wrong extension
