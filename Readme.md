@@ -151,8 +151,7 @@ The directory where `metalsmith-layouts` looks for partials. Each partial is nam
 
 Would mean that a partial at `partials/nav.html` can be used in layouts as `{{> nav }}`, and `partials/nested/footer.html` can be used as `{{> nested/footer }}`. Note that passing anything but a string to the `partials` option will pass the option on to consolidate.
 
-Make sure to check [consolidate.js](https://github.com/tj/consolidate.js) and your templating engine's documentation for guidelines on how to use partials.
-Please note that consolidate expects partial files to have the same file extension as any layout file. So all layout files and all partial files must use the same file extension.
+Make sure to check [consolidate.js](https://github.com/tj/consolidate.js) and your templating engine's documentation for guidelines on how to use partials. Please note that consolidate expects partial files to have the same file extension as any layout file. So all layout files and all partial files must use the same file extension.
 
 ### partialExtension
 

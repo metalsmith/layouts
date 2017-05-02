@@ -46,17 +46,17 @@ const msi = new metalsmith(basedir)
 //- add the .filename and .path properties to all file objects
 //- add a .files property to metalsmith.metadata()
 .use(function(files, metalsmith, done) {
-	let files_array = [];
-	
+  let files_array = [];
+  
   Object.keys(files).forEach(function(current, index, array) {
     let file = files[current];
     file.filename = current;
-		file.path = current;
-		files_array.push(file);
+    file.path = current;
+    files_array.push(file);
   });
-	
-	let metadata = metalsmith.metadata();
-	metadata.files = files_array;
+  
+  let metadata = metalsmith.metadata();
+  metadata.files = files_array;
   setImmediate(done());
 })//*/
 
@@ -71,43 +71,43 @@ msi
 
 //* pre-process
 .use(function(files, metalsmith, done) {
-	console.log("pre-proecess...");
+  console.log("pre-proecess...");
   const metadata = metalsmith.metadata();
   done();
 })//*/
 
 //*
 .use(layouts({
-	//- which template engine to use
-	engine: "handlebars",
-	
-	//- where to look for templates
-	directory: "layouts",
-	
-	//- process only file that multimatch this pattern
-	pattern: "**",
-	
-	//- which default template to use
-	"default": "layout-1.txt",
-	
-	//- where to look for partial files
-	partials: "partials",
-	
-	//- don't change the file extension to .html
-	rename: false,
-	
-	//- expose consolidate's requires cache
-	exposeConsolidate: function(requires_cache) {
-		console.log("requires-cache: ", requires_cache);
-	},
-	
-	//- some other setting to pass on to the template engine
-	other_setting: "other_value"
+  //- which template engine to use
+  engine: "handlebars",
+  
+  //- where to look for templates
+  directory: "layouts",
+  
+  //- process only file that multimatch this pattern
+  pattern: "**",
+  
+  //- which default template to use
+  "default": "layout-1.txt",
+  
+  //- where to look for partial files
+  partials: "partials",
+  
+  //- don't change the file extension to .html
+  rename: false,
+  
+  //- expose consolidate's requires cache
+  exposeConsolidate: function(requires_cache) {
+    console.log("requires-cache: ", requires_cache);
+  },
+  
+  //- some other setting to pass on to the template engine
+  other_setting: "other_value"
 }))//*/
 
 //* post-process
 .use(function(files, metalsmith, done) {
-	console.log("post-proecess...");
+  console.log("post-proecess...");
   const metadata = metalsmith.metadata();
   done();
 })//*/
