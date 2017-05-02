@@ -1,2 +1,7 @@
 node_modules
 debug.log
+
+# issue-126
+# to be removed when done
+# nbproject = NetBeans project folder
+nbproject
