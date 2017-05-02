@@ -1,0 +1,4 @@
+---
+layout: subfolder/layout-2.txt
+---
+contents of test-3.txt

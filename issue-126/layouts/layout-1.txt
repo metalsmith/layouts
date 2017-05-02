@@ -1,0 +1,3 @@
+layout-1.txt
+partial: [{{>partial-1}}]
+contents: [{{contents}}]

@@ -1,0 +1,5 @@
+layout-1.txt
+partial: [partial-1-content
+]
+contents: [contents of test-1.txt
+]

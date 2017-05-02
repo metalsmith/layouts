@@ -1,0 +1,3 @@
+layout-2.txt
+partial: [{{>subfolder/partial-2}}]
+contents: [{{contents}}]
