@@ -1,5 +1,7 @@
 # metalsmith-layouts
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ismay/metalsmith-layouts.svg)](https://greenkeeper.io/)
+
 [![npm version][version-badge]][version-url]
 [![build status][build-badge]][build-url]
 [![downloads][downloads-badge]][downloads-url]
