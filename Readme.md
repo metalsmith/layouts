@@ -230,15 +230,15 @@ Any unrecognised options will be passed on to consolidate.js. You can use this, 
 
 This plugin is a fork of the now deprecated [metalsmith-templates](https://github.com/segmentio/metalsmith-templates). Splitting up `metalsmith-templates` into two plugins was suggested by Ian Storm Taylor. The results are:
 
-* [metalsmith-in-place](https://github.com/superwolff/metalsmith-in-place): render templating syntax in your source files.
-* [metalsmith-layouts](https://github.com/superwolff/metalsmith-layouts): apply layouts to your source files.
+* [metalsmith-in-place](https://github.com/ismay/metalsmith-in-place): render templating syntax in your source files.
+* [metalsmith-layouts](https://github.com/ismay/metalsmith-layouts): apply layouts to your source files.
 
 ## License
 
 MIT
 
-[build-badge]: https://travis-ci.org/superwolff/metalsmith-layouts.svg
-[build-url]: https://travis-ci.org/superwolff/metalsmith-layouts
+[build-badge]: https://travis-ci.org/ismay/metalsmith-layouts.svg
+[build-url]: https://travis-ci.org/ismay/metalsmith-layouts
 [downloads-badge]: https://img.shields.io/npm/dm/metalsmith-layouts.svg
 [downloads-url]: https://www.npmjs.com/package/metalsmith-layouts
 [slack-url]: http://metalsmith-slack.herokuapp.com/

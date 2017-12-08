@@ -1,8 +1,8 @@
 {
   "name": "metalsmith-layouts",
-  "author": "superwolff <superwolff@superwolff.nl> (http://superwolff.nl/)",
+  "author": "ismay",
   "description": "A metalsmith plugin for layouts.",
-  "repository": "git://github.com/superwolff/metalsmith-layouts.git",
+  "repository": "git://github.com/ismay/metalsmith-layouts.git",
   "version": "1.8.1",
   "license": "MIT",
   "main": "lib/index.js",
