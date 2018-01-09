@@ -24,7 +24,6 @@
     "inputformat-to-jstransformer": "^1.2.1",
     "is-utf8": "^0.2.1",
     "jstransformer": "^1.0.0",
-    "metalsmith-engine-jstransformer": "^0.1.2",
     "multimatch": "^2.1.0"
   }
 }
