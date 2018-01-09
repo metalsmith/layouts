@@ -1,0 +1,10 @@
+# Dotfiles
+.editorconfig
+.eslintrc
+.gitattributes
+.gitignore
+.lintstagedrc
+.travis.yml
+
+# Tests
+/test

@@ -13,3 +13,8 @@ jobs:
       node_js: "8"
       script:
         - npm run test:coverage
+    - stage: lint
+      node_js: "8"
+      script:
+        - npm run lint:prettier
+        - npm run lint:js

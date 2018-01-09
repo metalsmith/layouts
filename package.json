@@ -7,7 +7,9 @@
   "repository": "git://github.com/ismay/metalsmith-layouts.git",
   "version": "2.0.0-alpha.1",
   "scripts": {
+    "precommit": "lint-staged",
     "lint:js": "eslint 'lib/**/*.js'",
+    "lint:prettier": "prettier --list-different 'lib/**/*.js'",
     "test": "jest",
     "test:coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls"
   },
@@ -21,10 +23,14 @@
     "coveralls": "^3.0.0",
     "eslint": "^4.8.0",
     "eslint-config-airbnb-base": "^12.0.2",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.7.0",
+    "husky": "^0.14.3",
     "jest": "^22.0.4",
     "jstransformer-handlebars": "^1.0.0",
+    "lint-staged": "^6.0.0",
     "metalsmith": "^2.3.0",
+    "prettier": "^1.9.2",
     "rimraf": "^2.6.2"
   },
   "dependencies": {

@@ -1,12 +1,6 @@
 {
-  "extends": "airbnb-base",
+  "extends": ["airbnb-base", "prettier"],
   "env": {
     "node": true
-  },
-  "rules": {
-    "semi": 0,
-    "arrow-parens": 0,
-    "comma-dangle": 0,
-    "function-paren-newline": 0
   }
 }
