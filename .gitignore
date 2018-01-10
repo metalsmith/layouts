@@ -1,2 +1,14 @@
+# Node
 node_modules
-debug.log
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Test build results
+test/fixtures/*/build
+
+# Babel build results
+dist
+
+# Coverage reports
+/coverage

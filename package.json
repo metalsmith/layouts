@@ -1,29 +1,42 @@
 {
-  "name": "metalsmith-layouts",
   "author": "ismay",
   "description": "A metalsmith plugin for layouts.",
-  "repository": "git://github.com/ismay/metalsmith-layouts.git",
-  "version": "1.8.1",
   "license": "MIT",
   "main": "lib/index.js",
+  "name": "metalsmith-layouts",
+  "repository": "git://github.com/ismay/metalsmith-layouts.git",
+  "version": "2.0.0-alpha.1",
   "scripts": {
-    "test": "mocha --reporter spec"
+    "precommit": "lint-staged",
+    "lint:js": "eslint 'lib/**/*.js'",
+    "lint:prettier": "prettier --list-different 'lib/**/*.js'",
+    "test": "jest",
+    "test:coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls"
   },
-  "dependencies": {
-    "async": "^1.3.0",
-    "consolidate": "^0.14.0",
-    "debug": "^2.2.0",
-    "extend": "^3.0.0",
-    "fs-readdir-recursive": "^1.0.0",
-    "is-utf8": "^0.2.0",
-    "lodash.omit": "^4.0.2",
-    "multimatch": "^2.0.0"
+  "jest": {
+    "collectCoverageFrom": [
+      "lib/*.js"
+    ]
   },
   "devDependencies": {
-    "assert-dir-equal": "^1.0.1",
-    "handlebars": "^4.0.2",
-    "metalsmith": "^2.0.1",
-    "mocha": "^2.2.5",
-    "swig": "^1.4.2"
+    "assert-dir-equal": "^1.1.0",
+    "coveralls": "^3.0.0",
+    "eslint": "^4.8.0",
+    "eslint-config-airbnb-base": "^12.0.2",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.7.0",
+    "husky": "^0.14.3",
+    "jest": "^22.0.4",
+    "jstransformer-handlebars": "^1.0.0",
+    "lint-staged": "^6.0.0",
+    "metalsmith": "^2.3.0",
+    "prettier": "^1.9.2",
+    "rimraf": "^2.6.2"
+  },
+  "dependencies": {
+    "inputformat-to-jstransformer": "^1.2.1",
+    "is-utf8": "^0.2.1",
+    "jstransformer": "^1.0.0",
+    "multimatch": "^2.1.0"
   }
 }
