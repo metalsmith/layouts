@@ -18,6 +18,12 @@
       "lib/*.js"
     ]
   },
+  "greenkeeper": {
+    "ignore": [
+      "eslint",
+      "eslint-plugin-import"
+    ]
+  },
   "devDependencies": {
     "assert-dir-equal": "^1.1.0",
     "coveralls": "^3.0.0",
