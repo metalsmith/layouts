@@ -2,6 +2,8 @@
 
 [![npm version][version-badge]][version-url]
 [![build status][build-badge]][build-url]
+[![coverage status][coverage-badge]][coverage-url]
+[![greenkeeper][greenkeeper-badge]][greenkeeper-url]
 [![downloads][downloads-badge]][downloads-url]
 
 > A metalsmith plugin for layouts
@@ -239,6 +241,10 @@ MIT
 
 [build-badge]: https://travis-ci.org/ismay/metalsmith-layouts.svg
 [build-url]: https://travis-ci.org/ismay/metalsmith-layouts
+[greenkeeper-badge]: https://badges.greenkeeper.io/ismay/metalsmith-layouts.svg
+[greenkeeper-url]: https://greenkeeper.io
+[coverage-badge]: https://coveralls.io/repos/github/ismay/metalsmith-layouts/badge.svg?branch=master
+[coverage-url]: https://coveralls.io/github/ismay/metalsmith-layouts?branch=master
 [downloads-badge]: https://img.shields.io/npm/dm/metalsmith-layouts.svg
 [downloads-url]: https://www.npmjs.com/package/metalsmith-layouts
 [slack-url]: http://metalsmith-slack.herokuapp.com/
