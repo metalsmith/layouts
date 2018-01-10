@@ -4,6 +4,7 @@
 .gitattributes
 .gitignore
 .lintstagedrc
+.prettierrc
 .travis.yml
 
 # Tests
