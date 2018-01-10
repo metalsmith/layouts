@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "name": "metalsmith-layouts",
   "repository": "git://github.com/ismay/metalsmith-layouts.git",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0",
   "scripts": {
     "precommit": "lint-staged",
     "lint:js": "eslint 'lib/**/*.js'",
