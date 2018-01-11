@@ -8,9 +8,19 @@
 
 > A metalsmith plugin for layouts
 
-This plugin allows you to apply layouts to your source files. It passes your source files to the selected layout as the variable `contents` and renders the result with the templating engine of your choice. You can use any templating engine supported by [consolidate.js](https://github.com/tj/consolidate.js#supported-template-engines).
+This plugin is a polyfill for rendering templates with templating languages that don't support inheritance. It passes your files to a template of your choice (a `layout`) as the variable `contents` and renders the result with the appropriate engine. It uses the file extension of your layout to infer which templating engine to use. So layouts with names ending in `.njk` will be processed as nunjucks, `.hbs` as handlebars, etc.
 
-For support questions please use [stack overflow][stackoverflow-url] or our [slack channel][slack-url]. For templating engine specific questions try the aforementioned channels, as well as the documentation for [consolidate.js](https://github.com/tj/consolidate.js) and your templating engine of choice.
+The best way to render templates is with [metalsmith-in-place](https://github.com/ismay/metalsmith-in-place) and a templating language that supports inheritance (like [nunjucks](https://mozilla.github.io/nunjucks/templating.html#template-inheritance) or [pug](https://pugjs.org/language/inheritance.html)). That way you'll have a simpler setup that's less error-prone, with support for recursive templating, chained jstransformers and more. So only use this plugin if you have a good reason for wanting to render templates with a language that doesn't support inheritance (like handlebars).
+
+For support questions please use [stack overflow][stackoverflow-url] or our [slack channel][slack-url]. For templating engine specific questions try the aforementioned channels, as well as the documentation for [jstransformers](https://github.com/jstransformers) and your templating engine of choice.
+
+## How does it work
+
+Under the hood this plugin uses [jstransformers](https://github.com/jstransformers/jstransformer) to render your layouts. Since there are over a 100 jstransformers we don't install them automatically, so you'll need to install the jstransformer for the language you want to use.
+
+For example, to render nunjucks you would install [jstransformer-nunjucks](https://github.com/jstransformers/jstransformer-nunjucks), to render handlebars you would install
+[jstransformer-handlebars](https://github.com/jstransformers/jstransformer-handlebars), etc. The plugin will then automatically detect which jstransformers you've installed. See the [jstransformer organisation](https://github.com/jstransformers) for all available jstransformers and [this dictionary](https://github.com/jstransformers/inputformat-to-jstransformer/blob/master/dictionary.json)
+to see which extensions map to which jstransformer.
 
 ## Installation
 
@@ -20,104 +30,109 @@ $ npm install metalsmith-layouts
 
 ## Example
 
-Configuration in `metalsmith.json`:
+### 1. Install dependencies:
 
-```json
+```
+$ npm install --save metalsmith metalsmith-layouts
+```
+
+In this case we'll use handlebars, so we'll install jstransformer-handlebars:
+
+```
+$ npm install --save jstransformer-handlebars
+```
+
+### 2. Configure metalsmith
+
+We'll create a `metalsmith.json` configuration file in the root of the project, a file in `./src` that we want to render in a
+layout and a handlebars layout for metalsmith-layouts to process in `./layouts`:
+
+`./metalsmith.json`
+
+```
 {
+  "source": "src",
+  "destination": "build",
   "plugins": {
-    "metalsmith-layouts": {
-      "engine": "handlebars"
-    }
+    "metalsmith-layouts": true
   }
 }
 ```
 
-Source file `src/index.html`:
+`./src/index.html`
 
 ```html
 ---
-layout: layout.html
 title: The title
+layout: layout.hbs
 ---
-<p>The contents</p>
+<p>Some text here.</p>
 ```
 
-Layout `layouts/layout.html`:
+`./layouts/layout.hbs`
 
-```html
-<!doctype html>
+```handlebars
+<!DOCTYPE html>
 <html>
-<head>
-  <title>{{title}}</title>
-</head>
-<body>
-  {{{contents}}}
-</body>
+  <head>
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    {{{ contents }}}
+  </body>
 </html>
 ```
 
-Results in `build/index.html`:
+### 3. Build
 
-```html
-<!doctype html>
-<html>
-<head>
-  <title>The title</title>
-</head>
-<body>
-  <p>The contents</p>
-</body>
-</html>
+To build just run the metalsmith CLI:
+
+```
+$ node_modules/.bin/metalsmith
 ```
 
-This is a very basic example. For more elaborate examples see the [metalsmith tag on stack overflow][stackoverflow-url].
+Which will output the following file:
+
+`./build/index.html`
+
+```
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The title</title>
+  </head>
+  <body>
+    <p>Some text here.</p>
+  </body>
+</html>
+```
 
 ## Options
 
 You can pass options to `metalsmith-layouts` with the [Javascript API](https://github.com/segmentio/metalsmith#api) or [CLI](https://github.com/segmentio/metalsmith#cli). The options are:
 
-* [engine](#engine): templating engine (required)
-* [default](#default): default template (optional)
-* [directory](#directory): directory for the layouts, layouts by default (optional)
-* [partials](#partials): directory for the partials (optional)
-* [partialExtension](#partialextension): extension for the partial files (optional)
-* [pattern](#pattern): only files that match this pattern will be processed (optional)
-* [rename](#rename): change the file extension of processed files to `.html` (optional)
-
-### engine
-
-The engine that will render your layouts. Metalsmith-layouts uses [consolidate.js](https://github.com/tj/consolidate.js) to render templating syntax, so any engine [supported by consolidate.js](https://github.com/tj/consolidate.js#supported-template-engines) can be used. Don't forget to install the templating engine separately. So this `metalsmith.json`:
-
-```json
-{
-  "plugins": {
-    "metalsmith-layouts": {
-      "engine": "swig"
-    }
-  }
-}
-```
-
-Will render your layouts with swig.
+* [default](#default): optional. The default layout to apply to files.
+* [directory](#directory): optional. The directory for the layouts. The default is `layouts`.
+* [pattern](#pattern): optional. Only files that match this pattern will be processed. The default is `**`.
+* [engineOptions](#engineOptions): optional. Use this to pass options to the jstransformer that's rendering your layouts. The default is `{}`.
 
 ### default
 
 The default layout to use. Can be overridden with the `layout` key in each file's YAML frontmatter, by passing either a layout or `false`. Passing `false` will skip the file entirely.
 
-If a `default` layout has been specified, `metalsmith-layouts` will process all files unless a pattern has been passed. Don't forget to specify the default template's file extension. So this `metalsmith.json`:
+If a `default` layout has been specified, `metalsmith-layouts` will apply layouts to all files, so you might want to ignore certain files with a pattern. Don't forget to specify the default template's file extension. So this `metalsmith.json`:
 
 ```json
 {
   "plugins": {
     "metalsmith-layouts": {
-      "engine": "swig",
-      "default": "default.html"
+      "default": "default.hbs"
     }
   }
 }
 ```
 
-Will apply the `default.html` layout to all files, unless overridden in the frontmatter.
+Will apply the `default.hbs` layout to all files, unless overridden in the frontmatter.
 
 ### directory
 
@@ -127,7 +142,6 @@ The directory where `metalsmith-layouts` looks for the layouts. By default this 
 {
   "plugins": {
     "metalsmith-layouts": {
-      "engine": "swig",
       "directory": "templates"
     }
   }
@@ -135,43 +149,6 @@ The directory where `metalsmith-layouts` looks for the layouts. By default this 
 ```
 
 Will look for layouts in the `templates` directory, instead of in `layouts`.
-
-### partials
-
-The directory where `metalsmith-layouts` looks for partials. Each partial is named by removing the file extension from its path (relative to the partials directory), so make sure to avoid duplicates. So this `metalsmith.json`:
-
-```json
-{
-  "plugins": {
-    "metalsmith-layouts": {
-      "engine": "handlebars",
-      "partials": "partials"
-    }
-  }
-}
-```
-
-Would mean that a partial at `partials/nav.html` can be used in layouts as `{{> nav }}`, and `partials/nested/footer.html` can be used as `{{> nested/footer }}`. Note that passing anything but a string to the `partials` option will pass the option on to consolidate.
-
-Make sure to check [consolidate.js](https://github.com/tj/consolidate.js) and your templating engine's documentation for guidelines on how to use partials.
-
-### partialExtension
-
-The file extension used on partial files. Only the first file matching this file extension will be passed into templating engine. 
-
-```json
-{
-  "plugins": {
-    "metalsmith-layouts": {
-      "engine": "handlebars",
-      "partials": "partials",
-      "partialExtension": ".html"
-    }
-  }
-}
-```
-
-Would mean that even if your partials folder contained `footer.html`, `footer.config.yaml` and `footer.md` (say for documentation or pattern library), only the `footer.html` would be passed to the templating engine.
 
 ### pattern
 
@@ -181,52 +158,31 @@ Only files that match this pattern will be processed. So this `metalsmith.json`:
 {
   "plugins": {
     "metalsmith-layouts": {
-      "engine": "handlebars",
-      "pattern": "**/*.hbs"
+      "pattern": "**/*.html"
     }
   }
 }
 ```
 
-Would process all files that have the `.hbs` extension. Beware that the extensions might be changed by other plugins in the build chain, preventing the pattern from matching.
-We use [multimatch](https://github.com/sindresorhus/multimatch) for the pattern matching.
+Would process all files that have the `.html` extension. Beware that the extensions might be changed by other plugins in the build chain, preventing the pattern from matching. We use [multimatch](https://github.com/sindresorhus/multimatch) for the pattern matching.
 
-### rename
+### engineOptions
 
-Change the file extension of processed files to `.html` (optional). This option is set to `false` by default. So for example this `metalsmith.json`:
+Use this to pass options to the jstransformer that's rendering your templates. So this `metalsmith.json`:
 
 ```json
 {
   "plugins": {
     "metalsmith-layouts": {
-      "engine": "handlebars",
-      "rename": true
+      "engineOptions": {
+        "cache": false
+      }
     }
   }
 }
 ```
 
-Would rename the extensions of all processed files to `.html`.
-
-### exposeConsolidate
-
-Not available over the `metalsmith.json` file.
-Exposes Consolidate.requires as a function.
-
-```js
-// ...
-.use(layout('swig', {
-  exposeConsolidate: function(requires) {
-    // your code here
-  }
-}))
-// ...
-```
-
-
-### Consolidate
-
-Any unrecognised options will be passed on to consolidate.js. You can use this, for example, to disable caching by passing `cache: false`. See the [consolidate.js documentation](https://github.com/tj/consolidate.js) for all options supported by consolidate.
+Would pass `{ "cache": false }` to the used jstransformer.
 
 ## Origins
 
