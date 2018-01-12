@@ -8,8 +8,8 @@
   "version": "2.0.0",
   "scripts": {
     "precommit": "lint-staged",
-    "lint:js": "eslint 'lib/**/*.js'",
-    "lint:prettier": "prettier --list-different 'lib/**/*.js'",
+    "lint:js": "eslint '**/*.js'",
+    "lint:prettier": "prettier --list-different '**/*.js'",
     "test": "jest",
     "test:coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls"
   },

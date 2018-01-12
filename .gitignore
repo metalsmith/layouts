@@ -7,8 +7,5 @@ package-lock.json
 # Test build results
 test/fixtures/*/build
 
-# Babel build results
-dist
-
 # Coverage reports
 /coverage
