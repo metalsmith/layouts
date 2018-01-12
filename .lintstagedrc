@@ -1,5 +1,5 @@
 {
-  "lib/**/*.js": [
+  "**/*.js": [
     "prettier --write",
     "git add",
     "eslint"
