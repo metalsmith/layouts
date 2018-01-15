@@ -28,17 +28,94 @@ to see which extensions map to which jstransformer.
 $ npm install metalsmith-layouts
 ```
 
+## Options
+
+You can pass options to `metalsmith-layouts` with the [Javascript API](https://github.com/segmentio/metalsmith#api) or [CLI](https://github.com/segmentio/metalsmith#cli). The options are:
+
+* [default](#default): optional. The default layout to apply to files.
+* [directory](#directory): optional. The directory for the layouts. The default is `layouts`.
+* [pattern](#pattern): optional. Only files that match this pattern will be processed. Accepts a string or an array of strings. The default is `**`.
+* [engineOptions](#engineoptions): optional. Use this to pass options to the jstransformer that's rendering your layouts. The default is `{}`.
+
+### `default`
+
+The default layout to use. Can be overridden with the `layout` key in each file's YAML frontmatter, by passing either a layout or `false`. Passing `false` will skip the file entirely.
+
+If a `default` layout has been specified, `metalsmith-layouts` will apply layouts to all files, so you might want to ignore certain files with a pattern. Don't forget to specify the default template's file extension. So this `metalsmith.json`:
+
+```json
+{
+  "plugins": {
+    "metalsmith-layouts": {
+      "default": "default.hbs"
+    }
+  }
+}
+```
+
+Will apply the `default.hbs` layout to all files, unless overridden in the frontmatter.
+
+### `directory`
+
+The directory where `metalsmith-layouts` looks for the layouts. By default this is `layouts`. So this `metalsmith.json`:
+
+```json
+{
+  "plugins": {
+    "metalsmith-layouts": {
+      "directory": "templates"
+    }
+  }
+}
+```
+
+Will look for layouts in the `templates` directory, instead of in `layouts`.
+
+### `pattern`
+
+Only files that match this pattern will be processed. So this `metalsmith.json`:
+
+```json
+{
+  "plugins": {
+    "metalsmith-layouts": {
+      "pattern": "**/*.html"
+    }
+  }
+}
+```
+
+Would process all files that have the `.html` extension. Beware that the extensions might be changed by other plugins in the build chain, preventing the pattern from matching. We use [multimatch](https://github.com/sindresorhus/multimatch) for the pattern matching.
+
+### `engineOptions`
+
+Use this to pass options to the jstransformer that's rendering your templates. So this `metalsmith.json`:
+
+```json
+{
+  "plugins": {
+    "metalsmith-layouts": {
+      "engineOptions": {
+        "cache": false
+      }
+    }
+  }
+}
+```
+
+Would pass `{ "cache": false }` to the used jstransformer.
+
 ## Example
 
 ### 1. Install dependencies:
 
-```
+```bash
 $ npm install --save metalsmith metalsmith-layouts
 ```
 
 In this case we'll use handlebars, so we'll install jstransformer-handlebars:
 
-```
+```bash
 $ npm install --save jstransformer-handlebars
 ```
 
@@ -49,7 +126,7 @@ layout and a handlebars layout for metalsmith-layouts to process in `./layouts`:
 
 `./metalsmith.json`
 
-```
+```json
 {
   "source": "src",
   "destination": "build",
@@ -87,7 +164,7 @@ layout: layout.hbs
 
 To build just run the metalsmith CLI:
 
-```
+```bash
 $ node_modules/.bin/metalsmith
 ```
 
@@ -95,7 +172,7 @@ Which will output the following file:
 
 `./build/index.html`
 
-```
+```html
 <!DOCTYPE html>
 <html>
   <head>
@@ -107,89 +184,10 @@ Which will output the following file:
 </html>
 ```
 
-## Options
+## Credits
 
-You can pass options to `metalsmith-layouts` with the [Javascript API](https://github.com/segmentio/metalsmith#api) or [CLI](https://github.com/segmentio/metalsmith#cli). The options are:
-
-* [default](#default): optional. The default layout to apply to files.
-* [directory](#directory): optional. The directory for the layouts. The default is `layouts`.
-* [pattern](#pattern): optional. Only files that match this pattern will be processed. The default is `**`.
-* [engineOptions](#engineOptions): optional. Use this to pass options to the jstransformer that's rendering your layouts. The default is `{}`.
-
-### default
-
-The default layout to use. Can be overridden with the `layout` key in each file's YAML frontmatter, by passing either a layout or `false`. Passing `false` will skip the file entirely.
-
-If a `default` layout has been specified, `metalsmith-layouts` will apply layouts to all files, so you might want to ignore certain files with a pattern. Don't forget to specify the default template's file extension. So this `metalsmith.json`:
-
-```json
-{
-  "plugins": {
-    "metalsmith-layouts": {
-      "default": "default.hbs"
-    }
-  }
-}
-```
-
-Will apply the `default.hbs` layout to all files, unless overridden in the frontmatter.
-
-### directory
-
-The directory where `metalsmith-layouts` looks for the layouts. By default this is `layouts`. So this `metalsmith.json`:
-
-```json
-{
-  "plugins": {
-    "metalsmith-layouts": {
-      "directory": "templates"
-    }
-  }
-}
-```
-
-Will look for layouts in the `templates` directory, instead of in `layouts`.
-
-### pattern
-
-Only files that match this pattern will be processed. So this `metalsmith.json`:
-
-```json
-{
-  "plugins": {
-    "metalsmith-layouts": {
-      "pattern": "**/*.html"
-    }
-  }
-}
-```
-
-Would process all files that have the `.html` extension. Beware that the extensions might be changed by other plugins in the build chain, preventing the pattern from matching. We use [multimatch](https://github.com/sindresorhus/multimatch) for the pattern matching.
-
-### engineOptions
-
-Use this to pass options to the jstransformer that's rendering your templates. So this `metalsmith.json`:
-
-```json
-{
-  "plugins": {
-    "metalsmith-layouts": {
-      "engineOptions": {
-        "cache": false
-      }
-    }
-  }
-}
-```
-
-Would pass `{ "cache": false }` to the used jstransformer.
-
-## Origins
-
-This plugin is a fork of the now deprecated [metalsmith-templates](https://github.com/segmentio/metalsmith-templates). Splitting up `metalsmith-templates` into two plugins was suggested by Ian Storm Taylor. The results are:
-
-* [metalsmith-in-place](https://github.com/ismay/metalsmith-in-place): render templating syntax in your source files.
-* [metalsmith-layouts](https://github.com/ismay/metalsmith-layouts): apply layouts to your source files.
+* [Ian Storm Taylor](https://github.com/ianstormtaylor) for creating [metalsmith-templates](https://github.com/segmentio/metalsmith-templates), on which this plugin was based
+* [Rob Loach](https://github.com/RobLoach) for creating [metalsmith-jstransformer](https://github.com/RobLoach/metalsmith-jstransformer), which inspired our switch to jstransformers
 
 ## License
 
