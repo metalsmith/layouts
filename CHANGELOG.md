@@ -3,7 +3,7 @@
 * breaking: dropped node 0.12 and node 4 support
 * breaking: removed options:
   * `engine`: inferred automatically from the layout extension by jstransformer
-  * `partials`: use metalsmith-register-partials instead
+  * `partials`: use metalsmith-discover-partials (and metalsmith-discover-helpers) instead
   * `partialExtension`: no longer necessary
   * `rename`: use metalsmith-rename instead
   * `exposeConsolidate`: no longer necessary
