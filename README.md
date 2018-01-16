@@ -184,6 +184,20 @@ Which will output the following file:
 </html>
 ```
 
+## FAQ
+
+> I want to use handlebars partials and or helpers.
+
+Use [metalsmith-discover-partials](https://www.npmjs.com/package/metalsmith-discover-partials) and [metalsmith-discover-helpers](https://www.npmjs.com/package/metalsmith-discover-helpers).
+
+> I want to change the extension of my templates.
+
+Use [metalsmith-rename](https://www.npmjs.com/package/metalsmith-rename).
+
+> My templating language requires a filename property to be set.
+
+Use [metalsmith-filenames](https://www.npmjs.com/package/metalsmith-filenames).
+
 ## Credits
 
 * [Ian Storm Taylor](https://github.com/ianstormtaylor) for creating [metalsmith-templates](https://github.com/segmentio/metalsmith-templates), on which this plugin was based
