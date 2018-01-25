@@ -1,3 +1,7 @@
+### 2.1.0 - January 25, 2018
+* add a documentation link to the error messages
+* add debug for better debugging
+
 ### 2.0.0 - January 10, 2018
 * moved to jstransformers (and dropped consolidate)
 * breaking: dropped node 0.12 and node 4 support
