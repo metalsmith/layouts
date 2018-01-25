@@ -40,6 +40,7 @@
     "rimraf": "^2.6.2"
   },
   "dependencies": {
+    "debug": "^3.1.0",
     "inputformat-to-jstransformer": "^1.2.1",
     "is-utf8": "^0.2.1",
     "jstransformer": "^1.0.0",
