@@ -220,7 +220,7 @@ There are several things that might cause you to get a `no files to process` err
 
 ## License
 
-MIT
+[MIT](https://ismay.mit-license.org/)
 
 [build-badge]: https://travis-ci.org/ismay/metalsmith-layouts.svg
 [build-url]: https://travis-ci.org/ismay/metalsmith-layouts
