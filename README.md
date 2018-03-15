@@ -87,6 +87,21 @@ Only files that match this pattern will be processed. So this `metalsmith.json`:
 
 Would process all files that have the `.html` extension. Beware that the extensions might be changed by other plugins in the build chain, preventing the pattern from matching. We use [multimatch](https://github.com/sindresorhus/multimatch) for the pattern matching.
 
+### `engine`
+
+Use this to specify which jstransformer should be use regardless of the .ext type.  This allows for example, `mustache` engine with `.html` layouts.
+
+```json
+{
+  "plugins": {
+    "metalsmith-layouts": {
+      "engine": "mustache"
+    }
+  }
+}
+```
+
+
 ### `engineOptions`
 
 Use this to pass options to the jstransformer that's rendering your templates. So this `metalsmith.json`:
