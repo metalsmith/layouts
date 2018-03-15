@@ -1,3 +1,6 @@
+### 2.1.?? - March 15, 2018
+* returned `engine` option 'cos it's a really good idea
+
 ### 2.1.0 - January 25, 2018
 * add a documentation link to the error messages
 * add debug for better debugging

@@ -9,3 +9,6 @@ test/fixtures/*/build
 
 # Coverage reports
 /coverage
+
+# OSX
+**/.DS_Store
