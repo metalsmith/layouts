@@ -8,7 +8,7 @@
 
 This plugin is a polyfill for rendering templates with templating languages that don't support inheritance. It passes your files to a template of your choice (a `layout`) as the variable `contents` and renders the result with the appropriate engine. It uses the file extension of your layout to infer which templating engine to use. So layouts with names ending in `.njk` will be processed as nunjucks, `.hbs` as handlebars, etc.
 
-The best way to render templates is with [metalsmith-in-place](https://github.com/ismay/metalsmith-in-place) and a templating language that supports inheritance (like [nunjucks](https://mozilla.github.io/nunjucks/templating.html#template-inheritance) or [pug](https://pugjs.org/language/inheritance.html)). That way you'll have a simpler setup that's less error-prone, with support for recursive templating, chained jstransformers and more. So only use this plugin if you have a good reason for wanting to render templates with a language that doesn't support inheritance (like handlebars).
+The best way to render templates is with [metalsmith-in-place](https://github.com/metalsmith/metalsmith-in-place) and a templating language that supports inheritance (like [nunjucks](https://mozilla.github.io/nunjucks/templating.html#template-inheritance) or [pug](https://pugjs.org/language/inheritance.html)). That way you'll have a simpler setup that's less error-prone, with support for recursive templating, chained jstransformers and more. So only use this plugin if you have a good reason for wanting to render templates with a language that doesn't support inheritance (like handlebars).
 
 For support questions please use [stack overflow][stackoverflow-url] or our [slack channel][slack-url]. For templating engine specific questions try the aforementioned channels, as well as the documentation for [jstransformers](https://github.com/jstransformers) and your templating engine of choice.
 
@@ -220,11 +220,11 @@ There are several things that might cause you to get a `no files to process` err
 
 [MIT](https://ismay.mit-license.org/)
 
-[build-badge]: https://travis-ci.org/ismay/metalsmith-layouts.svg
-[build-url]: https://travis-ci.org/ismay/metalsmith-layouts
-[greenkeeper-badge]: https://badges.greenkeeper.io/ismay/metalsmith-layouts.svg
+[build-badge]: https://travis-ci.org/metalsmith/metalsmith-layouts.svg
+[build-url]: https://travis-ci.org/metalsmith/metalsmith-layouts
+[greenkeeper-badge]: https://badges.greenkeeper.io/metalsmith/metalsmith-layouts.svg
 [greenkeeper-url]: https://greenkeeper.io
-[coverage-badge]: https://coveralls.io/repos/github/ismay/metalsmith-layouts/badge.svg?branch=master
-[coverage-url]: https://coveralls.io/github/ismay/metalsmith-layouts?branch=master
+[coverage-badge]: https://coveralls.io/repos/github/metalsmith/metalsmith-layouts/badge.svg?branch=master
+[coverage-url]: https://coveralls.io/github/metalsmith/metalsmith-layouts?branch=master
 [slack-url]: http://metalsmith-slack.herokuapp.com/
 [stackoverflow-url]: http://stackoverflow.com/questions/tagged/metalsmith
