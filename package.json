@@ -20,8 +20,19 @@
   },
   "greenkeeper": {
     "ignore": [
+      "assert-dir-equal",
+      "coveralls",
       "eslint",
-      "eslint-plugin-import"
+      "eslint-config-airbnb-base",
+      "eslint-config-prettier",
+      "eslint-plugin-import",
+      "husky",
+      "jest",
+      "jstransformer-handlebars",
+      "lint-staged",
+      "metalsmith",
+      "prettier",
+      "rimraf"
     ]
   },
   "devDependencies": {
