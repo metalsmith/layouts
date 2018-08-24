@@ -34,6 +34,7 @@ You can pass options to `metalsmith-layouts` with the [Javascript API](https://g
 * [directory](#directory): optional. The directory for the layouts. The default is `layouts`.
 * [pattern](#pattern): optional. Only files that match this pattern will be processed. Accepts a string or an array of strings. The default is `**`.
 * [engineOptions](#engineoptions): optional. Use this to pass options to the jstransformer that's rendering your layouts. The default is `{}`.
+* [suppressNoFilesError](#suppressNoFilesError): optional. Use this to prevent an error from being thrown when there are no files to process.
 
 ### `default`
 
@@ -102,6 +103,10 @@ Use this to pass options to the jstransformer that's rendering your templates. S
 ```
 
 Would pass `{ "cache": false }` to the used jstransformer.
+
+### `suppressNoFilesError`
+
+If true, do not throw an error when there are no files to process. This is useful when using plugins like [metalsmith-watch](https://www.npmjs.com/package/metalsmith-watch), since this plugin would otherwise throw an error when only files without layouts (like CSS) are changed.
 
 ## Example
 
