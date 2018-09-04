@@ -1,3 +1,6 @@
+### 2.2.0 - September 4, 2018
+* add suppressNoFilesError feature
+
 ### 2.1.0 - January 25, 2018
 * add a documentation link to the error messages
 * add debug for better debugging
