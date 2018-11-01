@@ -1,3 +1,6 @@
+### 2.3.0 - November 1, 2018
+* add support for async rendering
+
 ### 2.2.0 - September 4, 2018
 * add suppressNoFilesError feature
 
