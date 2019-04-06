@@ -225,7 +225,7 @@ There are several things that might cause you to get a `no files to process` err
 
 [MIT](https://ismay.mit-license.org/)
 
-[build-badge]: https://travis-ci.org/metalsmith/metalsmith-layouts.svg
+[build-badge]: https://travis-ci.org/metalsmith/metalsmith-layouts.svg?branch=master
 [build-url]: https://travis-ci.org/metalsmith/metalsmith-layouts
 [greenkeeper-badge]: https://badges.greenkeeper.io/metalsmith/metalsmith-layouts.svg
 [greenkeeper-url]: https://greenkeeper.io
