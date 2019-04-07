@@ -1,3 +1,6 @@
+### 2.3.1 - April 7, 2019
+* prefix rendering errors with filename that caused the error
+
 ### 2.3.0 - November 1, 2018
 * add support for async rendering
 
