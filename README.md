@@ -6,9 +6,9 @@
 
 > A metalsmith plugin for layouts
 
-This plugin allows you to wrap your files in a template (a `layout`) and abstract repetitive html. The plugin will pass the contents of your files as the variable `contents` and renders the result with the appropriate engine. It uses the file extension of your layout to infer which templating engine to use. So layouts with names ending in `.njk` will be processed as nunjucks, `.hbs` as handlebars, etc.
+This plugin allows you to wrap your files in a template (a `layout`) and abstract repetitive html. The plugin will pass the contents of your files to the layout as the variable `contents`, and renders the result with the appropriate templating engine. It uses the file extension of your layout to infer which templating engine to use. So layouts with names ending in `.njk` will be processed as nunjucks, `.hbs` as handlebars, etc.
 
-If you want to process templating syntax *in* your files, instead of wrapping them in a template, you can use [metalsmith-in-place](https://github.com/metalsmith/metalsmith-in-place). For support questions please use [stack overflow][stackoverflow-url] or our [slack channel][slack-url]. For templating engine specific questions try the aforementioned channels, as well as the documentation for [jstransformers](https://github.com/jstransformers) and your templating engine of choice.
+If you want to process templating syntax *in* your files, instead of wrapping them in a template, you can use [metalsmith-in-place](https://github.com/metalsmith/metalsmith-in-place). For usage examples check out our [wiki](https://github.com/metalsmith/metalsmith-layouts/wiki). Feel free to contribute an example if anything is missing, or update the existing ones. For support questions please use [stack overflow][stackoverflow-url] or our [slack channel][slack-url]. For templating engine specific questions try the aforementioned channels, as well as the documentation for [jstransformers](https://github.com/jstransformers) and your templating engine of choice.
 
 ## How does it work
 
@@ -32,7 +32,7 @@ You can pass options to `metalsmith-layouts` with the [Javascript API](https://g
 * [directory](#directory): optional. The directory for the layouts. The default is `layouts`.
 * [pattern](#pattern): optional. Only files that match this pattern will be processed. Accepts a string or an array of strings. The default is `**`.
 * [engineOptions](#engineoptions): optional. Use this to pass options to the jstransformer that's rendering your layouts. The default is `{}`.
-* [suppressNoFilesError](#suppressnofileserror): optional. An error won’t be thrown if no files are present for processing.
+* [suppressNoFilesError](#suppressnofileserror): optional. By default `metalsmith-layouts` will exit with an error if there aren't any files to process. Enabling this option will suppress that error.
 
 ### `default`
 
@@ -104,88 +104,9 @@ Would pass `{ "cache": false }` to the used jstransformer.
 
 ### `suppressNoFilesError`
 
-`metalsmith-layouts` throws [an error](#no-files-to-process) in metalsmith if it can’t find any files to process. If you’re doing any kind of incremental builds via something like `metalsmith-watch`, this is problematic as you’re likely only rebuilding files that have changed. This flag allows you to suppress that error.
+`metalsmith-layouts` exits with [an error](#no-files-to-process) if it can’t find any files to process. If you’re doing any kind of incremental builds via something like `metalsmith-watch`, this is problematic as you’re likely only rebuilding files that have changed. This flag allows you to suppress that error.
 
-Note that if you have [debugging](#errors-and-debugging) turned on, you’ll see a message denoting when no files are present for processing.
-
-## Example
-
-### 1. Install dependencies:
-
-```bash
-$ npm install --save metalsmith metalsmith-layouts
-```
-
-In this case we'll use handlebars, so we'll install jstransformer-handlebars:
-
-```bash
-$ npm install --save jstransformer-handlebars
-```
-
-### 2. Configure metalsmith
-
-We'll create a `metalsmith.json` configuration file in the root of the project, a file in `./src` that we want to render in a
-layout and a handlebars layout for metalsmith-layouts to process in `./layouts`:
-
-`./metalsmith.json`
-
-```json
-{
-  "source": "src",
-  "destination": "build",
-  "plugins": {
-    "metalsmith-layouts": true
-  }
-}
-```
-
-`./src/index.html`
-
-```html
----
-title: The title
-layout: layout.hbs
----
-<p>Some text here.</p>
-```
-
-`./layouts/layout.hbs`
-
-```handlebars
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>{{ title }}</title>
-  </head>
-  <body>
-    {{{ contents }}}
-  </body>
-</html>
-```
-
-### 3. Build
-
-To build just run the metalsmith CLI:
-
-```bash
-$ node_modules/.bin/metalsmith
-```
-
-Which will output the following file:
-
-`./build/index.html`
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>The title</title>
-  </head>
-  <body>
-    <p>Some text here.</p>
-  </body>
-</html>
-```
+Note that when this option is turned on, if you're logging [debug](#errors-and-debugging) messages, you’ll still see a message denoting when there aren't any files for `metalsmith-layouts` to process.
 
 ## FAQ
 
