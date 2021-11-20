@@ -2,7 +2,6 @@
 
 [![build status][build-badge]][build-url]
 [![coverage status][coverage-badge]][coverage-url]
-[![greenkeeper][greenkeeper-badge]][greenkeeper-url]
 
 > A metalsmith plugin for layouts
 
@@ -148,8 +147,6 @@ There are several things that might cause you to get a `no files to process` err
 
 [build-badge]: https://travis-ci.org/metalsmith/metalsmith-layouts.svg?branch=master
 [build-url]: https://travis-ci.org/metalsmith/metalsmith-layouts
-[greenkeeper-badge]: https://badges.greenkeeper.io/metalsmith/metalsmith-layouts.svg
-[greenkeeper-url]: https://greenkeeper.io
 [coverage-badge]: https://coveralls.io/repos/github/metalsmith/metalsmith-layouts/badge.svg?branch=master
 [coverage-url]: https://coveralls.io/github/metalsmith/metalsmith-layouts?branch=master
 [slack-url]: http://metalsmith-slack.herokuapp.com/

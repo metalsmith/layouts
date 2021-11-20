@@ -18,23 +18,6 @@
       "lib/*.js"
     ]
   },
-  "greenkeeper": {
-    "ignore": [
-      "assert-dir-equal",
-      "coveralls",
-      "eslint",
-      "eslint-config-airbnb-base",
-      "eslint-config-prettier",
-      "eslint-plugin-import",
-      "husky",
-      "jest",
-      "jstransformer-handlebars",
-      "lint-staged",
-      "metalsmith",
-      "prettier",
-      "rimraf"
-    ]
-  },
   "devDependencies": {
     "assert-dir-equal": "^1.1.0",
     "coveralls": "^3.0.0",
