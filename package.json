@@ -6,6 +6,9 @@
   "name": "metalsmith-layouts",
   "repository": "git://github.com/metalsmith/metalsmith-layouts.git",
   "version": "2.3.1",
+  "engines": {
+    "node": ">=8"
+  },
   "scripts": {
     "precommit": "lint-staged",
     "lint:js": "eslint '**/*.js'",
@@ -20,25 +23,25 @@
   },
   "devDependencies": {
     "assert-dir-equal": "^1.1.0",
-    "coveralls": "^3.0.0",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb-base": "^13.0.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-import": "^2.13.0",
-    "husky": "^0.14.3",
-    "jest": "^24.7.1",
-    "jstransformer-handlebars": "^1.0.0",
+    "coveralls": "^3.1.1",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "husky": "^3.1.0",
+    "jest": "^25.5.4",
+    "jstransformer-handlebars": "^1.1.0",
     "jstransformer-qejs": "^0.2.0",
-    "lint-staged": "^7.0.0",
+    "lint-staged": "^8.2.1",
     "metalsmith": "^2.3.0",
-    "prettier": "^1.9.2",
-    "rimraf": "^2.6.2"
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "debug": "^3.1.0",
-    "inputformat-to-jstransformer": "^1.2.1",
+    "debug": "^4.3.3",
+    "inputformat-to-jstransformer": "^1.4.0",
     "is-utf8": "^0.2.1",
     "jstransformer": "^1.0.0",
-    "multimatch": "^2.1.0"
+    "multimatch": "^4.0.0"
   }
 }
