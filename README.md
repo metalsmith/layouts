@@ -42,11 +42,13 @@ If a `default` layout has been specified, `metalsmith-layouts` will apply layout
 
 ```json
 {
-  "plugins": {
-    "metalsmith-layouts": {
-      "default": "default.hbs"
+  "plugins": [
+    {
+      "metalsmith-layouts": {
+        "default": "default.hbs"
+      }
     }
-  }
+  ]
 }
 ```
 
@@ -58,11 +60,13 @@ The directory where `metalsmith-layouts` looks for the layouts. By default this 
 
 ```json
 {
-  "plugins": {
-    "metalsmith-layouts": {
-      "directory": "templates"
+  "plugins": [
+    {
+      "metalsmith-layouts": {
+        "directory": "templates"
+      }
     }
-  }
+  ]
 }
 ```
 
@@ -74,11 +78,13 @@ Only files that match this pattern will be processed. So this `metalsmith.json`:
 
 ```json
 {
-  "plugins": {
-    "metalsmith-layouts": {
-      "pattern": "**/*.html"
+  "plugins": [
+    {
+      "metalsmith-layouts": {
+        "pattern": "**/*.html"
+      }
     }
-  }
+  ]
 }
 ```
 
@@ -90,13 +96,15 @@ Use this to pass options to the jstransformer that's rendering your templates. S
 
 ```json
 {
-  "plugins": {
-    "metalsmith-layouts": {
-      "engineOptions": {
-        "cache": false
+  "plugins": [
+    {
+      "metalsmith-layouts": {
+        "engineOptions": {
+          "cache": false
+        }
       }
     }
-  }
+  ]
 }
 ```
 
