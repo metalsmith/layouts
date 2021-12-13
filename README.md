@@ -2,13 +2,12 @@
 
 [![build status][build-badge]][build-url]
 [![coverage status][coverage-badge]][coverage-url]
-[![greenkeeper][greenkeeper-badge]][greenkeeper-url]
 
 > A metalsmith plugin for layouts
 
 This plugin allows you to wrap your files in a template (a `layout`) and abstract repetitive html. The plugin will pass the contents of your files to the layout as the variable `contents`, and renders the result with the appropriate templating engine. It uses the file extension of your layout to infer which templating engine to use. So layouts with names ending in `.njk` will be processed as nunjucks, `.hbs` as handlebars, etc.
 
-If you want to process templating syntax *in* your files, instead of wrapping them in a template, you can use [metalsmith-in-place](https://github.com/metalsmith/metalsmith-in-place). For usage examples check out our [wiki](https://github.com/metalsmith/metalsmith-layouts/wiki). Feel free to contribute an example if anything is missing, or update the existing ones. For support questions please use [stack overflow][stackoverflow-url] or our [slack channel][slack-url]. For templating engine specific questions try the aforementioned channels, as well as the documentation for [jstransformers](https://github.com/jstransformers) and your templating engine of choice.
+If you want to process templating syntax *in* your files, instead of wrapping them in a template, you can use [metalsmith-in-place](https://github.com/metalsmith/metalsmith-in-place). For usage examples check out our [wiki](https://github.com/metalsmith/metalsmith-layouts/wiki). Feel free to contribute an example if anything is missing, or update the existing ones. For support questions please use [Stack Overflow][stackoverflow-url]. For templating engine specific questions try the aforementioned channels, as well as the documentation for [jstransformers](https://github.com/jstransformers) and your templating engine of choice.
 
 ## How does it work
 
@@ -156,9 +155,6 @@ There are several things that might cause you to get a `no files to process` err
 
 [build-badge]: https://travis-ci.org/metalsmith/metalsmith-layouts.svg?branch=master
 [build-url]: https://travis-ci.org/metalsmith/metalsmith-layouts
-[greenkeeper-badge]: https://badges.greenkeeper.io/metalsmith/metalsmith-layouts.svg
-[greenkeeper-url]: https://greenkeeper.io
 [coverage-badge]: https://coveralls.io/repos/github/metalsmith/metalsmith-layouts/badge.svg?branch=master
 [coverage-url]: https://coveralls.io/github/metalsmith/metalsmith-layouts?branch=master
-[slack-url]: http://metalsmith-slack.herokuapp.com/
-[stackoverflow-url]: http://stackoverflow.com/questions/tagged/metalsmith
+[stackoverflow-url]: https://stackoverflow.com/questions/tagged/metalsmith
