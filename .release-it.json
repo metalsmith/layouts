@@ -1,0 +1,24 @@
+{
+  "hooks": {
+    "before:init": ["npm run lint", "npm test"],
+    "after:bump": "auto-changelog --starting-date 2021-12-01 -p --commit-limit false --ignore-commit-pattern '^((dev|chore|ci):|Release)'",
+    "after:npm:bump": "npm pack",
+    "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
+  },
+  "git": {
+    "commitMessage": "Release ${version}",
+    "commitArgs": ["-S"],
+    "tagAnnotation": "Release ${version}",
+    "tagArgs": ["-s"],
+    "changelog": "auto-changelog -u --commit-limit false --ignore-commit-pattern '^((dev|chore|ci):|Release)' --stdout -t https://raw.githubusercontent.com/release-it/release-it/master/templates/changelog-compact.hbs"
+  },
+  "npm": {
+    "publish": false
+  },
+  "github": {
+    "release": true,
+    "releaseName": "@metalsmith/layouts ${version}",
+    "tokenRef": "GITHUB_TOKEN",
+    "assets": ["metalsmith-layouts-${version}.tgz"]
+  }
+}

@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`metalsmith-layouts should prefix rendering errors with the filename 1`] = `"index.html: Something went wrong while rendering"`;
-
-exports[`metalsmith-layouts should return an error for an invalid pattern 1`] = `"invalid pattern, the pattern option should be a string or array of strings. See https://www.npmjs.com/package/metalsmith-layouts#pattern"`;
-
-exports[`metalsmith-layouts should return an error when there are no valid files to process 1`] = `"no files to process. See https://www.npmjs.com/package/metalsmith-layouts#no-files-to-process"`;

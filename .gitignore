@@ -1,11 +1,13 @@
-# Node
+# NPM
 node_modules
-npm-debug.log
-yarn-error.log
-package-lock.json
+npm-debug.log*
+.npm
+*.tgz
 
-# Test build results
-test/fixtures/*/build
+# ESLint Cache
+.eslintcache
 
-# Coverage reports
-/coverage
+# tests
+**/build
+coverage.info
+.nyc_output

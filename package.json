@@ -1,41 +1,35 @@
 {
-  "author": "ismay",
-  "description": "A metalsmith plugin for layouts.",
-  "license": "MIT",
-  "main": "lib/index.js",
-  "name": "metalsmith-layouts",
-  "repository": "git://github.com/metalsmith/metalsmith-layouts.git",
+  "name": "@metalsmith/layouts",
   "version": "2.3.1",
-  "engines": {
-    "node": ">=8"
+  "description": "A metalsmith plugin for layouts",
+  "homepage": "https://github.com/metalsmith/layouts#readme",
+  "bugs": {
+    "url": "https://github.com/metalsmith/layouts/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/metalsmith/layouts.git"
+  },
+  "license": "MIT",
+  "author": "Ismay Wolff (https://www.wolffsoftwareengineering.nl)",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "lib",
+    "CHANGELOG.md"
+  ],
   "scripts": {
-    "precommit": "lint-staged",
-    "lint:js": "eslint '**/*.js'",
-    "lint:prettier": "prettier --list-different '**/*.js'",
-    "test": "jest",
-    "test:coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "lib/*.js"
-    ]
-  },
-  "devDependencies": {
-    "assert-dir-equal": "^1.1.0",
-    "coveralls": "^3.1.1",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-import": "^2.25.3",
-    "husky": "^3.1.0",
-    "jest": "^25.5.4",
-    "jstransformer-handlebars": "^1.1.0",
-    "jstransformer-qejs": "^0.2.0",
-    "lint-staged": "^8.2.1",
-    "metalsmith": "^2.3.0",
-    "prettier": "^1.19.1",
-    "rimraf": "^3.0.2"
+    "changelog": "auto-changelog -u --starting-date 2021-12-01 --commit-limit false --ignore-commit-pattern '^((dev|chore|ci):|Release)'",
+    "coverage": "nyc report --reporter=text-lcov > ./coverage.info",
+    "coveralls": "npm run coverage && cat ./coverage.info | coveralls",
+    "dev": "nodemon --exec 'npm test'",
+    "format": "prettier --write \"**/*.{yml,md,js,json}\"",
+    "lint": "eslint --cache --fix .",
+    "release": "release-it .",
+    "test": "nyc mocha"
   },
   "dependencies": {
     "debug": "^4.3.3",
@@ -43,5 +37,25 @@
     "is-utf8": "^0.2.1",
     "jstransformer": "^1.0.0",
     "multimatch": "^4.0.0"
+  },
+  "devDependencies": {
+    "assert-dir-equal": "^1.1.0",
+    "auto-changelog": "^2.3.0",
+    "coveralls": "^3.1.1",
+    "eslint": "^8.5.0",
+    "eslint-config-prettier": "^8.3.0",
+    "jstransformer-handlebars": "^1.1.0",
+    "jstransformer-qejs": "^0.2.0",
+    "metalsmith": "^2.3.0",
+    "mocha": "^7.2.0",
+    "nyc": "^15.1.0",
+    "prettier": "^2.5.1",
+    "rimraf": "^3.0.2"
+  },
+  "peerDependencies": {
+    "metalsmith": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

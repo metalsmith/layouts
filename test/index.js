@@ -1,16 +1,12 @@
-/* eslint-env jest */
-
 const Metalsmith = require('metalsmith');
 const equal = require('assert-dir-equal');
 const rimraf = require('rimraf');
 const path = require('path');
-const plugin = require('./index');
+const plugin = require('..');
+const { it, describe } = require('mocha');
+const { doesNotThrow, strictEqual } = require('assert');
 
-describe('metalsmith-layouts', () => {
-  beforeEach(() => {
-    jest.resetModules();
-  });
-
+describe('@metalsmith/layouts', () => {
   it('should apply a single layout to a single file', done => {
     const base = path.join(process.cwd(), 'test', 'fixtures', 'single-file');
     const actual = path.join(base, 'build');
@@ -23,7 +19,7 @@ describe('metalsmith-layouts', () => {
       if (err) {
         return done(err);
       }
-      expect(() => equal(actual, expected)).not.toThrow();
+      doesNotThrow(() => equal(actual, expected));
       return done();
     });
   });
@@ -40,7 +36,7 @@ describe('metalsmith-layouts', () => {
       if (err) {
         return done(err);
       }
-      expect(() => equal(actual, expected)).not.toThrow();
+      doesNotThrow(() => equal(actual, expected));
       return done();
     });
   });
@@ -57,7 +53,7 @@ describe('metalsmith-layouts', () => {
       if (err) {
         return done(err);
       }
-      expect(() => equal(actual, expected)).not.toThrow();
+      doesNotThrow(() => equal(actual, expected));
       return done();
     });
   });
@@ -74,7 +70,7 @@ describe('metalsmith-layouts', () => {
       if (err) {
         return done(err);
       }
-      expect(() => equal(actual, expected)).not.toThrow();
+      doesNotThrow(() => equal(actual, expected));
       return done();
     });
   });
@@ -91,7 +87,7 @@ describe('metalsmith-layouts', () => {
       if (err) {
         return done(err);
       }
-      expect(() => equal(actual, expected)).not.toThrow();
+      doesNotThrow(() => equal(actual, expected));
       return done();
     });
   });
@@ -108,7 +104,7 @@ describe('metalsmith-layouts', () => {
       if (err) {
         return done(err);
       }
-      expect(() => equal(actual, expected)).not.toThrow();
+      doesNotThrow(() => equal(actual, expected));
       return done();
     });
   });
@@ -125,7 +121,7 @@ describe('metalsmith-layouts', () => {
       if (err) {
         return done(err);
       }
-      expect(() => equal(actual, expected)).not.toThrow();
+      doesNotThrow(() => equal(actual, expected));
       return done();
     });
   });
@@ -142,7 +138,7 @@ describe('metalsmith-layouts', () => {
       if (err) {
         return done(err);
       }
-      expect(() => equal(actual, expected)).not.toThrow();
+      doesNotThrow(() => equal(actual, expected));
       return done();
     });
   });
@@ -159,7 +155,7 @@ describe('metalsmith-layouts', () => {
       if (err) {
         return done(err);
       }
-      expect(() => equal(actual, expected)).not.toThrow();
+      doesNotThrow(() => equal(actual, expected));
       return done();
     });
   });
@@ -176,7 +172,7 @@ describe('metalsmith-layouts', () => {
       if (err) {
         return done(err);
       }
-      expect(() => equal(actual, expected)).not.toThrow();
+      doesNotThrow(() => equal(actual, expected));
       return done();
     });
   });
@@ -193,7 +189,7 @@ describe('metalsmith-layouts', () => {
       if (err) {
         return done(err);
       }
-      expect(() => equal(actual, expected)).not.toThrow();
+      doesNotThrow(() => equal(actual, expected));
       return done();
     });
   });
@@ -213,7 +209,7 @@ describe('metalsmith-layouts', () => {
         if (err) {
           return done(err);
         }
-        expect(() => equal(actual, expected)).not.toThrow();
+        doesNotThrow(() => equal(actual, expected));
         return done();
       });
   });
@@ -233,7 +229,7 @@ describe('metalsmith-layouts', () => {
         if (err) {
           return done(err);
         }
-        expect(() => equal(actual, expected)).not.toThrow();
+        doesNotThrow(() => equal(actual, expected));
         return done();
       });
   });
@@ -243,8 +239,8 @@ describe('metalsmith-layouts', () => {
     const metalsmith = new Metalsmith(base);
 
     return metalsmith.use(plugin()).build(err => {
-      expect(err).toBeInstanceOf(Error);
-      expect(err.message).toMatchSnapshot();
+      strictEqual(err instanceof Error, true);
+      strictEqual(err.message, 'no files to process. See https://www.npmjs.com/package/@metalsmith/layouts#suppressnofileserror');
       done();
     });
   });
@@ -254,7 +250,7 @@ describe('metalsmith-layouts', () => {
     const metalsmith = new Metalsmith(base);
 
     return metalsmith.use(plugin({ suppressNoFilesError: true })).build(err => {
-      expect(err).toBe(null);
+      strictEqual(err, null);
       done();
     });
   });
@@ -270,8 +266,8 @@ describe('metalsmith-layouts', () => {
         })
       )
       .build(err => {
-        expect(err).toBeInstanceOf(Error);
-        expect(err.message).toMatchSnapshot();
+        strictEqual(err instanceof Error, true);
+        strictEqual(err.message, 'invalid pattern, the pattern option should be a string or array of strings. See https://www.npmjs.com/package/@metalsmith/layouts#pattern');
         done();
       });
   });
@@ -288,7 +284,7 @@ describe('metalsmith-layouts', () => {
       if (err) {
         return done(err);
       }
-      expect(() => equal(actual, expected)).not.toThrow();
+      doesNotThrow(() => equal(actual, expected));
       return done();
     });
   });
@@ -310,7 +306,7 @@ describe('metalsmith-layouts', () => {
       if (err) {
         return done(err);
       }
-      expect(() => equal(actual, expected)).not.toThrow();
+      doesNotThrow(() => equal(actual, expected));
       return done();
     });
   });
@@ -327,25 +323,18 @@ describe('metalsmith-layouts', () => {
       if (err) {
         return done(err);
       }
-      expect(() => equal(actual, expected)).not.toThrow();
+      doesNotThrow(() => equal(actual, expected));
       return done();
     });
   });
 
   it('should prefix rendering errors with the filename', done => {
-    jest.doMock('./get-transformer', () =>
-      jest.fn(() => ({
-        renderFileAsync: () => Promise.reject(new Error('Something went wrong while rendering'))
-      }))
-    );
-    const plugin = require('./index'); // eslint-disable-line global-require, no-shadow
-
     const base = path.join(process.cwd(), 'test', 'fixtures', 'rendering-error');
     const metalsmith = new Metalsmith(base);
 
     return metalsmith.use(plugin()).build(err => {
-      expect(err).toBeInstanceOf(Error);
-      expect(err.message).toMatchSnapshot();
+      strictEqual(err instanceof Error, true);
+      strictEqual(err.message.slice(0, 'index.html'.length + 1), 'index.html:');
       done();
     });
   });
