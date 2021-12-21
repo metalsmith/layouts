@@ -10,7 +10,7 @@ A metalsmith plugin for layouts
 
 This plugin allows you to wrap your files in a template (a `layout`) and abstract repetitive html. The plugin will pass the contents of your files to the layout as the variable `contents`, and renders the result with the appropriate templating engine. It uses the file extension of your layout to infer which templating engine to use. So layouts with names ending in `.njk` will be processed as nunjucks, `.hbs` as handlebars, etc.
 
-If you want to process templating syntax *in* your files, instead of wrapping them in a template, you can use [@metalsmith/in-place](https://github.com/metalsmith/in-place). For usage examples check out our [wiki](https://github.com/metalsmith/layouts/wiki). Feel free to contribute an example if anything is missing, or update the existing ones. For support questions please use [stack overflow][stackoverflow-url] or our [slack channel][slack-url]. For templating engine specific questions try the aforementioned channels, as well as the documentation for [jstransformers](https://github.com/jstransformers) and your templating engine of choice.
+If you want to process templating syntax _in_ your files, instead of wrapping them in a template, you can use [@metalsmith/in-place](https://github.com/metalsmith/in-place). For usage examples check out our [wiki](https://github.com/metalsmith/layouts/wiki). Feel free to contribute an example if anything is missing, or update the existing ones. For support questions please use [stack overflow][stackoverflow-url] or our [slack channel][slack-url]. For templating engine specific questions try the aforementioned channels, as well as the documentation for [jstransformers](https://github.com/jstransformers) and your templating engine of choice.
 
 ## How does it work
 
@@ -23,11 +23,13 @@ to see which extensions map to which jstransformer.
 ## Installation
 
 NPM:
+
 ```bash
 npm install @metalsmith/layouts
 ```
 
 Yarn:
+
 ```bash
 yarn add @metalsmith/layouts
 ```
@@ -38,11 +40,11 @@ yarn add @metalsmith/layouts
 
 You can pass options to `@metalsmith/layouts` with the [Javascript API](https://github.com/segmentio/metalsmith#api) or [CLI](https://github.com/segmentio/metalsmith#cli). The options are:
 
-* [default](#default): optional. The default layout to apply to files.
-* [directory](#directory): optional. The directory for the layouts. The default is `layouts`.
-* [pattern](#pattern): optional. Only files that match this pattern will be processed. Accepts a string or an array of strings. The default is `**`.
-* [engineOptions](#engineoptions): optional. Use this to pass options to the jstransformer that's rendering your layouts. The default is `{}`.
-* [suppressNoFilesError](#suppressnofileserror): optional. By default `@metalsmith/layouts` will exit with an error if there aren't any files to process. Enabling this option will suppress that error.
+- [default](#default): optional. The default layout to apply to files.
+- [directory](#directory): optional. The directory for the layouts. The default is `layouts`.
+- [pattern](#pattern): optional. Only files that match this pattern will be processed. Accepts a string or an array of strings. The default is `**`.
+- [engineOptions](#engineoptions): optional. Use this to pass options to the jstransformer that's rendering your layouts. The default is `{}`.
+- [suppressNoFilesError](#suppressnofileserror): optional. By default `@metalsmith/layouts` will exit with an error if there aren't any files to process. Enabling this option will suppress that error.
 
 #### `default`
 
@@ -71,8 +73,9 @@ metalsmith(__dirname)
     directory: 'templates'
   })
 ```
+
 The directory path is resolved **relative to** `Metalsmith#directory`, not `Metalsmith#source`.
-If you prefer having the layouts directory *inside* the Metalsmith source folder, it is advisable to use `Metalsmith#ignore`:
+If you prefer having the layouts directory _inside_ the Metalsmith source folder, it is advisable to use `Metalsmith#ignore`:
 
 ```js
 const layouts = require('@metalsmith/layouts')
@@ -126,12 +129,12 @@ Note that when this option is turned on, if you're logging [debug](#debug) messa
 
 There are several things that might cause you to get a `no files to process` error:
 
-* Your [pattern](#pattern) does not match any files
-* None of your files pass validation, validation fails for files that:
-  * Have no layout
-  * Have a layout without an extension
-  * Are not utf-8
-  * Have a layout that needs a jstransformer that hasn't been installed
+- Your [pattern](#pattern) does not match any files
+- None of your files pass validation, validation fails for files that:
+  - Have no layout
+  - Have a layout without an extension
+  - Are not utf-8
+  - Have a layout that needs a jstransformer that hasn't been installed
 
 ### Debug
 
@@ -186,9 +189,9 @@ Use [metalsmith-filenames](https://www.npmjs.com/package/metalsmith-filenames).
 
 ## Credits
 
-* [Ismay Wolff](https://github.com/ismay) for the current shape of the layouts plugin
-* [Ian Storm Taylor](https://github.com/ianstormtaylor) for creating [metalsmith-templates](https://github.com/segmentio/metalsmith-templates), on which this plugin was based
-* [Rob Loach](https://github.com/RobLoach) for creating [metalsmith-jstransformer](https://github.com/RobLoach/metalsmith-jstransformer), which inspired our switch to jstransformers
+- [Ismay Wolff](https://github.com/ismay) for the current shape of the layouts plugin
+- [Ian Storm Taylor](https://github.com/ianstormtaylor) for creating [metalsmith-templates](https://github.com/segmentio/metalsmith-templates), on which this plugin was based
+- [Rob Loach](https://github.com/RobLoach) for creating [metalsmith-jstransformer](https://github.com/RobLoach/metalsmith-jstransformer), which inspired our switch to jstransformers
 
 ## License
 
