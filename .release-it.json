@@ -1,7 +1,7 @@
 {
   "hooks": {
     "before:init": ["npm run lint", "npm test"],
-    "after:bump": "auto-changelog --starting-date 2021-12-01 -p --commit-limit false --ignore-commit-pattern '^((dev|chore|ci):|Release)'",
+    "after:bump": "auto-changelog --starting-date 2021-12-22 -p --commit-limit false --ignore-commit-pattern '^((dev|chore|ci):|Release)'",
     "after:npm:bump": "npm pack",
     "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
   },

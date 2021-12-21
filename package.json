@@ -22,7 +22,7 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "changelog": "auto-changelog -u --starting-date 2021-12-01 --commit-limit false --ignore-commit-pattern '^((dev|chore|ci):|Release)'",
+    "changelog": "auto-changelog -u --starting-date 2021-12-22 --commit-limit false --ignore-commit-pattern '^((dev|chore|ci):|Release)'",
     "coverage": "nyc report --reporter=text-lcov > ./coverage.info",
     "coveralls": "npm run coverage && cat ./coverage.info | coveralls",
     "dev": "nodemon --exec 'npm test'",
@@ -50,6 +50,7 @@
     "mocha": "^7.2.0",
     "nyc": "^15.1.0",
     "prettier": "^2.5.1",
+    "release-it": "^14.11.8",
     "rimraf": "^3.0.2"
   },
   "peerDependencies": {
