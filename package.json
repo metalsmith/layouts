@@ -1,6 +1,6 @@
 {
   "name": "@metalsmith/layouts",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "description": "A metalsmith plugin for layouts",
   "homepage": "https://github.com/metalsmith/layouts#readme",
   "bugs": {
