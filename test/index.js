@@ -1,347 +1,245 @@
-const Metalsmith = require('metalsmith');
-const equal = require('assert-dir-equal');
-const rimraf = require('rimraf');
-const path = require('path');
-const plugin = require('..');
-const { it, describe } = require('mocha');
-const { doesNotThrow, strictEqual } = require('assert');
+const Metalsmith = require('metalsmith')
+const equal = require('assert-dir-equal')
+const path = require('path')
+const plugin = require('..')
+const { it, describe } = require('mocha')
+const { doesNotThrow, strictEqual } = require('assert')
+const fixture = path.resolve.bind(process.cwd(), 'test/fixtures')
 
 describe('@metalsmith/layouts', () => {
   it('should apply a single layout to a single file', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'single-file');
-    const actual = path.join(base, 'build');
-    const expected = path.join(base, 'expected');
-    const metalsmith = new Metalsmith(base);
-
-    rimraf.sync(actual);
-
-    return metalsmith.use(plugin()).build((err) => {
-      if (err) {
-        return done(err);
-      }
-      doesNotThrow(() => equal(actual, expected));
-      return done();
-    });
-  });
+    Metalsmith(fixture('single-file'))
+      .use(plugin())
+      .build((err) => {
+        if (err) done(err)
+        doesNotThrow(() => equal(fixture('single-file/build'), fixture('single-file/expected')))
+        done()
+      })
+  })
 
   it('should apply a single layout to a single file with an async jstransformer', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'single-file-async');
-    const actual = path.join(base, 'build');
-    const expected = path.join(base, 'expected');
-    const metalsmith = new Metalsmith(base);
-
-    rimraf.sync(actual);
-
-    return metalsmith.use(plugin()).build((err) => {
-      if (err) {
-        return done(err);
-      }
-      doesNotThrow(() => equal(actual, expected));
-      return done();
-    });
-  });
+    Metalsmith(fixture('single-file-async'))
+      .use(plugin())
+      .build((err) => {
+        if (err) done(err)
+        doesNotThrow(() =>
+          equal(fixture('single-file-async/build'), fixture('single-file-async/expected'))
+        )
+        done()
+      })
+  })
 
   it('should apply a single layout to multiple files', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'multiple-files');
-    const actual = path.join(base, 'build');
-    const expected = path.join(base, 'expected');
-    const metalsmith = new Metalsmith(base);
-
-    rimraf.sync(actual);
-
-    return metalsmith.use(plugin()).build((err) => {
-      if (err) {
-        return done(err);
-      }
-      doesNotThrow(() => equal(actual, expected));
-      return done();
-    });
-  });
+    Metalsmith(fixture('multiple-files'))
+      .use(plugin())
+      .build((err) => {
+        if (err) done(err)
+        doesNotThrow(() =>
+          equal(fixture('multiple-files/build'), fixture('multiple-files/expected'))
+        )
+        done()
+      })
+  })
 
   it('should apply multiple layouts to multiple files', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'multiple-files-and-layouts');
-    const actual = path.join(base, 'build');
-    const expected = path.join(base, 'expected');
-    const metalsmith = new Metalsmith(base);
-
-    rimraf.sync(actual);
-
-    return metalsmith.use(plugin()).build((err) => {
-      if (err) {
-        return done(err);
-      }
-      doesNotThrow(() => equal(actual, expected));
-      return done();
-    });
-  });
+    Metalsmith(fixture('multiple-files-and-layouts'))
+      .use(plugin())
+      .build((err) => {
+        if (err) done(err)
+        doesNotThrow(() =>
+          equal(
+            fixture('multiple-files-and-layouts/build'),
+            fixture('multiple-files-and-layouts/expected')
+          )
+        )
+        done()
+      })
+  })
 
   it('should apply a default layout', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'default-layout');
-    const actual = path.join(base, 'build');
-    const expected = path.join(base, 'expected');
-    const metalsmith = new Metalsmith(base);
-
-    rimraf.sync(actual);
-
-    return metalsmith.use(plugin({ default: 'standard.hbs' })).build((err) => {
-      if (err) {
-        return done(err);
-      }
-      doesNotThrow(() => equal(actual, expected));
-      return done();
-    });
-  });
+    Metalsmith(fixture('default-layout'))
+      .use(plugin({ default: 'standard.hbs' }))
+      .build((err) => {
+        if (err) done(err)
+        doesNotThrow(() =>
+          equal(fixture('default-layout/build'), fixture('default-layout/expected'))
+        )
+        done()
+      })
+  })
 
   it('should override a default layout', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'override-default-layout');
-    const actual = path.join(base, 'build');
-    const expected = path.join(base, 'expected');
-    const metalsmith = new Metalsmith(base);
-
-    rimraf.sync(actual);
-
-    return metalsmith.use(plugin({ default: 'standard.hbs' })).build((err) => {
-      if (err) {
-        return done(err);
-      }
-      doesNotThrow(() => equal(actual, expected));
-      return done();
-    });
-  });
+    Metalsmith(fixture('override-default-layout'))
+      .use(plugin({ default: 'standard.hbs' }))
+      .build((err) => {
+        if (err) done(err)
+        doesNotThrow(() =>
+          equal(
+            fixture('override-default-layout/build'),
+            fixture('override-default-layout/expected')
+          )
+        )
+        done()
+      })
+  })
 
   it('should apply a string pattern', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'string-pattern');
-    const actual = path.join(base, 'build');
-    const expected = path.join(base, 'expected');
-    const metalsmith = new Metalsmith(base);
-
-    rimraf.sync(actual);
-
-    return metalsmith.use(plugin({ pattern: 'match.html' })).build((err) => {
-      if (err) {
-        return done(err);
-      }
-      doesNotThrow(() => equal(actual, expected));
-      return done();
-    });
-  });
+    Metalsmith(fixture('string-pattern'))
+      .use(plugin({ pattern: 'match.html' }))
+      .build((err) => {
+        if (err) done(err)
+        doesNotThrow(() =>
+          equal(fixture('string-pattern/build'), fixture('string-pattern/expected'))
+        )
+        done()
+      })
+  })
 
   it('should apply an array of string patterns', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'array-pattern');
-    const actual = path.join(base, 'build');
-    const expected = path.join(base, 'expected');
-    const metalsmith = new Metalsmith(base);
-
-    rimraf.sync(actual);
-
-    return metalsmith.use(plugin({ pattern: ['match.html', 'also.html'] })).build((err) => {
-      if (err) {
-        return done(err);
-      }
-      doesNotThrow(() => equal(actual, expected));
-      return done();
-    });
-  });
+    Metalsmith(fixture('array-pattern'))
+      .use(plugin({ pattern: ['match.html', 'also.html'] }))
+      .build((err) => {
+        if (err) done(err)
+        doesNotThrow(() => equal(fixture('array-pattern/build'), fixture('array-pattern/expected')))
+        done()
+      })
+  })
 
   it('should ignore binary files', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'ignore-binary');
-    const actual = path.join(base, 'build');
-    const expected = path.join(base, 'expected');
-    const metalsmith = new Metalsmith(base);
-
-    rimraf.sync(actual);
-
-    return metalsmith.use(plugin({ default: 'standard.hbs' })).build((err) => {
-      if (err) {
-        return done(err);
-      }
-      doesNotThrow(() => equal(actual, expected));
-      return done();
-    });
-  });
+    Metalsmith(fixture('ignore-binary'))
+      .use(plugin({ default: 'standard.hbs' }))
+      .build((err) => {
+        if (err) done(err)
+        doesNotThrow(() => equal(fixture('ignore-binary/build'), fixture('ignore-binary/expected')))
+        done()
+      })
+  })
 
   it('should accept an alternate directory for layouts', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'directory');
-    const actual = path.join(base, 'build');
-    const expected = path.join(base, 'expected');
-    const metalsmith = new Metalsmith(base);
-
-    rimraf.sync(actual);
-
-    return metalsmith.use(plugin({ directory: 'templates' })).build((err) => {
-      if (err) {
-        return done(err);
-      }
-      doesNotThrow(() => equal(actual, expected));
-      return done();
-    });
-  });
+    Metalsmith(fixture('directory'))
+      .use(plugin({ directory: 'templates' }))
+      .build((err) => {
+        if (err) done(err)
+        doesNotThrow(() => equal(fixture('directory/build'), fixture('directory/expected')))
+        done()
+      })
+  })
 
   it('should process variables from the frontmatter', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'variables');
-    const actual = path.join(base, 'build');
-    const expected = path.join(base, 'expected');
-    const metalsmith = new Metalsmith(base);
-
-    rimraf.sync(actual);
-
-    return metalsmith.use(plugin()).build((err) => {
-      if (err) {
-        return done(err);
-      }
-      doesNotThrow(() => equal(actual, expected));
-      return done();
-    });
-  });
+    Metalsmith(fixture('variables'))
+      .use(plugin())
+      .build((err) => {
+        if (err) done(err)
+        doesNotThrow(() => equal(fixture('variables/build'), fixture('variables/expected')))
+        done()
+      })
+  })
 
   it('should process variables from the metadata', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'metadata');
-    const actual = path.join(base, 'build');
-    const expected = path.join(base, 'expected');
-    const metalsmith = new Metalsmith(base);
-
-    rimraf.sync(actual);
-
-    return metalsmith
+    Metalsmith(fixture('metadata'))
       .metadata({ text: 'Some text' })
       .use(plugin())
       .build((err) => {
-        if (err) {
-          return done(err);
-        }
-        doesNotThrow(() => equal(actual, expected));
-        return done();
-      });
-  });
+        if (err) done(err)
+        doesNotThrow(() => equal(fixture('metadata/build'), fixture('metadata/expected')))
+        done()
+      })
+  })
 
   it('should override variables from the metadata with local ones', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'override-metadata');
-    const actual = path.join(base, 'build');
-    const expected = path.join(base, 'expected');
-    const metalsmith = new Metalsmith(base);
-
-    rimraf.sync(actual);
-
-    return metalsmith
+    Metalsmith(fixture('override-metadata'))
       .metadata({ text: 'Some text' })
       .use(plugin())
       .build((err) => {
-        if (err) {
-          return done(err);
-        }
-        doesNotThrow(() => equal(actual, expected));
-        return done();
-      });
-  });
+        if (err) done(err)
+        doesNotThrow(() =>
+          equal(fixture('override-metadata/build'), fixture('override-metadata/expected'))
+        )
+        done()
+      })
+  })
 
   it('should return an error when there are no valid files to process', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'no-files');
-    const metalsmith = new Metalsmith(base);
-
-    return metalsmith.use(plugin()).build((err) => {
-      strictEqual(err instanceof Error, true);
-      strictEqual(
-        err.message,
-        'no files to process. See https://www.npmjs.com/package/@metalsmith/layouts#suppressnofileserror'
-      );
-      done();
-    });
-  });
+    Metalsmith(fixture('no-files'))
+      .use(plugin())
+      .build((err) => {
+        strictEqual(err instanceof Error, true)
+        strictEqual(
+          err.message,
+          'no files to process. See https://www.npmjs.com/package/@metalsmith/layouts#suppressnofileserror'
+        )
+        done()
+      })
+  })
 
   it('should not return an error when there are no valid files to process and suppressNoFilesError is true', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'no-files');
-    const metalsmith = new Metalsmith(base);
-
-    return metalsmith.use(plugin({ suppressNoFilesError: true })).build((err) => {
-      strictEqual(err, null);
-      done();
-    });
-  });
+    Metalsmith(fixture('no-files'))
+      .use(plugin({ suppressNoFilesError: true }))
+      .build((err) => {
+        strictEqual(err, null)
+        done()
+      })
+  })
 
   it('should return an error for an invalid pattern', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'invalid-pattern');
-    const metalsmith = new Metalsmith(base);
-
-    return metalsmith
-      .use(
-        plugin({
-          pattern: () => {}
-        })
-      )
+    Metalsmith(fixture('invalid-pattern'))
+      .use(plugin({ pattern: () => {} }))
       .build((err) => {
-        strictEqual(err instanceof Error, true);
+        strictEqual(err instanceof Error, true)
         strictEqual(
           err.message,
           'invalid pattern, the pattern option should be a string or array of strings. See https://www.npmjs.com/package/@metalsmith/layouts#pattern'
-        );
-        done();
-      });
-  });
+        )
+        done()
+      })
+  })
 
   it('should ignore layouts without an extension', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'ignore-invalid-layout');
-    const actual = path.join(base, 'build');
-    const expected = path.join(base, 'expected');
-    const metalsmith = new Metalsmith(base);
-
-    rimraf.sync(actual);
-
-    return metalsmith.use(plugin()).build((err) => {
-      if (err) {
-        return done(err);
-      }
-      doesNotThrow(() => equal(actual, expected));
-      return done();
-    });
-  });
+    Metalsmith(fixture('ignore-invalid-layout'))
+      .use(plugin())
+      .build((err) => {
+        if (err) done(err)
+        doesNotThrow(() =>
+          equal(fixture('ignore-invalid-layout/build'), fixture('ignore-invalid-layout/expected'))
+        )
+        done()
+      })
+  })
 
   it('should ignore layouts without a jstransformer', (done) => {
-    const base = path.join(
-      process.cwd(),
-      'test',
-      'fixtures',
-      'ignore-layout-without-jstransformer'
-    );
-    const actual = path.join(base, 'build');
-    const expected = path.join(base, 'expected');
-    const metalsmith = new Metalsmith(base);
-
-    rimraf.sync(actual);
-
-    return metalsmith.use(plugin()).build((err) => {
-      if (err) {
-        return done(err);
-      }
-      doesNotThrow(() => equal(actual, expected));
-      return done();
-    });
-  });
+    Metalsmith(fixture('ignore-layout-without-jstransformer'))
+      .use(plugin())
+      .build((err) => {
+        if (err) done(err)
+        doesNotThrow(() =>
+          equal(
+            fixture('ignore-layout-without-jstransformer/build'),
+            fixture('ignore-layout-without-jstransformer/expected')
+          )
+        )
+        done()
+      })
+  })
 
   it('should allow default layouts to be disabled from the frontmatter', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'override-default');
-    const actual = path.join(base, 'build');
-    const expected = path.join(base, 'expected');
-    const metalsmith = new Metalsmith(base);
-
-    rimraf.sync(actual);
-
-    return metalsmith.use(plugin({ default: 'standard.hbs' })).build((err) => {
-      if (err) {
-        return done(err);
-      }
-      doesNotThrow(() => equal(actual, expected));
-      return done();
-    });
-  });
+    Metalsmith(fixture('override-default'))
+      .use(plugin({ default: 'standard.hbs' }))
+      .build((err) => {
+        if (err) done(err)
+        doesNotThrow(() =>
+          equal(fixture('override-default/build'), fixture('override-default/expected'))
+        )
+        done()
+      })
+  })
 
   it('should prefix rendering errors with the filename', (done) => {
-    const base = path.join(process.cwd(), 'test', 'fixtures', 'rendering-error');
-    const metalsmith = new Metalsmith(base);
-
-    return metalsmith.use(plugin()).build((err) => {
-      strictEqual(err instanceof Error, true);
-      strictEqual(err.message.slice(0, 'index.html'.length + 1), 'index.html:');
-      done();
-    });
-  });
-});
+    Metalsmith(fixture('rendering-error'))
+      .use(plugin())
+      .build((err) => {
+        strictEqual(err instanceof Error, true)
+        strictEqual(err.message.slice(0, 'index.html'.length + 1), 'index.html:')
+        done()
+      })
+  })
+})
