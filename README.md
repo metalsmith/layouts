@@ -55,10 +55,11 @@ If a `default` layout has been specified, `@metalsmith/layouts` will apply layou
 ```js
 import layouts from '@metalsmith/layouts'
 
-metalsmith
-  .use(layouts({
+metalsmith.use(
+  layouts({
     default: 'default.hbs'
-  }))
+  })
+)
 ```
 
 #### `directory`
@@ -68,10 +69,11 @@ You can change the directory where `@metalsmith/layouts` looks for layouts (defa
 ```js
 import layouts from '@metalsmith/layouts'
 
-metalsmith
-  .use(layouts({
+metalsmith.use(
+  layouts({
     directory: 'templates'
-  }))
+  })
+)
 ```
 
 The directory path is resolved **relative to** `Metalsmith#directory`, not `Metalsmith#source`.
@@ -80,11 +82,11 @@ If you prefer having the layouts directory _inside_ the Metalsmith source folder
 ```js
 import layouts from '@metalsmith/layouts'
 
-metalsmith
-  .ignore('layouts')
-  .use(layouts({
+metalsmith.ignore('layouts').use(
+  layouts({
     directory: 'src/layouts'
-  }))
+  })
+)
 ```
 
 #### `pattern`
@@ -94,12 +96,13 @@ For example:
 ```js
 import layouts from '@metalsmith/layouts'
 
-metalsmith(__dirname)
-  .use(layouts({
+metalsmith(__dirname).use(
+  layouts({
     engineOptions: {
       pattern: '**/*.html'
     }
-  }))
+  })
+)
 ```
 
 ...would process all files that have the `.html` extension. Beware that the extensions might be changed by other plugins in the build chain, preventing the pattern from matching. We use [multimatch](https://github.com/sindresorhus/multimatch) for the pattern matching.
@@ -111,12 +114,13 @@ Use `engineOptions` to pass options to the jstransformer that's rendering your t
 ```js
 import layouts from '@metalsmith/layouts'
 
-metalsmith
-  .use(layouts({
+metalsmith.use(
+  layouts({
     engineOptions: {
       cache: false
     }
-  }))
+  })
+)
 ```
 
 Would pass `{ "cache": false }` to the used jstransformer.
