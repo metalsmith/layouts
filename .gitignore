@@ -12,4 +12,4 @@ npm-debug.log*
 coverage.info
 .nyc_output
 
-lib
+lib/index.*js
