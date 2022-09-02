@@ -1,7 +1,9 @@
-const debug = require('debug')('@metalsmith/layouts')
-const path = require('path')
-const isUtf8 = require('is-utf8')
-const getTransformer = require('./get-transformer')
+import createDebug from 'debug'
+import path from 'path'
+import isUtf8 from 'is-utf8'
+import getTransformer from './get-transformer'
+
+const debug = createDebug('@metalsmith/layouts')
 
 /**
  * `@metalsmith/layouts` options
@@ -51,13 +53,11 @@ function render({ filename, files, metadata, settings, metalsmith }) {
     .renderFileAsync(layoutPath, settings.engineOptions, locals)
     .then((rendered) => {
       // Update file with results
-      // eslint-disable-next-line no-param-reassign
       file.contents = Buffer.from(rendered.body)
       debug(`done rendering ${filename}`)
     })
     .catch((err) => {
       // Prepend error message with file path
-      // eslint-disable-next-line no-param-reassign
       err.message = `${filename}: ${err.message}`
       throw err
     })
@@ -154,5 +154,9 @@ function initLayouts(options) {
       .catch(/* istanbul ignore next */ (error) => done(error))
   }
 }
-initLayouts({})
-module.exports = initLayouts
+
+// ensures non-breaking change:
+// import { getTransformer } from '@metalsmith/layouts' instead of 
+// import getTransformer from '@metalsmith/layouts/get-transformer'
+export { getTransformer }
+export default initLayouts

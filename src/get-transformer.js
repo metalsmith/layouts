@@ -1,5 +1,5 @@
-const jstransformer = require('jstransformer')
-const toTransformer = require('inputformat-to-jstransformer')
+import jstransformer from 'jstransformer'
+import toTransformer from 'inputformat-to-jstransformer'
 
 /**
  * Gets jstransformer for an extension, and caches them
@@ -18,4 +18,4 @@ function getTransformer(ext) {
   return cache[ext]
 }
 
-module.exports = getTransformer
+export default getTransformer

@@ -53,12 +53,12 @@ The default layout to use. Can be overridden with the `layout` key in each file'
 If a `default` layout has been specified, `@metalsmith/layouts` will apply layouts to all files, so you might want to ignore certain files with a pattern. Don't forget to specify the default template's file extension. The snippet below will apply the `default.hbs` layout to all files, unless overridden in the frontmatter:
 
 ```js
-const layouts = require('@metalsmith/layouts')
+import layouts from '@metalsmith/layouts'
 
-metalsmith(__dirname)
+metalsmith
   .use(layouts({
     default: 'default.hbs'
-  })
+  }))
 ```
 
 #### `directory`
@@ -66,25 +66,25 @@ metalsmith(__dirname)
 You can change the directory where `@metalsmith/layouts` looks for layouts (default=`layouts`) by supplying the `directory` option. In the example below we use `templates` instead:
 
 ```js
-const layouts = require('@metalsmith/layouts')
+import layouts from '@metalsmith/layouts'
 
-metalsmith(__dirname)
+metalsmith
   .use(layouts({
     directory: 'templates'
-  })
+  }))
 ```
 
 The directory path is resolved **relative to** `Metalsmith#directory`, not `Metalsmith#source`.
 If you prefer having the layouts directory _inside_ the Metalsmith source folder, it is advisable to use `Metalsmith#ignore`:
 
 ```js
-const layouts = require('@metalsmith/layouts')
+import layouts from '@metalsmith/layouts'
 
-metalsmith(__dirname)
+metalsmith
   .ignore('layouts')
   .use(layouts({
     directory: 'src/layouts'
-  })
+  }))
 ```
 
 #### `pattern`
@@ -92,14 +92,14 @@ metalsmith(__dirname)
 For example:
 
 ```js
-const layouts = require('@metalsmith/layouts')
+import layouts from '@metalsmith/layouts'
 
 metalsmith(__dirname)
   .use(layouts({
     engineOptions: {
       pattern: '**/*.html'
     }
-  })
+  }))
 ```
 
 ...would process all files that have the `.html` extension. Beware that the extensions might be changed by other plugins in the build chain, preventing the pattern from matching. We use [multimatch](https://github.com/sindresorhus/multimatch) for the pattern matching.
@@ -109,14 +109,14 @@ metalsmith(__dirname)
 Use `engineOptions` to pass options to the jstransformer that's rendering your templates. For example:
 
 ```js
-const layouts = require('@metalsmith/layouts')
+import layouts from '@metalsmith/layouts'
 
-metalsmith(__dirname)
+metalsmith
   .use(layouts({
     engineOptions: {
       cache: false
     }
-  })
+  }))
 ```
 
 Would pass `{ "cache": false }` to the used jstransformer.

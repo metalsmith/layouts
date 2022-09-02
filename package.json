@@ -15,7 +15,14 @@
   "maintainers": [
     "Kevin Van Lierde (https://webketje.com"
   ],
-  "main": "lib/index.js",
+  "source": "src/index.js",
+  "main": "lib/index.cjs",
+  "module": "lib/index.js",
+  "type": "module",
+  "exports": {
+    "import": "./lib/index.js",
+    "require": "./lib/index.cjs"
+  },
   "directories": {
     "lib": "lib",
     "test": "test"
@@ -27,13 +34,14 @@
   "scripts": {
     "changelog": "auto-changelog -u --starting-date 2021-12-22 --commit-limit false --ignore-commit-pattern '^((dev|chore|ci):|Release)'",
     "coverage": "nyc report --reporter=text-lcov > ./coverage.info",
-    "dev": "nodemon --exec 'npm test'",
     "release": "release-it .",
-    "test": "nyc mocha",
     "format": "prettier --write \"**/*.{yml,md,js,json}\"",
     "format:check": "prettier --list-different \"**/*.{yml,md,js,json}\"",
     "lint": "eslint --fix .",
-    "lint:check": "eslint --fix-dry-run ."
+    "lint:check": "eslint --fix-dry-run .",
+    "build": "microbundle --target node --no-sourcemap -f cjs,esm --strict --generateTypes=false",
+    "pretest": "npm run build",
+    "test": "nyc mocha"
   },
   "dependencies": {
     "debug": "^4.3.4",
@@ -49,7 +57,9 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "jstransformer-handlebars": "^1.2.0",
+    "jstransformer-qejs": "^0.2.0",
     "metalsmith": "^2.4.1",
+    "microbundle": "^0.15.1",
     "mocha": "^9.2.2",
     "nyc": "^15.1.0",
     "prettier": "^2.7.1",
