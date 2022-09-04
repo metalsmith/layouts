@@ -1,3 +1,4 @@
 test/fixtures/**
 .nyc_output/**
 package-lock.json
+lib

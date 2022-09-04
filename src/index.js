@@ -6,8 +6,7 @@ import getTransformer from './get-transformer'
 const debug = createDebug('@metalsmith/layouts')
 
 /**
- * `@metalsmith/layouts` options
- * @typedef {Object} Options
+ * @typedef {Object} Options `@metalsmith/layouts` options
  * @property {string} [default] A default layout to apply to files, eg `default.njk`.
  * @property {string} [pattern] The directory for the layouts. The default is `layouts`.
  * @property {string|string[]} [directory] Only files that match this pattern will be processed. Accepts a string or an array of strings. The default is `**` (all).
@@ -158,5 +157,5 @@ function initLayouts(options) {
 // ensures non-breaking change:
 // import { getTransformer } from '@metalsmith/layouts' instead of
 // import getTransformer from '@metalsmith/layouts/get-transformer'
-export { getTransformer }
+initLayouts.getTransformer = getTransformer
 export default initLayouts

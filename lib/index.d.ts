@@ -1,5 +1,6 @@
 import { Plugin } from "metalsmith";
-export { getTransformer };
+import getTransformer from "./get-transformer";
+
 export default initLayouts;
 /**
  * `@metalsmith/layouts` options
@@ -20,16 +21,18 @@ export type Options = {
     /**
      * Pass options to [the jstransformer](https://github.com/jstransformers/jstransformer) that's rendering your layouts. The default is `{}`.
      */
-    engineOptions?: Object;
+    engineOptions?: any;
     /**
      * By default `@metalsmith/layouts` will exit with an error if there aren't any files to process. Enabling this option will suppress that error.
      */
     suppressNoFilesError?: boolean;
 };
-import getTransformer from "./get-transformer";
 /**
  * A metalsmith plugin for rendering layouts
  * @param {Options} options
  * @returns {import('metalsmith').Plugin}
  */
 declare function initLayouts(options: Options): Plugin;
+declare namespace initLayouts {
+    export { getTransformer };
+}

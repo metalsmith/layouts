@@ -1,12 +1,11 @@
 import jstransformer from 'jstransformer'
 import toTransformer from 'inputformat-to-jstransformer'
 
+const cache = {}
+
 /**
  * Gets jstransformer for an extension, and caches them
  */
-
-const cache = {}
-
 function getTransformer(ext) {
   if (ext in cache) {
     return cache[ext]
