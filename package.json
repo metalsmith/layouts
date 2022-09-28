@@ -45,7 +45,6 @@
     "test": "nyc mocha"
   },
   "dependencies": {
-    "debug": "^4.3.4",
     "inputformat-to-jstransformer": "^1.4.0",
     "is-utf8": "^0.2.1",
     "jstransformer": "^1.0.0"

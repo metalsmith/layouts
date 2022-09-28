@@ -1,9 +1,10 @@
-import createDebug from 'debug'
 import path from 'path'
 import isUtf8 from 'is-utf8'
 import getTransformer from './get-transformer'
 
-const debug = createDebug('@metalsmith/layouts')
+let debug = () => {
+  throw new Error('uninstantiated debug')
+}
 
 /**
  * @typedef {Object} Options `@metalsmith/layouts` options
@@ -108,6 +109,7 @@ function validate({ filename, files, settings }) {
  */
 function initLayouts(options) {
   return function layouts(files, metalsmith, done) {
+    debug = metalsmith.debug('@metalsmith/layouts')
     const metadata = metalsmith.metadata()
     const defaults = {
       pattern: '**',
