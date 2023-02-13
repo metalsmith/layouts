@@ -98,9 +98,7 @@ import layouts from '@metalsmith/layouts'
 
 metalsmith(__dirname).use(
   layouts({
-    engineOptions: {
-      pattern: '**/*.html'
-    }
+    pattern: '**/*.html'
   })
 )
 ```
