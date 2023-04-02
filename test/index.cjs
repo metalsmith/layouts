@@ -1,7 +1,7 @@
 const Metalsmith = require('metalsmith')
 const equal = require('assert-dir-equal')
 const path = require('path')
-/* eslint-disable-next-line node/no-missing-require */
+/* eslint-disable-next-line n/no-missing-require */
 const plugin = require('..')
 const { it, describe } = require('mocha')
 const { doesNotThrow, strictEqual } = require('assert')
@@ -10,6 +10,7 @@ const fixture = path.resolve.bind(process.cwd(), 'test/fixtures')
 describe('@metalsmith/layouts', () => {
   it('should apply a single layout to a single file', (done) => {
     Metalsmith(fixture('single-file'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin())
       .build((err) => {
         if (err) done(err)
@@ -20,6 +21,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should apply a single layout to a single file with an async jstransformer', (done) => {
     Metalsmith(fixture('single-file-async'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin())
       .build((err) => {
         if (err) done(err)
@@ -32,6 +34,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should apply a single layout to multiple files', (done) => {
     Metalsmith(fixture('multiple-files'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin())
       .build((err) => {
         if (err) done(err)
@@ -44,6 +47,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should apply multiple layouts to multiple files', (done) => {
     Metalsmith(fixture('multiple-files-and-layouts'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin())
       .build((err) => {
         if (err) done(err)
@@ -59,6 +63,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should apply a default layout', (done) => {
     Metalsmith(fixture('default-layout'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin({ default: 'standard.hbs' }))
       .build((err) => {
         if (err) done(err)
@@ -71,6 +76,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should override a default layout', (done) => {
     Metalsmith(fixture('override-default-layout'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin({ default: 'standard.hbs' }))
       .build((err) => {
         if (err) done(err)
@@ -86,6 +92,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should apply a string pattern', (done) => {
     Metalsmith(fixture('string-pattern'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin({ pattern: 'match.html' }))
       .build((err) => {
         if (err) done(err)
@@ -98,6 +105,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should apply an array of string patterns', (done) => {
     Metalsmith(fixture('array-pattern'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin({ pattern: ['match.html', 'also.html'] }))
       .build((err) => {
         if (err) done(err)
@@ -108,6 +116,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should ignore binary files', (done) => {
     Metalsmith(fixture('ignore-binary'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin({ default: 'standard.hbs' }))
       .build((err) => {
         if (err) done(err)
@@ -118,6 +127,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should accept an alternate directory for layouts', (done) => {
     Metalsmith(fixture('directory'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin({ directory: 'templates' }))
       .build((err) => {
         if (err) done(err)
@@ -128,6 +138,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should process variables from the frontmatter', (done) => {
     Metalsmith(fixture('variables'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin())
       .build((err) => {
         if (err) done(err)
@@ -138,6 +149,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should process variables from the metadata', (done) => {
     Metalsmith(fixture('metadata'))
+      .env('DEBUG', process.env.DEBUG)
       .metadata({ text: 'Some text' })
       .use(plugin())
       .build((err) => {
@@ -149,6 +161,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should override variables from the metadata with local ones', (done) => {
     Metalsmith(fixture('override-metadata'))
+      .env('DEBUG', process.env.DEBUG)
       .metadata({ text: 'Some text' })
       .use(plugin())
       .build((err) => {
@@ -162,6 +175,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should return an error when there are no valid files to process', (done) => {
     Metalsmith(fixture('no-files'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin())
       .build((err) => {
         strictEqual(err instanceof Error, true)
@@ -175,6 +189,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should not return an error when there are no valid files to process and suppressNoFilesError is true', (done) => {
     Metalsmith(fixture('no-files'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin({ suppressNoFilesError: true }))
       .build((err) => {
         strictEqual(err, null)
@@ -184,6 +199,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should return an error for an invalid pattern', (done) => {
     Metalsmith(fixture('invalid-pattern'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin({ pattern: () => {} }))
       .build((err) => {
         strictEqual(err instanceof Error, true)
@@ -197,6 +213,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should ignore layouts without an extension', (done) => {
     Metalsmith(fixture('ignore-invalid-layout'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin())
       .build((err) => {
         if (err) done(err)
@@ -209,6 +226,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should ignore layouts without a jstransformer', (done) => {
     Metalsmith(fixture('ignore-layout-without-jstransformer'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin())
       .build((err) => {
         if (err) done(err)
@@ -224,6 +242,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should allow default layouts to be disabled from the frontmatter', (done) => {
     Metalsmith(fixture('override-default'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin({ default: 'standard.hbs' }))
       .build((err) => {
         if (err) done(err)
@@ -236,6 +255,7 @@ describe('@metalsmith/layouts', () => {
 
   it('should prefix rendering errors with the filename', (done) => {
     Metalsmith(fixture('rendering-error'))
+      .env('DEBUG', process.env.DEBUG)
       .use(plugin())
       .build((err) => {
         strictEqual(err instanceof Error, true)

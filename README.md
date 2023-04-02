@@ -142,16 +142,8 @@ There are several things that might cause you to get a `no files to process` err
 
 To enable debug logs, set the `DEBUG` environment variable to `@metalsmith/layouts`:
 
-Linux/Mac:
-
-```bash
-DEBUG=@metalsmith/layouts
-```
-
-Windows:
-
-```batch
-set "DEBUG=@metalsmith/layouts"
+```js
+metalsmith.env('DEBUG', '@metalsmith/layouts*')
 ```
 
 Alternatively you can set `DEBUG` to `@metalsmith/*` to debug all Metalsmith core plugins.

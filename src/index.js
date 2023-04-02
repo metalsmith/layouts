@@ -1,9 +1,12 @@
-import createDebug from 'debug'
 import path from 'path'
 import isUtf8 from 'is-utf8'
+/* eslint-disable-next-line n/no-missing-import */
 import getTransformer from './get-transformer'
 
-const debug = createDebug('@metalsmith/layouts')
+/* istanbul ignore next */ 
+let debug = () => {
+  throw new Error('uninstantiated debug')
+}
 
 /**
  * @typedef {Object} Options `@metalsmith/layouts` options
@@ -38,7 +41,7 @@ function render({ filename, files, metadata, settings, metalsmith }) {
   const layout = getLayout({ file, settings })
   const extension = layout.split('.').pop()
 
-  debug(`rendering ${filename} with layout ${layout}`)
+  debug.info('Rendering "%s" with layout "%s"', filename, layout)
 
   // Stringify file contents
   const contents = file.contents.toString()
@@ -53,7 +56,7 @@ function render({ filename, files, metadata, settings, metalsmith }) {
     .then((rendered) => {
       // Update file with results
       file.contents = Buffer.from(rendered.body)
-      debug(`done rendering ${filename}`)
+      debug.info('Done rendering "%s"', filename)
     })
     .catch((err) => {
       // Prepend error message with file path
@@ -70,23 +73,23 @@ function validate({ filename, files, settings }) {
   const file = files[filename]
   const layout = getLayout({ file, settings })
 
-  debug(`validating ${filename}`)
+  debug.info(`Validating ${filename}`)
 
   // Files without a layout cannot be processed
   if (!layout) {
-    debug(`validation failed, ${filename} does not have a layout set`)
+    debug.warn('Validation failed, "%s" does not have a layout set', filename)
     return false
   }
 
   // Layouts without an extension cannot be processed
   if (!layout.includes('.')) {
-    debug(`validation failed, layout for ${filename} does not have an extension`)
+    debug.warn('Validation failed, layout for "%s" does not have an extension', filename)
     return false
   }
 
   // Files that are not utf8 are ignored
   if (!isUtf8(file.contents)) {
-    debug(`validation failed, ${filename} is not utf-8`)
+    debug.warn('Validation failed, "%s" is not utf-8', filename)
     return false
   }
 
@@ -95,7 +98,7 @@ function validate({ filename, files, settings }) {
   const transformer = getTransformer(extension)
 
   if (!transformer) {
-    debug(`validation failed, no jstransformer found for layout for ${filename}`)
+    debug.warn('Validation failed, no jstransformer found for layout for "%s"', filename)
   }
 
   return transformer
@@ -108,6 +111,8 @@ function validate({ filename, files, settings }) {
  */
 function initLayouts(options) {
   return function layouts(files, metalsmith, done) {
+    debug = metalsmith.debug('@metalsmith/layouts')
+
     const metadata = metalsmith.metadata()
     const defaults = {
       pattern: '**',
@@ -116,6 +121,8 @@ function initLayouts(options) {
       suppressNoFilesError: false
     }
     const settings = { ...defaults, ...options }
+
+    debug('Running with options: %o', settings)
 
     // Check whether the pattern option is valid
     if (!(typeof settings.pattern === 'string' || Array.isArray(settings.pattern))) {
@@ -138,7 +145,7 @@ function initLayouts(options) {
         'no files to process. See https://www.npmjs.com/package/@metalsmith/layouts#suppressnofileserror'
 
       if (settings.suppressNoFilesError) {
-        debug(message)
+        debug.error(message)
         return done()
       }
 
@@ -149,7 +156,10 @@ function initLayouts(options) {
     return Promise.all(
       validFiles.map((filename) => render({ filename, files, metadata, settings, metalsmith }))
     )
-      .then(() => done())
+      .then(() => {
+        debug('Finished rendering %s file%s', validFiles.length, validFiles.length > 1 ? 's' : '')
+        done()
+      })
       .catch(/* istanbul ignore next */ (error) => done(error))
   }
 }
