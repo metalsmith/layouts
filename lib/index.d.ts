@@ -1,7 +1,7 @@
 import { Plugin } from "metalsmith";
 import getTransformer from "./get-transformer";
 
-export default initLayouts;
+export default layouts;
 /**
  * `@metalsmith/layouts` options
  */
@@ -32,7 +32,7 @@ export type Options = {
  * @param {Options} options
  * @returns {import('metalsmith').Plugin}
  */
-declare function initLayouts(options: Options): Plugin;
-declare namespace initLayouts {
+declare function layouts(options: Options): Plugin;
+declare namespace layouts {
     export { getTransformer };
 }

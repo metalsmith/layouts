@@ -109,7 +109,7 @@ function validate({ filename, files, settings }) {
  * @param {Options} options
  * @returns {import('metalsmith').Plugin}
  */
-function initLayouts(options) {
+function layouts(options) {
   return function layouts(files, metalsmith, done) {
     debug = metalsmith.debug('@metalsmith/layouts')
 
@@ -167,5 +167,5 @@ function initLayouts(options) {
 // ensures non-breaking change:
 // import { getTransformer } from '@metalsmith/layouts' instead of
 // import getTransformer from '@metalsmith/layouts/get-transformer'
-initLayouts.getTransformer = getTransformer
-export default initLayouts
+layouts.getTransformer = getTransformer
+export default layouts
