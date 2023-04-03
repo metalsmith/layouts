@@ -3,7 +3,7 @@ import isUtf8 from 'is-utf8'
 /* eslint-disable-next-line n/no-missing-import */
 import getTransformer from './get-transformer'
 
-/* istanbul ignore next */ 
+/* istanbul ignore next */
 let debug = () => {
   throw new Error('uninstantiated debug')
 }
