@@ -1,10 +1,11 @@
-const Metalsmith = require('metalsmith')
-const equal = require('assert-dir-equal')
-const path = require('path')
-/* eslint-disable-next-line n/no-missing-require */
-const plugin = require('..')
-const { it, describe } = require('mocha')
-const { doesNotThrow, strictEqual } = require('assert')
+/* eslint-env node, mocha */
+
+import Metalsmith from 'metalsmith'
+import equal from 'assert-dir-equal'
+import path from 'path'
+import { doesNotThrow, strictEqual } from 'assert'
+import plugin from '../src/index.js'
+
 const fixture = path.resolve.bind(process.cwd(), 'test/fixtures')
 
 describe('@metalsmith/layouts', () => {

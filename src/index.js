@@ -1,9 +1,8 @@
 import path from 'path'
 import isUtf8 from 'is-utf8'
-/* eslint-disable-next-line n/no-missing-import */
-import getTransformer from './get-transformer'
+import getTransformer from './get-transformer.js'
 
-/* istanbul ignore next */
+/* c8 ignore next 3 */
 let debug = () => {
   throw new Error('uninstantiated debug')
 }
@@ -160,7 +159,7 @@ function layouts(options) {
         debug('Finished rendering %s file%s', validFiles.length, validFiles.length > 1 ? 's' : '')
         done()
       })
-      .catch(/* istanbul ignore next */ (error) => done(error))
+      .catch(done)
   }
 }
 

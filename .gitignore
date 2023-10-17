@@ -9,7 +9,8 @@ npm-debug.log*
 
 # tests
 **/build
+coverage
 coverage.info
-.nyc_output
 
-lib/index.*js
+lib
+!lib/*.d.ts
