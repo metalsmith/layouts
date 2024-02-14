@@ -236,8 +236,4 @@ function layouts(options) {
   }
 }
 
-// ensures non-breaking change:
-// import { getTransformer } from '@metalsmith/layouts' instead of
-// import getTransformer from '@metalsmith/layouts/get-transformer'
-layouts.getTransformer = getTransformer
 export default layouts
