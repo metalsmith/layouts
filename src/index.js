@@ -1,6 +1,6 @@
 import path from 'path'
 import isUtf8 from 'is-utf8'
-import getTransformer from './get-transformer.js'
+import { getTransformer } from './utils.js'
 
 /* c8 ignore next 3 */
 let debug = () => {
@@ -8,7 +8,51 @@ let debug = () => {
 }
 
 /**
+ * @callback Render
+ * @param {string} source
+ * @param {Object} options
+ * @param {Object} locals
+ * @returns {string}
+ */
+
+/**
+ * @callback RenderAsync
+ * @param {string} source
+ * @param {Object} options
+ * @param {Object} locals
+ * @param {Function} callback
+ * @returns {Promise<string>}
+ */
+
+/**
+ * @callback Compile
+ * @param {string} source
+ * @param {Object} options
+ * @returns {string}
+ */
+
+/**
+ * @callback CompileAsync
+ * @param {string} source
+ * @param {Object} options
+ * @param {Function} callback
+ * @returns {Promise<string>}
+ */
+
+/**
+ * @typedef {Object} JsTransformer
+ * @property {string} name
+ * @property {string[]} inputFormats
+ * @property {string} outputFormat
+ * @property {Render} [render]
+ * @property {RenderAsync} [renderAsync]
+ * @property {Compile} [compile]
+ * @property {CompileAsync} [compileAsync]
+ */
+
+/**
  * @typedef {Object} Options `@metalsmith/layouts` options
+ * @property {string|JsTransformer} transform Jstransformer to run: name of a node module or local JS module path (starting with `.`) whose default export is a jstransformer. As a shorthand for existing transformers you can remove the `jstransformer-` prefix: `marked` will be understood as `jstransformer-marked`. Or an actual jstransformer; an object with `name`, `inputFormats`,`outputFormat`, and at least one of the render methods `render`, `renderAsync`, `compile` or `compileAsync` described in the [jstransformer API docs](https://github.com/jstransformers/jstransformer#api)
  * @property {string} [default] A default layout to apply to files, eg `default.njk`.
  * @property {string} [pattern] The directory for the layouts. The default is `layouts`.
  * @property {string|string[]} [directory] Only files that match this pattern will be processed. Accepts a string or an array of strings. The default is `**` (all).
@@ -20,38 +64,54 @@ let debug = () => {
  * Resolves layouts, in the following order:
  * 1. Layouts in the frontmatter
  * 2. Skips file if layout: false in frontmatter
- * 3. Default layout in the settings
+ * 3. Default layout in the options
  */
 
-function getLayout({ file, settings }) {
+function getLayout({ file, options }) {
   if (file.layout || file.layout === false) {
     return file.layout
   }
 
-  return settings.default
+  return options.default
+}
+
+/**
+ * Set default options based on jstransformer `transform`
+ * @param {JsTransformer} transform
+ * @returns {Options}
+ */
+function normalizeOptions(options, transform) {
+  return {
+    default: null,
+    pattern: '**',
+    directory: 'layouts',
+    engineOptions: {},
+    suppressNoFilesError: false,
+    ...options,
+    transform
+  }
 }
 
 /**
  * Engine, renders file with the appropriate layout
  */
 
-function render({ filename, files, metadata, settings, metalsmith }) {
+function render({ filename, files, metalsmith, options, transform }) {
   const file = files[filename]
-  const layout = getLayout({ file, settings })
-  const extension = layout.split('.').pop()
+  const layout = getLayout({ file, options })
 
   debug.info('Rendering "%s" with layout "%s"', filename, layout)
 
+  const metadata = metalsmith.metadata()
   // Stringify file contents
   const contents = file.contents.toString()
 
-  const transform = getTransformer(extension)
   const locals = { ...metadata, ...file, contents }
-  const layoutPath = path.join(metalsmith.path(settings.directory), layout)
+  const layoutPath = path.join(metalsmith.path(options.directory), layout)
 
   // Transform the contents
   return transform
-    .renderFileAsync(layoutPath, settings.engineOptions, locals)
+    .renderFileAsync(layoutPath, options.engineOptions, locals)
     .then((rendered) => {
       // Update file with results
       file.contents = Buffer.from(rendered.body)
@@ -68,9 +128,9 @@ function render({ filename, files, metadata, settings, metalsmith }) {
  * Validate, checks whether a file should be processed
  */
 
-function validate({ filename, files, settings }) {
+function validate({ filename, files, options }) {
   const file = files[filename]
-  const layout = getLayout({ file, settings })
+  const layout = getLayout({ file, options })
 
   debug.info(`Validating ${filename}`)
 
@@ -92,15 +152,17 @@ function validate({ filename, files, settings }) {
     return false
   }
 
-  // Files without an applicable jstransformer are ignored
+  // Layouts with an extension mismatch are ignored
   const extension = layout.split('.').pop()
-  const transformer = getTransformer(extension)
+  let inputFormats = options.transform.inputFormats
+  if (!Array.isArray(inputFormats)) inputFormats = [options.transform.inputFormats]
 
-  if (!transformer) {
-    debug.warn('Validation failed, no jstransformer found for layout for "%s"', filename)
+  if (!inputFormats.includes(extension)) {
+    debug.warn('Validation failed, layout for "%s" does not have an extension', filename)
+    return false
   }
 
-  return transformer
+  return true
 }
 
 /**
@@ -109,41 +171,51 @@ function validate({ filename, files, settings }) {
  * @returns {import('metalsmith').Plugin}
  */
 function layouts(options) {
-  return function layouts(files, metalsmith, done) {
+  let transform
+
+  return async function layouts(files, metalsmith, done) {
     debug = metalsmith.debug('@metalsmith/layouts')
 
-    const metadata = metalsmith.metadata()
-    const defaults = {
-      pattern: '**',
-      directory: 'layouts',
-      engineOptions: {},
-      suppressNoFilesError: false
+    if (!options.transform) {
+      done(new Error('"transform" option is required'))
+      return
     }
-    const settings = { ...defaults, ...options }
-
-    debug('Running with options: %o', settings)
 
     // Check whether the pattern option is valid
-    if (!(typeof settings.pattern === 'string' || Array.isArray(settings.pattern))) {
+    if (
+      options.pattern &&
+      !(typeof options.pattern === 'string' || Array.isArray(options.pattern))
+    ) {
       return done(
-        new Error(
-          'invalid pattern, the pattern option should be a string or array of strings. See https://www.npmjs.com/package/@metalsmith/layouts#pattern'
-        )
+        new Error('invalid pattern, the pattern option should be a string or array of strings.')
       )
     }
 
-    // Filter files by the pattern
-    const matchedFiles = metalsmith.match(settings.pattern, Object.keys(files))
+    // skip resolving the transform option on repeat runs
+    if (!transform) {
+      try {
+        transform = await getTransformer(options.transform, debug)
+      } catch (err) {
+        // pass through jstransformer & Node import resolution errors
+        return done(err)
+      }
+    }
 
-    // Filter files by validity
-    const validFiles = matchedFiles.filter((filename) => validate({ filename, files, settings }))
+    options = normalizeOptions(options, transform)
+
+    debug('Running with options %O', options)
+
+    const matchedFiles = metalsmith.match(options.pattern, Object.keys(files))
+
+    // Filter files by validity, pass basename to avoid dots in folder path
+    const validFiles = matchedFiles.filter((filename) => validate({ filename, files, options }))
 
     // Let the user know when there are no files to process, unless the check is suppressed
     if (validFiles.length === 0) {
       const message =
         'no files to process. See https://www.npmjs.com/package/@metalsmith/layouts#suppressnofileserror'
 
-      if (settings.suppressNoFilesError) {
+      if (options.suppressNoFilesError) {
         debug.error(message)
         return done()
       }
@@ -153,7 +225,7 @@ function layouts(options) {
 
     // Map all files that should be processed to an array of promises and call done when finished
     return Promise.all(
-      validFiles.map((filename) => render({ filename, files, metadata, settings, metalsmith }))
+      validFiles.map((filename) => render({ filename, files, metalsmith, options, transform }))
     )
       .then(() => {
         debug('Finished rendering %s file%s', validFiles.length, validFiles.length > 1 ? 's' : '')

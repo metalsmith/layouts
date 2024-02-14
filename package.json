@@ -44,7 +44,6 @@
     "test": "c8 mocha"
   },
   "dependencies": {
-    "inputformat-to-jstransformer": "^1.4.0",
     "is-utf8": "^0.2.1",
     "jstransformer": "^1.0.0"
   },
