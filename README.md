@@ -44,7 +44,6 @@ You can pass options to `@metalsmith/layouts` with the [Javascript API](https://
 - [directory](#directory): optional. The directory for the layouts. The default is `layouts`.
 - [pattern](#pattern): optional. Only files that match this pattern will be processed. Accepts a string or an array of strings. The default is `**`.
 - [engineOptions](#engineoptions): optional. Use this to pass options to the jstransformer that's rendering your layouts. The default is `{}`.
-- [suppressNoFilesError](#suppressnofileserror): optional. By default `@metalsmith/layouts` will exit with an error if there aren't any files to process. Enabling this option will suppress that error.
 
 #### `default`
 
@@ -123,21 +122,6 @@ metalsmith.use(
 
 Would pass `{ "cache": false }` to the used jstransformer.
 
-#### `suppressNoFilesError`
-
-`@metalsmith/layouts` exits with [an error](#no-files-to-process) if it can’t find any files to process. If you’re doing any kind of incremental builds via something like `metalsmith-watch`, this is problematic as you’re likely only rebuilding files that have changed. This flag allows you to suppress that error.
-
-Note that when this option is turned on, if you're logging [debug](#debug) messages, you’ll still see a message denoting when there aren't any files for `@metalsmith/layouts` to process.
-
-There are several things that might cause you to get a `no files to process` error:
-
-- Your [pattern](#pattern) does not match any files
-- None of your files pass validation, validation fails for files that:
-  - Have no layout
-  - Have a layout without an extension
-  - Are not utf-8
-  - Have a layout that needs a jstransformer that hasn't been installed
-
 ### Debug
 
 To enable debug logs, set the `DEBUG` environment variable to `@metalsmith/layouts`:
@@ -159,7 +143,6 @@ To use this plugin with the Metalsmith CLI, add `@metalsmith/layouts` to the `pl
       "@metalsmith/layouts": {
         "default": null,
         "directory": "layouts",
-        "suppressNoFilesError": false,
         "engineOptions": {}
       }
     }

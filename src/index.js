@@ -57,7 +57,6 @@ let debug = () => {
  * @property {string} [pattern] The directory for the layouts. The default is `layouts`.
  * @property {string|string[]} [directory] Only files that match this pattern will be processed. Accepts a string or an array of strings. The default is `**` (all).
  * @property {Object} [engineOptions] Pass options to [the jstransformer](https://github.com/jstransformers/jstransformer) that's rendering your layouts. The default is `{}`.
- * @property {boolean} [suppressNoFilesError] By default `@metalsmith/layouts` will exit with an error if there aren't any files to process. Enabling this option will suppress that error.
  */
 
 /**
@@ -86,7 +85,6 @@ function normalizeOptions(options, transform) {
     pattern: '**',
     directory: 'layouts',
     engineOptions: {},
-    suppressNoFilesError: false,
     ...options,
     transform
   }
@@ -210,17 +208,11 @@ function layouts(options) {
     // Filter files by validity, pass basename to avoid dots in folder path
     const validFiles = matchedFiles.filter((filename) => validate({ filename, files, options }))
 
-    // Let the user know when there are no files to process, unless the check is suppressed
+    // Let the user know when there are no files to process
     if (validFiles.length === 0) {
-      const message =
-        'no files to process. See https://www.npmjs.com/package/@metalsmith/layouts#suppressnofileserror'
-
-      if (options.suppressNoFilesError) {
-        debug.error(message)
-        return done()
-      }
-
-      return done(new Error(message))
+      debug.warn('No valid files to process.')
+      done()
+      return
     }
 
     // Map all files that should be processed to an array of promises and call done when finished

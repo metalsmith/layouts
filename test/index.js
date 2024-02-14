@@ -3,7 +3,7 @@
 import Metalsmith from 'metalsmith'
 import equal from 'assert-dir-equal'
 import path from 'path'
-import { rejects, strictEqual } from 'assert'
+import { rejects, strictEqual, ok } from 'assert'
 import plugin from '../src/index.js'
 
 function fixture(dir) {
@@ -12,6 +12,28 @@ function fixture(dir) {
     dir,
     expected: path.resolve(dir, 'expected'),
     actual: path.resolve(dir, 'build')
+  }
+}
+
+function patchDebug() {
+  const output = []
+  const Debugger = (...args) => {
+    output.push(['log', ...args])
+  }
+  Object.assign(Debugger, {
+    info: (...args) => {
+      output.push(['info', ...args])
+    },
+    warn: (...args) => {
+      output.push(['warn', ...args])
+    },
+    error: (...args) => {
+      output.push(['error', ...args])
+    }
+  })
+  return function patchDebug(files, ms) {
+    ms.debug = () => Debugger
+    ms.metadata({ logs: output })
   }
 }
 
@@ -148,14 +170,18 @@ describe('@metalsmith/layouts', () => {
     equal(actual, expected)
   })
 
-  it('should return an error when there are no valid files to process', async () => {
+  it('should log a warning when there are no valid files to process', async () => {
     const { dir } = fixture('no-files')
-    rejects(
-      async () => {
-        await Metalsmith(dir).env('DEBUG', process.env.DEBUG).use(plugin()).build()
-      },
-      { message: 'no files to process.' }
-    )
+    const ms = Metalsmith(dir)
+    await ms
+      .env('DEBUG', process.env.DEBUG)
+      .use(patchDebug())
+      .use(plugin({ transform: 'handlebars' }))
+      .build()
+    const log = ms
+      .metadata()
+      .logs.find(([type, msg]) => type === 'warn' && msg === 'No valid files to process.')
+    ok(log)
   })
 
   it('should return an error for an invalid pattern', async () => {
