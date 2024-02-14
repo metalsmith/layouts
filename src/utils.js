@@ -1,5 +1,33 @@
-import { isAbsolute } from 'path'
+import { isAbsolute, sep, dirname, basename, join } from 'path'
 import jstransformer from 'jstransformer'
+
+/**
+ * Parse a filepath into dirname, base & extensions
+ * @param {string} filename
+ */
+export function parseFilepath(filename) {
+  const isNested = filename.includes(sep)
+  const dir = isNested ? dirname(filename) : ''
+  const [base, ...extensions] = basename(filename).split('.')
+  return { dirname: dir, base, extensions }
+}
+
+/**
+ * @param {string} filename
+ * @param {import('./index').Options} opts
+ * @returns {string}
+ */
+export function handleExtname(filename, opts) {
+  const { dirname, base, extensions } = parseFilepath(filename)
+  const extname = opts.extname && opts.extname.slice(1)
+
+  if (!extname || extname !== extensions[extensions.length - 1]) {
+    extensions.pop()
+    if (extname) extensions.push(extname)
+  }
+
+  return [join(dirname, base), ...extensions].join('.')
+}
 
 /**
  * Get a transformer by name ("jstransformer-ejs"), shortened name ("ejs") or filesystem path

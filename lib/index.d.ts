@@ -41,6 +41,10 @@ export type Options = {
      * Pass options to [the jstransformer](https://github.com/jstransformers/jstransformer) that's rendering your layouts. The default is `{}`.
      */
     engineOptions?: any;
+    /**
+     * Pass `''` to remove the extension or `'.<extname>'` to keep or rename it. By default the extension is kept
+     */
+    extname?: string;
 };
 /**
  * A metalsmith plugin for rendering layouts

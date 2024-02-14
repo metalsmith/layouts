@@ -5,6 +5,7 @@ import equal from 'assert-dir-equal'
 import path from 'path'
 import { rejects, strictEqual, ok } from 'assert'
 import plugin from '../src/index.js'
+import { handleExtname } from '../src/utils.js'
 
 function fixture(dir) {
   dir = path.resolve('./test/fixtures', dir)
@@ -237,5 +238,32 @@ describe('@metalsmith/layouts', () => {
     } catch (err) {
       strictEqual(err.message.slice(0, 'index.html'.length + 1), 'index.html:')
     }
+  })
+
+  describe('extension handling', () => {
+    const options = {
+      defaults: {
+        extname: '.html',
+        transform: {
+          inputFormats: ['njk', 'nunjucks'],
+          outputFormat: 'html'
+        }
+      }
+    }
+
+    // options.extname defaults to `.${options.tranform.outputFormat}`
+    it('replaces the matching extension with options.extname', () => {
+      strictEqual(handleExtname('index.njk', options.defaults), 'index.html')
+      strictEqual(handleExtname('index.njk', { ...options.defaults, extname: '.htm' }), 'index.htm')
+    })
+    it('keeps the extension if options.extname === `.${extension}`', () => {
+      strictEqual(handleExtname('index.html', options.defaults), 'index.html')
+      strictEqual(handleExtname('index.htm', { ...options.defaults, extname: '.htm' }), 'index.htm')
+    })
+    it("removes the extension if options.extname === null|false|''", () => {
+      strictEqual(handleExtname('index.njk', { ...options.defaults, extname: false }), 'index')
+      strictEqual(handleExtname('index.njk', { ...options.defaults, extname: '' }), 'index')
+      strictEqual(handleExtname('index.njk', { ...options.defaults, extname: null }), 'index')
+    })
   })
 })

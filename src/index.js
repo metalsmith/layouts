@@ -1,6 +1,6 @@
 import path from 'path'
 import isUtf8 from 'is-utf8'
-import { getTransformer } from './utils.js'
+import { getTransformer, handleExtname } from './utils.js'
 
 /* c8 ignore next 3 */
 let debug = () => {
@@ -57,6 +57,7 @@ let debug = () => {
  * @property {string} [pattern] The directory for the layouts. The default is `layouts`.
  * @property {string|string[]} [directory] Only files that match this pattern will be processed. Accepts a string or an array of strings. The default is `**` (all).
  * @property {Object} [engineOptions] Pass options to [the jstransformer](https://github.com/jstransformers/jstransformer) that's rendering your layouts. The default is `{}`.
+ * @property {string} [extname] Pass `''` to remove the extension or `'.<extname>'` to keep or rename it. By default the extension is kept
  */
 
 /**
@@ -85,6 +86,7 @@ function normalizeOptions(options, transform) {
     pattern: '**',
     directory: 'layouts',
     engineOptions: {},
+    extname: `.${transform.outputFormat}`,
     ...options,
     transform
   }
@@ -111,9 +113,16 @@ function render({ filename, files, metalsmith, options, transform }) {
   return transform
     .renderFileAsync(layoutPath, options.engineOptions, locals)
     .then((rendered) => {
+      const newName = handleExtname(filename, { ...options, transform })
+      debug('Done rendering %s', filename)
+      debug('Renaming "%s" to "%s"', filename, newName)
+
+      if (newName !== filename) {
+        delete files[filename]
+        files[newName] = file
+      }
       // Update file with results
       file.contents = Buffer.from(rendered.body)
-      debug.info('Done rendering "%s"', filename)
     })
     .catch((err) => {
       // Prepend error message with file path
