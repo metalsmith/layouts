@@ -53,9 +53,9 @@ let debug = () => {
 /**
  * @typedef {Object} Options `@metalsmith/layouts` options
  * @property {string|JsTransformer} transform Jstransformer to run: name of a node module or local JS module path (starting with `.`) whose default export is a jstransformer. As a shorthand for existing transformers you can remove the `jstransformer-` prefix: `marked` will be understood as `jstransformer-marked`. Or an actual jstransformer; an object with `name`, `inputFormats`,`outputFormat`, and at least one of the render methods `render`, `renderAsync`, `compile` or `compileAsync` described in the [jstransformer API docs](https://github.com/jstransformers/jstransformer#api)
- * @property {string} [default] A default layout to apply to files, eg `default.njk`.
- * @property {string} [pattern] The directory for the layouts. The default is `layouts`.
- * @property {string|string[]} [directory] Only files that match this pattern will be processed. Accepts a string or an array of strings. The default is `**` (all).
+ * @property {string} [default=null] A default layout to apply to files, eg `default.njk`.
+ * @property {string|string[]} [pattern='**'] Only files that match this pattern will be processed. Accepts a string or an array of strings. The default is `**` (all).
+ * @property {string} [directory='layouts'] The directory for the layouts. The default is `layouts`.
  * @property {Object} [engineOptions] Pass options to [the jstransformer](https://github.com/jstransformers/jstransformer) that's rendering your layouts. The default is `{}`.
  * @property {string} [extname] Pass `''` to remove the extension or `'.<extname>'` to keep or rename it. By default the extension is kept
  */
