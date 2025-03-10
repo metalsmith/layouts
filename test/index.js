@@ -1,7 +1,7 @@
 import Metalsmith from 'metalsmith'
 import equal from 'assert-dir-equal'
 import path from 'path'
-import { rejects, strictEqual, ok } from 'assert'
+import { rejects, strictEqual, ok } from 'node:assert'
 import plugin from '../src/index.js'
 import { handleExtname } from '../src/utils.js'
 

@@ -1,4 +1,4 @@
-import { extname, join } from 'path'
+import { extname, join } from 'node:path'
 import isUtf8 from 'is-utf8'
 import { getTransformer, handleExtname } from './utils.js'
 
