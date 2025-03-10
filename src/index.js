@@ -113,11 +113,12 @@ function render({ filename, files, metalsmith, options, transform }) {
   return transform
     .renderFileAsync(layoutPath, options.engineOptions, locals)
     .then((rendered) => {
-      const newName = handleExtname(filename, { ...options, transform })
-      debug('Done rendering %s', filename)
-      debug('Renaming "%s" to "%s"', filename, newName)
+      debug('Done rendering "%s"', filename)
 
+      // move file if necessary
+      const newName = handleExtname(filename, { ...options, transform })
       if (newName !== filename) {
+        debug('Renaming "%s" to "%s"', filename, newName)
         delete files[filename]
         files[newName] = file
       }
