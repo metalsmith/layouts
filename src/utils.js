@@ -1,4 +1,4 @@
-import { isAbsolute, sep, dirname, basename, join } from 'path'
+import { isAbsolute, sep, dirname, basename, join } from 'node:path'
 import jstransformer from 'jstransformer'
 
 /**
