@@ -41,7 +41,7 @@ describe('@metalsmith/layouts', () => {
     const { dir, actual, expected } = fixture('single-file')
     await Metalsmith(dir)
       .env('DEBUG', process.env.DEBUG)
-      .use(plugin({ transform: 'handlebars' }))
+      .use(plugin({ transform: 'handlebars', pattern: '**/*.html' }))
       .build()
 
     equal(actual, expected)
@@ -51,7 +51,7 @@ describe('@metalsmith/layouts', () => {
     const { dir, actual, expected } = fixture('single-file-async')
     await Metalsmith(dir)
       .env('DEBUG', process.env.DEBUG)
-      .use(plugin({ transform: 'qejs' }))
+      .use(plugin({ transform: 'qejs', pattern: '**/*.html' }))
       .build()
 
     equal(actual, expected)
@@ -61,7 +61,7 @@ describe('@metalsmith/layouts', () => {
     const { dir, actual, expected } = fixture('multiple-files')
     await Metalsmith(dir)
       .env('DEBUG', process.env.DEBUG)
-      .use(plugin({ transform: 'handlebars' }))
+      .use(plugin({ transform: 'handlebars', pattern: '**/*.html' }))
       .build()
 
     equal(actual, expected)
@@ -71,6 +71,17 @@ describe('@metalsmith/layouts', () => {
     const { dir, actual, expected } = fixture('multiple-files-and-layouts')
     await Metalsmith(dir)
       .env('DEBUG', process.env.DEBUG)
+      .use(plugin({ transform: 'handlebars', pattern: '**/*.html' }))
+      .build()
+
+    equal(actual, expected)
+  })
+
+  it('should apply multiple layouts to multiple files with multiple jstransformers', async () => {
+    const { dir, actual, expected } = fixture('multiple-invocations')
+    await Metalsmith(dir)
+      .env('DEBUG', process.env.DEBUG)
+      .use(plugin({ transform: 'qejs' }))
       .use(plugin({ transform: 'handlebars' }))
       .build()
 
@@ -81,7 +92,7 @@ describe('@metalsmith/layouts', () => {
     const { dir, actual, expected } = fixture('default-layout')
     await Metalsmith(dir)
       .env('DEBUG', process.env.DEBUG)
-      .use(plugin({ transform: 'handlebars', default: 'standard.hbs' }))
+      .use(plugin({ transform: 'handlebars', pattern: '**/*.html', default: 'standard.hbs' }))
       .build()
 
     equal(actual, expected)
@@ -91,7 +102,7 @@ describe('@metalsmith/layouts', () => {
     const { dir, actual, expected } = fixture('override-default-layout')
     await Metalsmith(dir)
       .env('DEBUG', process.env.DEBUG)
-      .use(plugin({ transform: 'handlebars', default: 'standard.hbs' }))
+      .use(plugin({ transform: 'handlebars', pattern: '**/*.html', default: 'standard.hbs' }))
       .build()
 
     equal(actual, expected)
@@ -121,7 +132,7 @@ describe('@metalsmith/layouts', () => {
     const { dir, actual, expected } = fixture('ignore-binary')
     await Metalsmith(dir)
       .env('DEBUG', process.env.DEBUG)
-      .use(plugin({ transform: 'handlebars', default: 'standard.hbs' }))
+      .use(plugin({ transform: 'handlebars', pattern: '**/*.html', default: 'standard.hbs' }))
       .build()
 
     equal(actual, expected)
@@ -131,7 +142,7 @@ describe('@metalsmith/layouts', () => {
     const { dir, actual, expected } = fixture('directory')
     await Metalsmith(dir)
       .env('DEBUG', process.env.DEBUG)
-      .use(plugin({ transform: 'handlebars', directory: 'templates' }))
+      .use(plugin({ transform: 'handlebars', pattern: '**/*.html', directory: 'templates' }))
       .build()
 
     equal(actual, expected)
@@ -141,7 +152,7 @@ describe('@metalsmith/layouts', () => {
     const { dir, actual, expected } = fixture('variables')
     await Metalsmith(dir)
       .env('DEBUG', process.env.DEBUG)
-      .use(plugin({ transform: 'handlebars' }))
+      .use(plugin({ transform: 'handlebars', pattern: '**/*.html' }))
       .build()
 
     equal(actual, expected)
@@ -152,7 +163,7 @@ describe('@metalsmith/layouts', () => {
     await Metalsmith(dir)
       .env('DEBUG', process.env.DEBUG)
       .metadata({ text: 'Some text' })
-      .use(plugin({ transform: 'handlebars' }))
+      .use(plugin({ transform: 'handlebars', pattern: '**/*.html' }))
       .build()
 
     equal(actual, expected)
@@ -163,7 +174,7 @@ describe('@metalsmith/layouts', () => {
     await Metalsmith(dir)
       .env('DEBUG', process.env.DEBUG)
       .metadata({ text: 'Some text' })
-      .use(plugin({ transform: 'handlebars' }))
+      .use(plugin({ transform: 'handlebars', pattern: '**/*.html' }))
       .build()
 
     equal(actual, expected)
@@ -200,7 +211,7 @@ describe('@metalsmith/layouts', () => {
     const { dir, actual, expected } = fixture('ignore-invalid-layout')
     await Metalsmith(dir)
       .env('DEBUG', process.env.DEBUG)
-      .use(plugin({ transform: 'handlebars' }))
+      .use(plugin({ transform: 'handlebars', pattern: '**/*.html' }))
       .build()
 
     equal(actual, expected)
@@ -210,7 +221,7 @@ describe('@metalsmith/layouts', () => {
     const { dir, actual, expected } = fixture('ignore-layout-without-jstransformer')
     await Metalsmith(dir)
       .env('DEBUG', process.env.DEBUG)
-      .use(plugin({ transform: 'handlebars' }))
+      .use(plugin({ transform: 'handlebars', pattern: '**/*.html' }))
       .build()
 
     equal(actual, expected)
@@ -220,7 +231,7 @@ describe('@metalsmith/layouts', () => {
     const { dir, actual, expected } = fixture('override-default')
     await Metalsmith(dir)
       .env('DEBUG', process.env.DEBUG)
-      .use(plugin({ transform: 'handlebars', default: 'standard.hbs' }))
+      .use(plugin({ transform: 'handlebars', pattern: '**/*.html', default: 'standard.hbs' }))
       .build()
 
     equal(actual, expected)
@@ -251,17 +262,17 @@ describe('@metalsmith/layouts', () => {
 
     // options.extname defaults to `.${options.tranform.outputFormat}`
     it('replaces the matching extension with options.extname', () => {
-      strictEqual(handleExtname('index.njk', options.defaults), 'index.html')
-      strictEqual(handleExtname('index.njk', { ...options.defaults, extname: '.htm' }), 'index.htm')
+      strictEqual(handleExtname('index.njk', options.defaults.extname), 'index.html')
+      strictEqual(handleExtname('index.njk', '.htm'), 'index.htm')
     })
     it('keeps the extension if options.extname === `.${extension}`', () => {
-      strictEqual(handleExtname('index.html', options.defaults), 'index.html')
-      strictEqual(handleExtname('index.htm', { ...options.defaults, extname: '.htm' }), 'index.htm')
+      strictEqual(handleExtname('index.html', options.defaults.extname), 'index.html')
+      strictEqual(handleExtname('index.htm', '.htm'), 'index.htm')
     })
     it("removes the extension if options.extname === null|false|''", () => {
-      strictEqual(handleExtname('index.njk', { ...options.defaults, extname: false }), 'index')
-      strictEqual(handleExtname('index.njk', { ...options.defaults, extname: '' }), 'index')
-      strictEqual(handleExtname('index.njk', { ...options.defaults, extname: null }), 'index')
+      strictEqual(handleExtname('index.njk', false), 'index')
+      strictEqual(handleExtname('index.njk', ''), 'index')
+      strictEqual(handleExtname('index.njk', null), 'index')
     })
   })
 })

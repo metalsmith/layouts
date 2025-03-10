@@ -1,4 +1,4 @@
-import path from 'path'
+import { extname, join } from 'path'
 import isUtf8 from 'is-utf8'
 import { getTransformer, handleExtname } from './utils.js'
 
@@ -61,34 +61,25 @@ let debug = () => {
  */
 
 /**
- * Resolves layouts, in the following order:
- * 1. Layouts in the frontmatter
- * 2. Skips file if layout: false in frontmatter
- * 3. Default layout in the options
- */
-
-function getLayout({ file, options }) {
-  if (file.layout || file.layout === false) {
-    return file.layout
-  }
-
-  return options.default
-}
-
-/**
  * Set default options based on jstransformer `transform`
  * @param {JsTransformer} transform
  * @returns {Options}
  */
 function normalizeOptions(options, transform) {
+  const inputFormats = Array.isArray(transform.inputFormats)
+    ? transform.inputFormats
+    : [transform.inputFormats]
   return {
     default: null,
-    pattern: '**',
+    pattern: `**/*.{${inputFormats.join(',')}}`,
     directory: 'layouts',
     engineOptions: {},
     extname: `.${transform.outputFormat}`,
     ...options,
-    transform
+    transform: {
+      ...transform,
+      inputFormats
+    }
   }
 }
 
@@ -98,16 +89,15 @@ function normalizeOptions(options, transform) {
 
 function render({ filename, files, metalsmith, options, transform }) {
   const file = files[filename]
-  const layout = getLayout({ file, options })
 
-  debug.info('Rendering "%s" with layout "%s"', filename, layout)
+  debug.info('Rendering "%s" with layout "%s"', filename, file.layout)
 
   const metadata = metalsmith.metadata()
   // Stringify file contents
   const contents = file.contents.toString()
 
   const locals = { ...metadata, ...file, contents }
-  const layoutPath = path.join(metalsmith.path(options.directory), layout)
+  const layoutPath = join(metalsmith.path(options.directory), file.layout)
 
   // Transform the contents
   return transform
@@ -116,7 +106,7 @@ function render({ filename, files, metalsmith, options, transform }) {
       debug('Done rendering "%s"', filename)
 
       // move file if necessary
-      const newName = handleExtname(filename, { ...options, transform })
+      const newName = handleExtname(filename, options.extname)
       if (newName !== filename) {
         debug('Renaming "%s" to "%s"', filename, newName)
         delete files[filename]
@@ -130,47 +120,6 @@ function render({ filename, files, metalsmith, options, transform }) {
       err.message = `${filename}: ${err.message}`
       throw err
     })
-}
-
-/**
- * Validate, checks whether a file should be processed
- */
-
-function validate({ filename, files, options }) {
-  const file = files[filename]
-  const layout = getLayout({ file, options })
-
-  debug.info(`Validating ${filename}`)
-
-  // Files without a layout cannot be processed
-  if (!layout) {
-    debug.warn('Validation failed, "%s" does not have a layout set', filename)
-    return false
-  }
-
-  // Layouts without an extension cannot be processed
-  if (!layout.includes('.')) {
-    debug.warn('Validation failed, layout for "%s" does not have an extension', filename)
-    return false
-  }
-
-  // Files that are not utf8 are ignored
-  if (!isUtf8(file.contents)) {
-    debug.warn('Validation failed, "%s" is not utf-8', filename)
-    return false
-  }
-
-  // Layouts with an extension mismatch are ignored
-  const extension = layout.split('.').pop()
-  let inputFormats = options.transform.inputFormats
-  if (!Array.isArray(inputFormats)) inputFormats = [options.transform.inputFormats]
-
-  if (!inputFormats.includes(extension)) {
-    debug.warn('Validation failed, layout for "%s" does not have an extension', filename)
-    return false
-  }
-
-  return true
 }
 
 /**
@@ -213,24 +162,60 @@ function layouts(options) {
 
     debug('Running with options %O', options)
 
-    const matchedFiles = metalsmith.match(options.pattern, Object.keys(files))
+    let matches = metalsmith.match(options.pattern, Object.keys(files))
 
-    // Filter files by validity, pass basename to avoid dots in folder path
-    const validFiles = matchedFiles.filter((filename) => validate({ filename, files, options }))
+    // skip non-utf8 & invalid layout files
+    matches = matches.filter((fpath) => {
+      const f = files[fpath]
+      const absPath = metalsmith.path(fpath)
+      if (!isUtf8(f.contents)) {
+        debug.warn('Skipping file "%s": non utf-8 content', absPath)
+        return false
+      }
+      if (!f.layout) {
+        if (options.default && !Reflect.has(f, 'layout')) {
+          f.layout = options.default
+          return true
+        }
+        debug.warn(
+          'Skipping file "%s": %s',
+          absPath,
+          f.layout === false ? 'layout: false' : 'layout: undefined'
+        )
+        return false
+      } else if (!options.transform.inputFormats.includes(extname(f.layout).slice(1))) {
+        debug.info(
+          'Skipping file "%s": layout "%s" does not match inputFormats ["%s"]',
+          absPath,
+          f.layout,
+          options.transform.inputFormats.join(', ')
+        )
+        return false
+      }
+      return true
+    })
+
+    // allow omitting the .<ext> part of a layout if it matches transform.inputFormats[0]
+    matches.forEach((fpath) => {
+      const f = files[fpath]
+      debug(f.layout)
+      if (!extname(f.layout)) {
+        f.layout = `${f.layout}.${options.transform.inputFormats[0]}`
+      }
+    })
 
     // Let the user know when there are no files to process
-    if (validFiles.length === 0) {
+    if (!matches.length) {
       debug.warn('No valid files to process.')
-      done()
-      return
+      return done()
     }
 
     // Map all files that should be processed to an array of promises and call done when finished
     return Promise.all(
-      validFiles.map((filename) => render({ filename, files, metalsmith, options, transform }))
+      matches.map((filename) => render({ filename, files, metalsmith, options, transform }))
     )
       .then(() => {
-        debug('Finished rendering %s file%s', validFiles.length, validFiles.length > 1 ? 's' : '')
+        debug('Done rendering %s file%s', matches.length, matches.length > 1 ? 's' : '')
         done()
       })
       .catch(done)

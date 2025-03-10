@@ -14,16 +14,16 @@ export function parseFilepath(filename) {
 
 /**
  * @param {string} filename
- * @param {import('./index').Options} opts
+ * @param {string} extname
  * @returns {string}
  */
-export function handleExtname(filename, opts) {
+export function handleExtname(filename, extname) {
   const { dirname, base, extensions } = parseFilepath(filename)
-  const extname = opts.extname && opts.extname.slice(1)
+  const e = extname && extname.slice(1)
 
-  if (!extname || extname !== extensions[extensions.length - 1]) {
+  if (!e || e !== extensions[extensions.length - 1]) {
     extensions.pop()
-    if (extname) extensions.push(extname)
+    if (e) extensions.push(e)
   }
 
   return [join(dirname, base), ...extensions].join('.')
