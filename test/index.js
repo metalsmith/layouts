@@ -1,5 +1,3 @@
-/* eslint-env node, mocha */
-
 import Metalsmith from 'metalsmith'
 import equal from 'assert-dir-equal'
 import path from 'path'
