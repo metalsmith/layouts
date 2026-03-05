@@ -269,10 +269,12 @@ describe('@metalsmith/layouts', () => {
       strictEqual(handleExtname('index.html', options.defaults.extname), 'index.html')
       strictEqual(handleExtname('index.htm', '.htm'), 'index.htm')
     })
-    it("removes the extension if options.extname === null|false|''", () => {
-      strictEqual(handleExtname('index.njk', false), 'index')
+    it("removes the extension if options.extname === ''", () => {
       strictEqual(handleExtname('index.njk', ''), 'index')
-      strictEqual(handleExtname('index.njk', null), 'index')
+    })
+    it("keeps the extension if options.extname === null|false", () => {
+      strictEqual(handleExtname('index.xml', false), 'index.xml')
+      strictEqual(handleExtname('index.xml', null), 'index.xml')
     })
   })
 })

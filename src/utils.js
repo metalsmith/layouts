@@ -18,8 +18,9 @@ export function parseFilepath(filename) {
  * @returns {string}
  */
 export function handleExtname(filename, extname) {
+  if (typeof extname !== "string") return filename
   const { dirname, base, extensions } = parseFilepath(filename)
-  const e = extname && extname.slice(1)
+  const e = extname.length > 1 ? extname.slice(1) : false
 
   if (!e || e !== extensions[extensions.length - 1]) {
     extensions.pop()
