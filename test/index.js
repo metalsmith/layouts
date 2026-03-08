@@ -196,13 +196,11 @@ describe('@metalsmith/layouts', () => {
 
   it('should return an error for an invalid pattern', async () => {
     const { dir } = fixture('invalid-pattern')
-    rejects(
-      async () => {
-        await Metalsmith(dir)
-          .env('DEBUG', process.env.DEBUG)
-          .use(plugin({ pattern: () => {} }))
-          .build()
-      },
+    await rejects(
+      Metalsmith(dir)
+        .env('DEBUG', process.env.DEBUG)
+        .use(plugin({ transform: 'handlebars', pattern: () => {} }))
+        .build(),
       { message: 'invalid pattern, the pattern option should be a string or array of strings.' }
     )
   })
